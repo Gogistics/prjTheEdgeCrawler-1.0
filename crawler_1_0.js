@@ -23,3 +23,4 @@ config_crawler.setting.callback = function(err, result){
 };
 
 GLOBAL.crawler_1 = new crawler(config_crawler.setting);
+GLOBAL.crawler_1.queue('http://www.borro.com');
