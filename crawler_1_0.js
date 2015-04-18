@@ -1,0 +1,1 @@
+GLOBAL.crawler = require('crawler');
