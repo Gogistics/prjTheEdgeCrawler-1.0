@@ -46,7 +46,7 @@ GLOBAL.config_crawler.setting.callback = function(err, result){
 															}
 															
 															// save info to mongodb
-															var temp_info = GLOBAL.config_crawler.setting.info(sub_url, str.toString("utf-8"));
+															var temp_info = new GLOBAL.config_crawler.setting.info(sub_url, str.toString("utf-8"));
 															GLOBAL.my_mongo.crowd_funding_lending.update({'link' : sub_url}, temp_info, {upsert : true} ,function(err, saved_info){
 																if(!err){
 																	console.log(saved_info.link + " ; " + saved_info.text);
