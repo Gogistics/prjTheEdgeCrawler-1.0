@@ -8,9 +8,9 @@ GLOBAL.config_crawler = GLOBAL.config_crawler || {};
 GLOBAL.config_mongojs = GLOBAL.config_mongojs || {};
 
 // config mongojs
-// config_mongojs.db_url = 'localhost/the_edge';
-// config_mongojs.db_collections = ['funding_lending'];
-// GLOBAL.my_mongo = mongojs.connect(config_mongojs.db_url, config_mongojs.db_collections);
+config_mongojs.db_url = 'localhost/the_edge';
+config_mongojs.db_collections = ['crowd_funding_lending'];
+GLOBAL.my_mongo = mongojs.connect(config_mongojs.db_url, config_mongojs.db_collections);
 
 /* set new crawler */
 GLOBAL.config_crawler.url = 'http://www.borro.com';
@@ -49,5 +49,8 @@ GLOBAL.config_crawler.setting.callback = function(err, result){
 											}
 										};
 
+// create new crawler
 GLOBAL.crawler_1 = new crawler(GLOBAL.config_crawler.setting);
+
+// start crawling (put a url to the crawler's queue)
 GLOBAL.crawler_1.queue(GLOBAL.config_crawler.url);
