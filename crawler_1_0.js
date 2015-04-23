@@ -23,7 +23,7 @@ GLOBAL.config_crawler.setting.callback = function(err, result){
 												$('a').each(function(index, value){
 													var sub_url = $(this).attr('href');
 													if(sub_url !== undefined){
-														var result = sub_url.match(/javascript|pdf|mailto|tel/gi);
+														var result = sub_url.match(/javascript|pdf|mailto|tel|\#/gi);
 														if(!result){
 															if(sub_url.indexOf('\/') === 0){
 																sub_url = sub_url.substring(1);
