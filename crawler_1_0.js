@@ -17,6 +17,11 @@ GLOBAL.config_crawler.url = 'http://www.borro.com';
 GLOBAL.config_crawler.setting = {maxConnection : 10,
 								 forceUTF8 : true,
 								};
+								
+GLOBAL.config_crawler.setting.info = function(arg_link, arg_txt){
+	this.link = arg_link;
+	this.text = arg_txt;
+};
 GLOBAL.config_crawler.setting.callback = function(err, result){
 											if(!err && result.statusCode == 200){
 												var $ = cheerio.load(result.body);
@@ -39,9 +44,17 @@ GLOBAL.config_crawler.setting.callback = function(err, result){
 															}else{
 																str = 'NA';
 															}
+															
+															// save info to mongodb
+															var temp_info = GLOBAL.config_crawler.setting.info(sub_url, str.toString("utf-8"));
+															GLOBAL.my_mongo.crowd_funding_lending.update(temp_info, {upsert : true} ,function(err, saved){
+																if(!err){
+																	console.log(saved_wine_info.link + " ; " + saved_wine_info.text);
+																}
+															});
 
 															// print
-															console.log('Text: ' + str + ' ; URL: ' + sub_url);
+															// console.log('Text: ' + str + ' ; URL: ' + sub_url);
 														}
 													}
 													// console.log(value);			
