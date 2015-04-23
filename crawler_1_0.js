@@ -54,7 +54,7 @@ GLOBAL.config_crawler.setting.callback = function(err, result){
 															});
 
 															// print
-															console.log('Text: ' + str + ' ; URL: ' + sub_url);
+															// console.log('Text: ' + str + ' ; URL: ' + sub_url);
 														}
 													}
 													// console.log(value);			
