@@ -8,7 +8,7 @@ GLOBAL.config_crawler = GLOBAL.config_crawler || {};
 GLOBAL.config_mongojs = GLOBAL.config_mongojs || {};
 
 // config mongojs
-config_mongojs.db_url = 'localhost/the_edge';
+config_mongojs.db_url = 'the_edge_user:theEdgeUser@localhost/the_edge';
 config_mongojs.db_collections = ['crowd_funding_lending'];
 GLOBAL.my_mongo = mongojs.connect(config_mongojs.db_url, config_mongojs.db_collections);
 
