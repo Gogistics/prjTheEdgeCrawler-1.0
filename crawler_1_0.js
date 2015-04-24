@@ -13,7 +13,7 @@ config_mongojs.db_collections = ['crowd_funding_lending'];
 GLOBAL.my_mongo = mongojs.connect(config_mongojs.db_url, config_mongojs.db_collections);
 
 /* set new crawler */
-GLOBAL.config_crawler.url = 'http://www.bilibili.com/video/soap-three-us-1.html';
+GLOBAL.config_crawler.url = 'https://fund364.com/';
 GLOBAL.config_crawler.setting = {maxConnection : 10,
 								 forceUTF8 : true,
 								};
@@ -27,6 +27,7 @@ GLOBAL.config_crawler.setting.callback = function(err, result){
 												var $ = cheerio.load(result.body);
 												$('a').each(function(index, value){
 													var sub_url = $(this).attr('href');
+													console.log('Sub-URL: ' + sub_url);
 													if(sub_url !== undefined){
 														var result = sub_url.match(/javascript|pdf|mailto|tel|\#/gi);
 														if(!result){
