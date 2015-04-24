@@ -24,10 +24,11 @@ GLOBAL.config_crawler.setting.info = function(arg_link, arg_txt){
 };
 GLOBAL.config_crawler.setting.callback = function(err, result){
 											if(!err && result.statusCode == 200){
+												console.log('Got page body and start to parse...');
 												var $ = cheerio.load(result.body);
 												$('a').each(function(index, value){
 													var sub_url = $(this).attr('href');
-													console.log('Sub-URL: ' + sub_url);
+													
 													if(sub_url !== undefined){
 														var result = sub_url.match(/javascript|pdf|mailto|tel|\#/gi);
 														if(!result){
