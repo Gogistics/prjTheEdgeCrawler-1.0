@@ -13,6 +13,7 @@ var csvStream = csv()
 		if(count === 0){
 			keys = data;
 		}
+		count += 1;
          // console.log(data);
     })
     .on("end", function(){
