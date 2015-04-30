@@ -34,11 +34,11 @@ var csvReadableStream = csv()
 			loan_amnt_index = keys.indexOf("loan_amnt");
 			current_loan_amnt = data[loan_amnt_index];
 			if(current_addr_state !== undefined && current_addr_state !== "" && !(current_addr_state in manipulated_obj)){
-				manipulated_obj[current_addr_state] = { addr_state : current_addr_state, numbers_of_loan : 1, annual_inc : Number(current_annual_inc), loan_amnt : Number(current_loan_amnt)};
+				manipulated_obj[current_addr_state] = { addr_state : current_addr_state, numbers_of_loan : 1, total_annual_inc : Number(current_annual_inc), total_loan_amnt : Number(current_loan_amnt)};
 			}else if(current_addr_state !== undefined && current_addr_state !== ""){
 				manipulated_obj[current_addr_state].numbers_of_loan += 1;
-				manipulated_obj[current_addr_state].annual_inc += Number(current_annual_inc);
-				manipulated_obj[current_addr_state].loan_amnt += Number(current_loan_amnt);
+				manipulated_obj[current_addr_state].total_annual_inc += Number(current_annual_inc);
+				manipulated_obj[current_addr_state].total_loan_amnt += Number(current_loan_amnt);
 			}
 		}
 		count += 1;
