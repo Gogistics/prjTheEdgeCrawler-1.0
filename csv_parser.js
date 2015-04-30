@@ -3,12 +3,12 @@ var fs = require('fs'),
     csv = require('fast-csv');
 
 /* file paths */
-var stream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv");
+var csvReadStream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv");
  
 /* var */
 var count = 0, keys;
 
-var csvStream = csv()
+var csvReadableStream = csv()
     .on("data", function(data){
 		if(count === 0){
 			keys = data;
@@ -21,4 +21,4 @@ var csvStream = csv()
 		 console.log(keys);
     });
  
-stream.pipe(csvStream);
+csvReadStream.pipe(csvReadableStream);
