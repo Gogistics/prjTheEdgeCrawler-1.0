@@ -8,7 +8,7 @@ var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lendi
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv"];
 function parse_files(){
-	async.filter(csv_files, fs.exists, function(err, results){
+	async.filter(csv_files, fs.exists, function(results){
 	    console.log('-*-');
 		console.log(results);
 		console.log('-*-');
