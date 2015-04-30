@@ -3,7 +3,7 @@ var fs = require('fs'),
     csv = require('fast-csv');
 
 /* file paths */
-var stream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv");
+var stream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv");
  
 /* var */
 var count = 0, keys;
