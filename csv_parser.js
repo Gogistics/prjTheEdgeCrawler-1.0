@@ -20,7 +20,7 @@ var csvReadableStream = csv()
 			keys = data;
 			// csvWriteStream.write(keys);
 		}else{
-			addr_state_index = keys["addr_state"];
+			addr_state_index = keys.indexOf("addr_state");
 			curent_addr_state = data[addr_state_index];
 			csvWriteStream.write({ addr_state : curent_addr_state});
 		}
