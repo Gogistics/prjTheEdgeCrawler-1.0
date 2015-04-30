@@ -13,15 +13,18 @@ csvWritableStream.on("finish", function(){
 csvWriteStream.pipe(csvWritableStream);
 
 /* readable stream */
-var count = 0, keys;
+var count = 0, keys, addr_state_index, curent_addr_state, manipulated_obj = [];
 var csvReadableStream = csv()
     .on("data", function(data){
 		if(count === 0){
 			keys = data;
-			csvWriteStream.write(keys);
+			// csvWriteStream.write(keys);
+		}else{
+			addr_state_index = keys["addr_state"];
+			curent_addr_state = data[addr_state_index];
+			csvWriteStream.write({ addr_state : curent_addr_state});
 		}
 		count += 1;
-         // console.log(data);
     })
     .on("end", function(){
          console.log("done");
