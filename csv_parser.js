@@ -12,7 +12,9 @@ function parse_files(){
 					function(filename, callback){
 						fs.readFile(filename, function(err, content){
 							if(!err){
+								console.log('-*-');
 								console.log(content);
+								console.log('-*-');
 							};
 			
 							// callback
@@ -20,11 +22,15 @@ function parse_files(){
 						});
 					},
 					function(err){
-						console.log('done');
+						console.log('=*=');
+						console.log('done with new parser');
+						console.log('=*=');
 					});
 };
-
+parse_files();
 /* end of new parser */
+
+
 
 /* old simple parser for single file */
 var csvReadStream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv");
