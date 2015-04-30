@@ -17,7 +17,7 @@ var csvStream = csv()
     })
     .on("end", function(){
          console.log("done");
-		 console.log(data);
+		 console.log(keys);
     });
  
 stream.pipe(csvStream);
