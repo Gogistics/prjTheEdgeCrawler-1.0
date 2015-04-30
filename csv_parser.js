@@ -13,21 +13,43 @@ csvWritableStream.on("finish", function(){
 csvWriteStream.pipe(csvWritableStream);
 
 /* readable stream */
-var count = 0, keys, addr_state_index, curent_addr_state, manipulated_obj = [];
+var count = 0, keys,
+	addr_state_index, current_addr_state,
+	numbers_of_loan,
+	annual_inc_index, current_annual_inc,
+	loan_amnt_index, current_loan_amnt,
+	manipulated_obj = {};
 var csvReadableStream = csv()
     .on("data", function(data){
 		if(count === 0){
 			keys = data;
-			// csvWriteStream.write(keys);
 		}else{
+			// get addr_state
 			addr_state_index = keys.indexOf("addr_state");
-			curent_addr_state = data[addr_state_index];
-			csvWriteStream.write({ addr_state : curent_addr_state});
+			current_addr_state = data[addr_state_index];
+			// get annual inc
+			annual_inc_index = keys.indexOf("annual_inc");
+			current_annual_inc = data[annual_inc_index];
+			// get loan amnt
+			loan_amnt_index = keys.indexOf("loan_amnt");
+			current_loan_amnt = data[loan_amnt_index];
+			if(current_addr_state !== undefined && current_addr_state !== "" && !(current_addr_state in manipulated_obj)){
+				manipulated_obj[current_addr_state] = { addr_state : current_addr_state, numbers_of_loan : 1, annual_inc : Number(current_annual_inc), loan_amnt : Number(current_loan_amnt)};
+			}else{
+				manipulated_obj[current_addr_state].numbers_of_loan += 1;
+				manipulated_obj[current_addr_state].annual_inc += Number(current_annual_inc);
+				manipulated_obj[current_addr_state].loan_amnt += Number(current_loan_amnt);
+			}
 		}
 		count += 1;
     })
     .on("end", function(){
          console.log("done");
+		 for (var key in manipulated_obj) {
+		   	if (manipulated_obj.hasOwnProperty(key)) {
+		     	csvWriteStream.write(manipulated_obj[key]);
+		   	}
+		 }
 		 csvWriteStream.end();
     });
  
