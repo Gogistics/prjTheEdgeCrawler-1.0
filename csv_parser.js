@@ -8,24 +8,11 @@ var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lendi
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv"];
 function parse_files(){
-	async.eachSeries(csv_files,
-					function(filename, callback){
-						fs.readFile(filename, function(err, content){
-							if(!err){
-								console.log('-*-');
-								console.log(content);
-								console.log('-*-');
-							};
-			
-							// callback
-							callback(err);
-						});
-					},
-					function(err){
-						console.log('=*=');
-						console.log('done with new parser');
-						console.log('=*=');
-					});
+	async.map(csv_files, fs.stat, function(err, results){
+	    console.log('-*-');
+		console.log(results);
+		console.log('-*-');
+	});
 };
 parse_files();
 /* end of new parser */
