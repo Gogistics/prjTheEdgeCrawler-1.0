@@ -1,8 +1,32 @@
 /* required modules */
 var fs = require('fs'), 
-    csv = require('fast-csv');
+    csv = require('fast-csv'),
+	async = require('async');
 
 /* file paths */
+var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv",
+				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv",
+				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv"];
+function parse_files(){
+	async.eachSeries(csv_files,
+					function(filename, callback){
+						fs.readFile(filename, function(err, content){
+							if(!err){
+								console.log(content);
+							};
+			
+							// callback
+							callback(err);
+						});
+					},
+					function(err){
+						console.log('done');
+					});
+};
+
+/* end of new parser */
+
+/* old simple parser for single file */
 var csvReadStream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv");
 
 var csvWriteStream = csv.createWriteStream({ headers : true }),
