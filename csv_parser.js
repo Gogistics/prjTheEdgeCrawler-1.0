@@ -7,6 +7,7 @@ var fs = require('fs'),
 var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv"];
+// prototype one
 function parse_files(){
 	async.filter(csv_files, fs.exists, function(results){
 	    console.log('-*-');
@@ -14,16 +15,16 @@ function parse_files(){
 		console.log('-*-');
 	});
 };
-parse_files();
 /* end of new parser */
 
 
 
 /* old simple parser for single file */
-var csvReadStream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv");
+// opens the file as a readable stream
+var csvReadStream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv");
 
 var csvWriteStream = csv.createWriteStream({ headers : true }),
-    csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedLoanStats3a.csv");
+    csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedLoanStats3b.csv");
 csvWritableStream.on("finish", function(){
 	console.log("done with writable stream.");
 });
