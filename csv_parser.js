@@ -19,7 +19,7 @@ function parser_one(){
 
 /* prototype two */
 function parser_two(){
-	async.forEach(csv_files.keys(dataObj), function (item, callback){ 
+	async.forEach(Object.keys(csv_files), function (item, callback){ 
 	    console.log(item); // print the key
 	    callback(); // tell async that the iterator has completed
 
