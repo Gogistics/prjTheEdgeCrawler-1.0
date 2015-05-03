@@ -8,7 +8,7 @@ var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lendi
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv"];
 // prototype one
-function parse_files(){
+function parser_one(){
 	async.filter(csv_files, fs.exists, function(results){
 	    console.log('-*-');
 		console.log(results);
@@ -17,13 +17,25 @@ function parse_files(){
 };
 /* end of new parser */
 
+/* prototype two */
+function parser_two(){
+	async.forEach(csv_files.keys(dataObj), function (item, callback){ 
+	    console.log(item); // print the key
+	    callback(); // tell async that the iterator has completed
+
+	}, function(err) {
+	    console.log('iterating done');
+	});
+}
+parser_two();
+/* end */
 
 
 /* old simple parser for single file */
 // opens the file as a readable stream
-var csvReadStream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv");
+var csvReadStream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv");
 var csvWriteStream = csv.createWriteStream({ headers : true }),
-    csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedLoanStats3b.csv");
+    csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedLoanStats3c.csv");
 csvWritableStream.on("finish", function(){
 	console.log("done with writable stream.");
 });
@@ -62,13 +74,15 @@ var csvReadableStream = csv()
 		count += 1;
     })
     .on("end", function(){
+		// close readable stream
          console.log("done");
 		 for (var key in manipulated_obj) {
 		   	if (manipulated_obj.hasOwnProperty(key)) {
 		     	csvWriteStream.write(manipulated_obj[key]);
 		   	}
 		 }
-		 csvWriteStream.end();
+		 csvWriteStream.end(); // close writable stream
     });
  
+// start parsing
 csvReadStream.pipe(csvReadableStream);
