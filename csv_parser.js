@@ -102,7 +102,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 									}
 
 // start to parse
-GLOBAL.async_parser.parse_files();
+GLOBAL.async_parser.parse_files(csv_files);
 /* end of parser */
 
 
