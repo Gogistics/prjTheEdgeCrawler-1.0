@@ -22,7 +22,6 @@ function parse_files(){
 /* old simple parser for single file */
 // opens the file as a readable stream
 var csvReadStream = fs.createReadStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv");
-
 var csvWriteStream = csv.createWriteStream({ headers : true }),
     csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedLoanStats3b.csv");
 csvWritableStream.on("finish", function(){
@@ -41,6 +40,7 @@ var csvReadableStream = csv()
     .on("data", function(data){
 		if(count === 0){
 			keys = data;
+			console.log(keys);
 		}else{
 			// get addr_state
 			addr_state_index = keys.indexOf("addr_state");
