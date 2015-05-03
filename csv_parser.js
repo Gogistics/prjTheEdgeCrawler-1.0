@@ -71,9 +71,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														}else if(GLOBAL.async_parser.current_addr_state !== undefined &&
 															GLOBAL.async_parser.current_addr_state !== ""){
 															//
-															GLOBAL.async_parser.manipulated_obj[current_addr_state].numbers_of_loan += 1;
-															GLOBAL.async_parser.manipulated_obj[current_addr_state].total_annual_inc += Number(GLOBAL.async_parser.current_annual_inc);
-															GLOBAL.async_parser.manipulated_obj[current_addr_state].total_loan_amnt += Number(GLOBAL.async_parser.current_loan_amnt);
+															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_addr_state].numbers_of_loan += 1;
+															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_addr_state].total_annual_inc += Number(GLOBAL.async_parser.current_annual_inc);
+															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_addr_state].total_loan_amnt += Number(GLOBAL.async_parser.current_loan_amnt);
 														}
 													}
 													
