@@ -31,60 +31,60 @@ function parser_two(){
 
 /* node.js parser for multiple files with async */
 GLOBAL.async_parser = GLOBAL.async_parser || {};
-GLOABL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedResult.csv");
-GLOABL.async_parser.csvWritableStream.on("finish", function(){
+GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedResult.csv");
+GLOBAL.async_parser.csvWritableStream.on("finish", function(){
 	console.log("finish parsing the file...")
 });
-GLOABL.async_parser.csvWriteStream = csv.createWriteStream({ headers : true });
-GLOABL.async_parser.count = 0;
-GLOABL.async_parser.keys = [];
-GLOABL.async_parser.manipulated_obj = {};
-GLOABL.async_parser.csvWriteStream.pipe(GLOABL.async_parser.csvWritableStream);
+GLOBAL.async_parser.csvWriteStream = csv.createWriteStream({ headers : true });
+GLOBAL.async_parser.count = 0;
+GLOBAL.async_parser.keys = [];
+GLOBAL.async_parser.manipulated_obj = {};
+GLOBAL.async_parser.csvWriteStream.pipe(GLOBAL.async_parser.csvWritableStream);
 GLOBAL.async_parser.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
 											var csvReadStream = fs.createReadStream(file_path);
 											var csvReadableStream = csv()
 												.on("data", function(data){
-													if(GLOABL.async_parser.count === 0){
-														GLOABL.async_parser.keys = data;
-														console.log(GLOABL.async_parser.keys);
+													if(GLOBAL.async_parser.count === 0){
+														GLOBAL.async_parser.keys = data;
+														console.log(GLOBAL.async_parser.keys);
 													}else{
-														GLOABL.async_parser.addr_state_index = GLOABL.async_parser.keys.indexOf("addr_state");
-														GLOABL.async_parser.current_addr_state = data[GLOABL.async_parser.addr_state_index];
+														GLOBAL.async_parser.addr_state_index = GLOBAL.async_parser.keys.indexOf("addr_state");
+														GLOBAL.async_parser.current_addr_state = data[GLOBAL.async_parser.addr_state_index];
 													
 														// get annual inc
-														GLOABL.async_parser.annual_inc_index = GLOABL.async_parser.keys.indexOf("annual_inc");
-														GLOABL.async_parser.current_annual_inc = data[GLOABL.async_parser.annual_inc_index];
+														GLOBAL.async_parser.annual_inc_index = GLOBAL.async_parser.keys.indexOf("annual_inc");
+														GLOBAL.async_parser.current_annual_inc = data[GLOBAL.async_parser.annual_inc_index];
 													
 														// get loan amnt
-														GLOABL.async_parser.loan_amnt_index = keys.indexOf("loan_amnt");
-														GLOABL.async_parser.current_loan_amnt = data[GLOABL.async_parser.loan_amnt_index];
+														GLOBAL.async_parser.loan_amnt_index = keys.indexOf("loan_amnt");
+														GLOBAL.async_parser.current_loan_amnt = data[GLOBAL.async_parser.loan_amnt_index];
 													
 														//
-														if( GLOABL.async_parser.current_addr_state !== undefined &&
-															GLOABL.async_parser.current_addr_state !== "" &&
-															!(GLOABL.async_parser.current_addr_state in GLOABL.async_parser.manipulated_obj)){
-															GLOABL.async_parser.manipulated_obj[GLOABL.async_parser.current_addr_state] = { addr_state : GLOABL.async_parser.current_addr_state,
+														if( GLOBAL.async_parser.current_addr_state !== undefined &&
+															GLOBAL.async_parser.current_addr_state !== "" &&
+															!(GLOBAL.async_parser.current_addr_state in GLOBAL.async_parser.manipulated_obj)){
+															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_addr_state] = { addr_state : GLOBAL.async_parser.current_addr_state,
 																																			numbers_of_loan : 1,
-																																			total_annual_inc : Number(GLOABL.async_parser.current_annual_inc),
-																																			total_loan_amnt : Number(GLOABL.async_parser.current_loan_amnt)};
-														}else if(GLOABL.async_parser.current_addr_state !== undefined &&
-															GLOABL.async_parser.current_addr_state !== ""){
+																																			total_annual_inc : Number(GLOBAL.async_parser.current_annual_inc),
+																																			total_loan_amnt : Number(GLOBAL.async_parser.current_loan_amnt)};
+														}else if(GLOBAL.async_parser.current_addr_state !== undefined &&
+															GLOBAL.async_parser.current_addr_state !== ""){
 															//
-															GLOABL.async_parser.manipulated_obj[current_addr_state].numbers_of_loan += 1;
-															GLOABL.async_parser.manipulated_obj[current_addr_state].total_annual_inc += Number(GLOABL.async_parser.current_annual_inc);
-															GLOABL.async_parser.manipulated_obj[current_addr_state].total_loan_amnt += Number(GLOABL.async_parser.current_loan_amnt);
+															GLOBAL.async_parser.manipulated_obj[current_addr_state].numbers_of_loan += 1;
+															GLOBAL.async_parser.manipulated_obj[current_addr_state].total_annual_inc += Number(GLOBAL.async_parser.current_annual_inc);
+															GLOBAL.async_parser.manipulated_obj[current_addr_state].total_loan_amnt += Number(GLOBAL.async_parser.current_loan_amnt);
 														}
 													
-														GLOABL.async_parser.count += 1;
+														GLOBAL.async_parser.count += 1;
 													}
 												})
 												.on("end", function(){
 										   			// close readable stream
 										            console.log("end readable stream");
-											   		for (var key in GLOABL.async_parser.manipulated_obj) {
-											   		   	if (GLOABL.async_parser.manipulated_obj.hasOwnProperty(key)) {
-											   		     	GLOABL.async_parser.csvWriteStream.write(GLOABL.async_parser.manipulated_obj[key]);
+											   		for (var key in GLOBAL.async_parser.manipulated_obj) {
+											   		   	if (GLOBAL.async_parser.manipulated_obj.hasOwnProperty(key)) {
+											   		     	GLOBAL.async_parser.csvWriteStream.write(GLOBAL.async_parser.manipulated_obj[key]);
 											   		   	}
 											   		}
 												});
@@ -95,7 +95,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 											if(err){
 												console.log(err);
 											}else{
-												GLOABL.async_parser.csvWriteStream.end();
+												GLOBAL.async_parser.csvWriteStream.end();
 												console.log("done with parsing files");
 											}
 										});
