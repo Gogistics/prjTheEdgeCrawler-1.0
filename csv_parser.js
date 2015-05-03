@@ -75,9 +75,10 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															GLOBAL.async_parser.manipulated_obj[current_addr_state].total_annual_inc += Number(GLOBAL.async_parser.current_annual_inc);
 															GLOBAL.async_parser.manipulated_obj[current_addr_state].total_loan_amnt += Number(GLOBAL.async_parser.current_loan_amnt);
 														}
-													
-														GLOBAL.async_parser.count += 1;
 													}
+													
+													//
+													GLOBAL.async_parser.count += 1;
 												})
 												.on("end", function(){
 										   			// close readable stream
