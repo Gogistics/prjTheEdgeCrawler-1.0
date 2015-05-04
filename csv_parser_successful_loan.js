@@ -49,15 +49,15 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.keys = data;
 														console.log(GLOBAL.async_parser.keys);
 													}else{
-														GLOBAL.async_parser.addr_state_index = GLOBAL.async_parser.keys.indexOf("State");
-														GLOBAL.async_parser.current_state = data[GLOBAL.async_parser.addr_state_index];
+														GLOBAL.async_parser.addr_state_index = GLOBAL.async_parser.keys.indexOf("addr_state");
+														GLOBAL.async_parser.current_addr_state = data[GLOBAL.async_parser.addr_state_index];
 													
 														// get annual inc
-														GLOBAL.async_parser.annual_inc_index = GLOBAL.async_parser.keys.indexOf("Debt-To-Income Ratio");
+														GLOBAL.async_parser.annual_inc_index = GLOBAL.async_parser.keys.indexOf("annual_inc");
 														GLOBAL.async_parser.current_annual_inc = data[GLOBAL.async_parser.annual_inc_index];
 													
 														// get loan amnt
-														GLOBAL.async_parser.loan_amnt_index = GLOBAL.async_parser.keys.indexOf("Amount Requested");
+														GLOBAL.async_parser.loan_amnt_index = GLOBAL.async_parser.keys.indexOf("loan_amnt");
 														GLOBAL.async_parser.current_loan_amnt = data[GLOBAL.async_parser.loan_amnt_index];
 													
 														//

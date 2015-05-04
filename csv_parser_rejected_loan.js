@@ -40,31 +40,31 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.keys = data;
 														console.log(GLOBAL.async_parser.keys);
 													}else{
-														GLOBAL.async_parser.addr_state_index = GLOBAL.async_parser.keys.indexOf("addr_state");
-														GLOBAL.async_parser.current_addr_state = data[GLOBAL.async_parser.addr_state_index];
+														GLOBAL.async_parser.state_index = GLOBAL.async_parser.keys.indexOf("State");
+														GLOBAL.async_parser.current_state = data[GLOBAL.async_parser.state_index];
 													
 														// get annual inc
-														GLOBAL.async_parser.annual_inc_index = GLOBAL.async_parser.keys.indexOf("annual_inc");
-														GLOBAL.async_parser.current_annual_inc = data[GLOBAL.async_parser.annual_inc_index];
+														GLOBAL.async_parser.amount_requested_index = GLOBAL.async_parser.keys.indexOf("Amount Requested");
+														GLOBAL.async_parser.current_amount_requested = data[GLOBAL.async_parser.amount_requested_index];
 													
 														// get loan amnt
-														GLOBAL.async_parser.loan_amnt_index = GLOBAL.async_parser.keys.indexOf("loan_amnt");
-														GLOBAL.async_parser.current_loan_amnt = data[GLOBAL.async_parser.loan_amnt_index];
+														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("Debt-To-Income Ratio");
+														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
 													
 														//
-														if( GLOBAL.async_parser.current_addr_state !== undefined &&
-															GLOBAL.async_parser.current_addr_state !== "" &&
-															!(GLOBAL.async_parser.current_addr_state in GLOBAL.async_parser.manipulated_obj)){
-															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_addr_state] = { addr_state : GLOBAL.async_parser.current_addr_state,
-																																			numbers_of_loan : 1,
-																																			total_annual_inc : Number(GLOBAL.async_parser.current_annual_inc),
-																																			total_loan_amnt : Number(GLOBAL.async_parser.current_loan_amnt)};
-														}else if(GLOBAL.async_parser.current_addr_state !== undefined &&
-															GLOBAL.async_parser.current_addr_state !== ""){
+														if( GLOBAL.async_parser.current_state !== undefined &&
+															GLOBAL.async_parser.current_state !== "" &&
+															!(GLOBAL.async_parser.current_state in GLOBAL.async_parser.manipulated_obj)){
+															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state] = { state : GLOBAL.async_parser.current_state,
+																																		numbers_of_loan : 1,
+																																		amount_requested : Number(GLOBAL.async_parser.current_amount_requested),
+																																		debt_to_income_ratio : Number(GLOBAL.async_parser.debt_to_income_ratio)};
+														}else if(GLOBAL.async_parser.current_state !== undefined &&
+															GLOBAL.async_parser.current_state !== ""){
 															//
-															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_addr_state].numbers_of_loan += 1;
-															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_addr_state].total_annual_inc += Number(GLOBAL.async_parser.current_annual_inc);
-															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_addr_state].total_loan_amnt += Number(GLOBAL.async_parser.current_loan_amnt);
+															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].numbers_of_loan += 1;
+															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].total_annual_inc += Number(GLOBAL.async_parser.current_amount_requested);
+															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].total_loan_amnt += Number(GLOBAL.async_parser.debt_to_income_ratio);
 														}
 													}
 													
