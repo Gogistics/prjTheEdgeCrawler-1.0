@@ -4,17 +4,8 @@ var fs = require('fs'),
 	async = require('async');
 
 /* file paths */
-var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv",
-				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv",
-				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv"];
-// prototype one
-function parser_one(){
-	async.filter(csv_files, fs.exists, function(results){
-	    console.log('-*-');
-		console.log(results);
-		console.log('-*-');
-	});
-};
+var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsB.csv",
+				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsB.csv"];
 /* end of new parser */
 
 /* prototype two */
@@ -31,7 +22,7 @@ function parser_two(){
 
 /* node.js parser for multiple files with async */
 GLOBAL.async_parser = GLOBAL.async_parser || {};
-GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedResult.csv");
+GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResult.csv");
 GLOBAL.async_parser.csvWritableStream.on("finish", function(){
 	console.log("finish parsing the file...")
 });
@@ -45,7 +36,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 											var csvReadStream = fs.createReadStream(file_path);
 											var csvReadableStream = csv()
 												.on("data", function(data){
-													if(GLOBAL.async_parser.count === 0){
+													if(GLOBAL.async_parser.count === 0 || (JSON.stringify(data) === JSON.stringify(GLOBAL.async_parser.keys))){
 														GLOBAL.async_parser.keys = data;
 														console.log(GLOBAL.async_parser.keys);
 													}else{

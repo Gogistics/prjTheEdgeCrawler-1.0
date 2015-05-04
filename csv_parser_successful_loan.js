@@ -45,7 +45,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 											var csvReadStream = fs.createReadStream(file_path);
 											var csvReadableStream = csv()
 												.on("data", function(data){
-													if(GLOBAL.async_parser.count === 0){
+													if(GLOBAL.async_parser.count === 0 || (JSON.stringify(data) === JSON.stringify(GLOBAL.async_parser.keys))){
 														GLOBAL.async_parser.keys = data;
 														console.log(GLOBAL.async_parser.keys);
 													}else{
