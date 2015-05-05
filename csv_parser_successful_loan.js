@@ -36,7 +36,7 @@ GLOBAL.async_parser.csvWritableStream.on("finish", function(){
 	console.log("finish parsing the file...")
 });
 GLOBAL.async_parser.csvWriteStream = csv.createWriteStream({ headers : true });
-GLOBAL.async_parser.count = 0;
+GLOBAL.async_parser.count = 0, GLOBAL.async_parser.ith_file = 0;
 GLOBAL.async_parser.keys = [];
 GLOBAL.async_parser.manipulated_obj = {};
 GLOBAL.async_parser.csvWriteStream.pipe(GLOBAL.async_parser.csvWritableStream);
@@ -82,12 +82,16 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 												})
 												.on("end", function(){
 										   			// close readable stream
-										            console.log("end readable stream");
-											   		for (var key in GLOBAL.async_parser.manipulated_obj) {
-											   		   	if (GLOBAL.async_parser.manipulated_obj.hasOwnProperty(key)) {
-											   		     	GLOBAL.async_parser.csvWriteStream.write(GLOBAL.async_parser.manipulated_obj[key]);
-											   		   	}
-											   		}
+													GLOBAL.async_parser.ith_file += 1;
+													if(GLOBAL.async_parser.ith_file == csv_files.length){
+												   		for (var key in GLOBAL.async_parser.manipulated_obj) {
+												   		   	if (GLOBAL.async_parser.manipulated_obj.hasOwnProperty(key)) {
+												   		     	GLOBAL.async_parser.csvWriteStream.write(GLOBAL.async_parser.manipulated_obj[key]);
+												   		   	}
+												   		}
+											            console.log("end readable stream ; current count:" + GLOBAL.async_parser.count);
+														console.log(JSON.stringify(GLOBAL.async_parser.manipulated_obj));
+													}
 												});
 												
 												// start to parse file
