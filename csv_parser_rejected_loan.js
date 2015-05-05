@@ -75,6 +75,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 													
 													// count iteration
 													GLOBAL.async_parser.count += 1;
+													if( Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) > 300 ){
+														console.log( Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) );
+													}
 												})
 												.on("end", function(){
 										   			// close readable stream
