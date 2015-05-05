@@ -34,7 +34,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
 											GLOBAL.async_parser.manipulated_obj = {}; // renew obj
 											var csvReadStream = fs.createReadStream(file_path);
-											
+											console.log(JSON.stringify(GLOBAL.async_parser.manipulated_obj,2,2);
 											// start to parse data
 											var csvReadableStream = csv()
 												.on("data", function(data){
@@ -53,11 +53,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
 														
 														//
+														var temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														if( GLOBAL.async_parser.current_state !== undefined &&
 															GLOBAL.async_parser.current_state !== "" &&
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 															!(GLOBAL.async_parser.current_state in GLOBAL.async_parser.manipulated_obj) &&
-															Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) >= 0){
+															temp_debt_to_inc_ratio >= 0 &&
+															temp_debt_to_inc_ratio < 100){
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state] = { state : GLOBAL.async_parser.current_state,
 																																			numbers_of_loan : 1,
 																																			amount_requested : Math.round(Number(GLOBAL.async_parser.current_amount_requested)),
@@ -65,7 +67,8 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state !== "" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
-																Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) >= 0){
+																temp_debt_to_inc_ratio >= 0 &&
+																temp_debt_to_inc_ratio < 100){
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].numbers_of_loan += 1;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Math.round(Number(GLOBAL.async_parser.current_amount_requested));
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
