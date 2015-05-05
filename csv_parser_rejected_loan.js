@@ -50,7 +50,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get loan amnt
 														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("Debt-To-Income Ratio");
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
-														console.log('Index: ' + GLOBAL.async_parser.debt_to_income_ratio_index + ' ; Value' + GLOBAL.async_parser.debt_to_income_ratio);
+														console.log('Index-' + GLOBAL.async_parser.debt_to_income_ratio_index + ' ; Ratio-' + Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
 														
 														//
 														if( GLOBAL.async_parser.current_state !== undefined &&
