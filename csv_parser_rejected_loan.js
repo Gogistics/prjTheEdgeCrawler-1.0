@@ -60,19 +60,19 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) >= 0){
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state] = { state : GLOBAL.async_parser.current_state,
 																																			numbers_of_loan : 1,
-																																			amount_requested : Number(GLOBAL.async_parser.current_amount_requested),
-																																			debt_to_income_ratio : Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1))};
+																																			amount_requested : Math.round(Number(GLOBAL.async_parser.current_amount_requested)),
+																																			debt_to_income_ratio : Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)))};
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state !== "" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 																Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) >= 0){
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].numbers_of_loan += 1;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Number(GLOBAL.async_parser.current_amount_requested);
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Math.round(Number(GLOBAL.async_parser.current_amount_requested));
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
 														}
 
 														//
-														if( Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) > 300 ){
+														if( Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) > 1000 ){
 															console.log( Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) );
 														}
 													}
