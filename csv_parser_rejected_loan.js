@@ -39,6 +39,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 													if(GLOBAL.async_parser.count === 0 || (JSON.stringify(data) === JSON.stringify(GLOBAL.async_parser.keys))){
 														GLOBAL.async_parser.keys = data;
 														console.log(GLOBAL.async_parser.keys);
+														console.log(GLOBAL.async_parser.count);
 													}else{
 														GLOBAL.async_parser.state_index = GLOBAL.async_parser.keys.indexOf("State");
 														GLOBAL.async_parser.current_state = data[GLOBAL.async_parser.state_index];
@@ -50,7 +51,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get loan amnt
 														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("Debt-To-Income Ratio");
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
-														console.log('Index-' + GLOBAL.async_parser.debt_to_income_ratio_index + ' ; Ratio-' + Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
 														
 														//
 														if( GLOBAL.async_parser.current_state !== undefined &&
@@ -70,6 +70,8 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Number(GLOBAL.async_parser.current_amount_requested);
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														}
+														//
+														console.log(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state]);
 													}
 													
 													//
