@@ -50,7 +50,8 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get loan amnt
 														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("Debt-To-Income Ratio");
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
-													
+														console.log('Index: ' + GLOBAL.async_parser.debt_to_income_ratio_index + ' ; Value' + GLOBAL.async_parser.debt_to_income_ratio);
+														
 														//
 														if( GLOBAL.async_parser.current_state !== undefined &&
 															GLOBAL.async_parser.current_state !== "" &&
@@ -62,12 +63,12 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																			amount_requested : Number(GLOBAL.async_parser.current_amount_requested),
 																																			debt_to_income_ratio : Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1))};
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
-															GLOBAL.async_parser.current_state !== "" &&
-															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
-															Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) >= 0){
-															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].numbers_of_loan += 1;
-															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Number(GLOBAL.async_parser.current_amount_requested);
-															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
+																GLOBAL.async_parser.current_state !== "" &&
+																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
+																Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) >= 0){
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].numbers_of_loan += 1;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Number(GLOBAL.async_parser.current_amount_requested);
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														}
 													}
 													
