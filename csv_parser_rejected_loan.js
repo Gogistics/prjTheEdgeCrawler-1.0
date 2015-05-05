@@ -29,6 +29,7 @@ GLOBAL.async_parser.csvWritableStream.on("finish", function(){
 GLOBAL.async_parser.csvWriteStream = csv.createWriteStream({ headers : true });
 GLOBAL.async_parser.count = 0, GLOBAL.async_parser.ith_file = 0;
 GLOBAL.async_parser.keys = [];
+GLOBAL.async_parser.manipulated_obj = {};
 GLOBAL.async_parser.csvWriteStream.pipe(GLOBAL.async_parser.csvWritableStream);
 GLOBAL.async_parser.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
