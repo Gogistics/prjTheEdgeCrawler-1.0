@@ -51,6 +51,16 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("Debt-To-Income Ratio");
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
 														
+														// get date
+														GLOBAL.async_parser.date_index = GLOBAL.async_parser.keys.indexOf("Application Date");
+														GLOBAL.async_parser.date = data[GLOBAL.async_parser.date_index];
+														
+														if( new Date(GLOBAL.async_parser.date).valueOf() < new Date("2013-11-5").valueOf() ){
+															console.log(GLOBAL.async_parser.date + "FICO");
+														}else{
+															console.log(GLOBAL.async_parser.date + "VANTAGE");
+														}
+														
 														//
 														var temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														if( GLOBAL.async_parser.current_state !== undefined &&
@@ -78,7 +88,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 												.on("end", function(){
 										   			// close readable stream
 													GLOBAL.async_parser.ith_file += 1;
-													if(GLOBAL.async_parser.ith_file == csv_files.length){
+													if(GLOBAL.async_parser.ith_file === csv_files.length){
 												   		for (var key in GLOBAL.async_parser.manipulated_obj) {
 												   		   	if (GLOBAL.async_parser.manipulated_obj.hasOwnProperty(key)) {
 												   		     	GLOBAL.async_parser.csvWriteStream.write(GLOBAL.async_parser.manipulated_obj[key]);

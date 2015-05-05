@@ -83,7 +83,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 												.on("end", function(){
 										   			// close readable stream
 													GLOBAL.async_parser.ith_file += 1;
-													if(GLOBAL.async_parser.ith_file == csv_files.length){
+													if(GLOBAL.async_parser.ith_file === csv_files.length){
 												   		for (var key in GLOBAL.async_parser.manipulated_obj) {
 												   		   	if (GLOBAL.async_parser.manipulated_obj.hasOwnProperty(key)) {
 												   		     	GLOBAL.async_parser.csvWriteStream.write(GLOBAL.async_parser.manipulated_obj[key]);
