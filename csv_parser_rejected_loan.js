@@ -34,7 +34,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
 											GLOBAL.async_parser.manipulated_obj = {}; // renew obj
 											var csvReadStream = fs.createReadStream(file_path);
-											console.log(JSON.stringify(GLOBAL.async_parser.manipulated_obj,2,2);
+											console.log(JSON.stringify(GLOBAL.async_parser.manipulated_obj,2,2));
 											// start to parse data
 											var csvReadableStream = csv()
 												.on("data", function(data){
