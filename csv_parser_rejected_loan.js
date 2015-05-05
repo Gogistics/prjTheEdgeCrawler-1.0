@@ -91,6 +91,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 										   		   	}
 										   		}
 												GLOBAL.async_parser.csvWriteStream.end();
+												console.log(JSON.stringify(GLOBAL.async_parser.manipulated_obj));
 												console.log("done with parsing files");
 											}
 										});
