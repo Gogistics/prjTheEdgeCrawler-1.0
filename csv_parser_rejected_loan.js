@@ -54,19 +54,21 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														//
 														if( GLOBAL.async_parser.current_state !== undefined &&
 															GLOBAL.async_parser.current_state !== "" &&
-															!(GLOBAL.async_parser.current_state in GLOBAL.async_parser.manipulated_obj)){
+															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
+															!(GLOBAL.async_parser.current_state in GLOBAL.async_parser.manipulated_obj) &&
+															Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) >= 0){
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state] = { state : GLOBAL.async_parser.current_state,
 																																			numbers_of_loan : 1,
 																																			amount_requested : Number(GLOBAL.async_parser.current_amount_requested),
 																																			debt_to_income_ratio : Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1))};
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
-															GLOBAL.async_parser.current_state !== ""){
-															//
+															GLOBAL.async_parser.current_state !== "" &&
+															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
+															Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)) >= 0){
 															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].numbers_of_loan += 1;
 															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Number(GLOBAL.async_parser.current_amount_requested);
 															GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														}
-														console.log(GLOBAL.async_parser.debt_to_income_ratio);
 													}
 													
 													//
