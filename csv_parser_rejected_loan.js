@@ -57,8 +57,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															GLOBAL.async_parser.current_state !== "" &&
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 															!(GLOBAL.async_parser.current_state in GLOBAL.async_parser.manipulated_obj) &&
-															temp_debt_to_inc_ratio >= 0 &&
-															temp_debt_to_inc_ratio < 100){
+															temp_debt_to_inc_ratio >= 0){
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state] = { state : GLOBAL.async_parser.current_state,
 																																			numbers_of_loan : 1,
 																																			amount_requested : Math.round(Number(GLOBAL.async_parser.current_amount_requested)),
@@ -66,8 +65,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state !== "" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
-																temp_debt_to_inc_ratio >= 0 &&
-																temp_debt_to_inc_ratio < 100){
+																temp_debt_to_inc_ratio >= 0){
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].numbers_of_loan += 1;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Math.round(Number(GLOBAL.async_parser.current_amount_requested));
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
