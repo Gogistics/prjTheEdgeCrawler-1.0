@@ -97,7 +97,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].count_fico += count_fico;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].total_fico += temp_fico;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].count_vantage += count_vantage;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].temp_vantage += temp_vantage;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].total_vantage += temp_vantage;
 														}
 													}
 													
