@@ -84,6 +84,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 											   		   	}
 											   		}
 										            console.log("end readable stream ; current count:" + GLOBAL.async_parser.count);
+													console.log(JSON.stringify(GLOBAL.async_parser.manipulated_obj));
 												});
 												
 												// start to parse file
