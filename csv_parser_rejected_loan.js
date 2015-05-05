@@ -38,8 +38,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 												.on("data", function(data){
 													if(GLOBAL.async_parser.count === 0 || (JSON.stringify(data) === JSON.stringify(GLOBAL.async_parser.keys))){
 														GLOBAL.async_parser.keys = data;
-														console.log(GLOBAL.async_parser.keys);
-														console.log(GLOBAL.async_parser.count);
 													}else{
 														GLOBAL.async_parser.state_index = GLOBAL.async_parser.keys.indexOf("State");
 														GLOBAL.async_parser.current_state = data[GLOBAL.async_parser.state_index];
@@ -70,11 +68,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Number(GLOBAL.async_parser.current_amount_requested);
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														}
-														
-														//
-														if(GLOBAL.async_parser.current_state === 'CA'){
-															console.log(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state]);
-														}
+													
 													}
 													
 													//
@@ -82,12 +76,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 												})
 												.on("end", function(){
 										   			// close readable stream
-										            console.log("end readable stream");
-											   		for (var key in GLOBAL.async_parser.manipulated_obj) {
-											   		   	if (GLOBAL.async_parser.manipulated_obj.hasOwnProperty(key)) {
-											   		     	GLOBAL.async_parser.csvWriteStream.write(GLOBAL.async_parser.manipulated_obj[key]);
-											   		   	}
-											   		}
+										            console.log("end readable stream ; current count:" + GLOBAL.async_parser.count);
 												});
 												
 												// start to parse file
@@ -96,6 +85,11 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 											if(err){
 												console.log(err);
 											}else{
+										   		for (var key in GLOBAL.async_parser.manipulated_obj) {
+										   		   	if (GLOBAL.async_parser.manipulated_obj.hasOwnProperty(key)) {
+										   		     	GLOBAL.async_parser.csvWriteStream.write(GLOBAL.async_parser.manipulated_obj[key]);
+										   		   	}
+										   		}
 												GLOBAL.async_parser.csvWriteStream.end();
 												console.log("done with parsing files");
 											}
