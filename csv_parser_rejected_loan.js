@@ -69,7 +69,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															count_vantage = 1;
 														}
 														
-														//
+														// debt  to income ratio
 														var temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														
 														// build structure
@@ -78,6 +78,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 															!(GLOBAL.async_parser.current_state in GLOBAL.async_parser.manipulated_obj) &&
 															temp_debt_to_inc_ratio >= 0){
+																
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state] = { state : GLOBAL.async_parser.current_state,
 																																			numbers_of_loan : 1,
 																																			amount_requested : Math.round(Number(GLOBAL.async_parser.current_amount_requested)),
@@ -85,12 +86,22 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																			count_fico : count_fico,
 																																			total_fico : temp_fico,
 																																			count_vantage : count_vantage,
-																																			total_vantage : temp_vantage
+																																			total_vantage : temp_vantage,
+																																			from_date : GLOBAL.async_parser.date,
+																																			to_date : GLOBAL.async_parser.date,
 																																		};
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state !== "" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 																temp_debt_to_inc_ratio >= 0){
+																	
+																	if( new Date(GLOBAL.async_parser.date).valueOf() < new Date(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].from_date).valueOf() ){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].from_date = GLOBAL.async_parser.date;
+																	}
+																	if( new Date(GLOBAL.async_parser.date).valueOf() > new Date(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].to_date).valueOf() ){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].to_date = GLOBAL.async_parser.date;
+																	}
+																	
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].numbers_of_loan += 1;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Math.round(Number(GLOBAL.async_parser.current_amount_requested));
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
