@@ -65,7 +65,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																var temp_tokenized_ary = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title.toLowerCase());
 																var temp_concat_str = temp_tokenized_ary.concat(GLOBAL.keywords).toString().toLowerCase();
 																GLOBAL.keywords = GLOBAL.tokenizer.tokenize(temp_concat_str);
-																console.log(GLOBAL.keywords);
+																// console.log(GLOBAL.keywords);
 														}
 													}
 													
