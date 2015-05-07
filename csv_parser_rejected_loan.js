@@ -6,7 +6,6 @@ var fs = require('fs'),
 /* file paths */
 var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsA.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsB.csv"];
-/* end of new parser */
 
 /* prototype two */
 function parser_two(){
@@ -58,6 +57,11 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get risk score
 														GLOBAL.async_parser.risk_score_index = GLOBAL.async_parser.keys.indexOf("Risk_Score");
 														GLOBAL.async_parser.risk_score = data[GLOBAL.async_parser.risk_score_index];
+														
+														// get employment length
+														GLOBAL.async_parser.employment_length_index = GLOBAL.async_parser.keys.indexOf("Employment Length");
+														GLOBAL.async_parser.employment_length = data[GLOBAL.async_parser.employment_length_index];
+														
 														
 														// temp FICO & Vantage Value
 														var temp_fico = 0, temp_vantage = 0, count_fico = 0, count_vantage = 0;
