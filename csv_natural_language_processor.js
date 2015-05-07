@@ -9,7 +9,7 @@ var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lendi
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsB.csv"];
 
 /* node.js NLP for multiple files with async */
-GLOBAL.tokenizer = new natural.RegexpTokenizer({ pattern : /\,|\s	/});
+GLOBAL.tokenizer = new natural.RegexpTokenizer({ pattern : /\s|\,/});
 GLOBAL.async_nlp = GLOBAL.async_nlp || {};
 GLOBAL.async_nlp.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_of_loan_title.csv");
 GLOBAL.async_nlp.csvWritableStream.on("finish", function(){
@@ -63,7 +63,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																
 																// do something...
 																var temp_keywords = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title.toLowerCase());
-																var temp_concat_str = temp_keywords.concat(GLOBAL.keywords).toString().toLowerCase();
+																var temp_concat_str = temp_keywords.concat(GLOBAL.keywords).toString();
 																GLOBAL.keywords = GLOBAL.tokenizer.tokenize(temp_concat_str);
 																var temp_unique_keywords = GLOBAL.keywords.filter(function(elem, pos){
 																	return GLOBAL.keywords.indexOf(elem) == pos;
