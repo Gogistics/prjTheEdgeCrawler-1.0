@@ -11,7 +11,7 @@ var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lendi
 /* node.js NLP for multiple files with async */
 GLOBAL.tokenizer = new natural.WordTokenizer();
 GLOBAL.async_nlp = GLOBAL.async_nlp || {};
-GLOBAL.async_nlp.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResult.csv");
+GLOBAL.async_nlp.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_of_loan_title.csv");
 GLOBAL.async_nlp.csvWritableStream.on("finish", function(){
 	console.log("finish parsing the file...")
 });
@@ -63,7 +63,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																
 																// do something...
 																var temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title.toLowerCase());
-																GLOBAL.keywords.concat(temp_result);
+																temp_result = GLOBAL.keywords.concat(temp_result);
 																temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.keywords.toString().toLowerCase());
 																console.log(temp_result);
 														}
@@ -74,7 +74,12 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 												})
 												.on("end", function(){
 										   			// close readable stream
-													
+													GLOBAL.async_nlp.ith_file += 1;
+													if(GLOBAL.async_nlp.ith_file === csv_files.length){
+											   		     GLOBAL.async_nlp.csvWriteStream.write(GLOBAL.keywords);
+											   		}
+										            console.log("end readable stream ; current count:" + GLOBAL.async_nlp.count);
+													console.log(JSON.stringify(GLOBAL.async_nlp.manipulated_obj));
 												});
 												
 												// start to parse file
