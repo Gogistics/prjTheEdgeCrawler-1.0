@@ -9,7 +9,7 @@ var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lendi
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsB.csv"];
 
 /* node.js NLP for multiple files with async */
-GLOBAL.tokenizer = new natural.WordTokenizer();
+GLOBAL.tokenizer = new natural.RegexpTokenizer({ pattern : /\,|\s/});
 GLOBAL.async_nlp = GLOBAL.async_nlp || {};
 GLOBAL.async_nlp.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_of_loan_title.csv");
 GLOBAL.async_nlp.csvWritableStream.on("finish", function(){
