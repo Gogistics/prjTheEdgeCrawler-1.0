@@ -62,13 +62,9 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																temp_debt_to_inc_ratio >= 0){
 																
 																// do something...
-																var temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title.toLowerCase());
-																if(GLOBAL.keywords.length === 0){
-																	GLOBAL.keywords = temp_result;
-																}else{
-																	temp_result = GLOBAL.keywords.concat(temp_result);
-																	temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.keywords.toString().toLowerCase());
-																}
+																var temp_tokenized_ary = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title.toLowerCase());
+																var temp_concat_str = temp_tokenized_result.concat(GLOBAL.keywords).toString().toLowerCase();
+																GLOBAL.keywords = GLOBAL.tokenizer.tokenize(temp_concat_str);
 																console.log(GLOBAL.keywords);
 														}
 													}
