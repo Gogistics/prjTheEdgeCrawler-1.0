@@ -49,8 +49,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 															temp_debt_to_inc_ratio >= 0){
 																
 																// do something...
-																var temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.keys);
-																console.log(temp_result);
+																console.log(GLOBAL.async_nlp.keys);
 																
 														}else if(GLOBAL.async_nlp.current_state !== undefined &&
 																GLOBAL.async_nlp.current_state !== "" &&
