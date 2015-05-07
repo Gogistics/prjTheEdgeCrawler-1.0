@@ -49,10 +49,10 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 															temp_debt_to_inc_ratio >= 0){
 																
 																// do something...
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state] = { state : GLOBAL.async_parser.current_state,
-																																			numbers_of_loan : 1,
-																																			debt_to_income_ratio : Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1))),
-																																		};
+																GLOBAL.async_nlp.manipulated_obj[GLOBAL.async_nlp.current_state] = { state : GLOBAL.async_nlp.current_state,
+																																	numbers_of_loan : 1,
+																																	debt_to_income_ratio : Math.round(Number(GLOBAL.async_nlp.debt_to_income_ratio.slice(0, -1))),
+																																	};
 																// console.log(GLOBAL.async_nlp.keys);
 																
 														}else if(GLOBAL.async_nlp.current_state !== undefined &&
