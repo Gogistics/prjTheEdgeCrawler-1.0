@@ -69,6 +69,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																	temp_result = GLOBAL.keywords.concat(temp_result);
 																	temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.keywords.toString().toLowerCase());
 																}
+																console.log(GLOBAL.keywords);
 														}
 													}
 													
@@ -82,7 +83,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 											   		     GLOBAL.async_nlp.csvWriteStream.write(GLOBAL.keywords);
 											   		}
 										            console.log("end readable stream ; current count:" + GLOBAL.async_nlp.count);
-													console.log(JSON.stringify(GLOBAL.async_nlp.manipulated_obj));
+													console.log(GLOBAL.keywords);
 												});
 												
 												// start to parse file
