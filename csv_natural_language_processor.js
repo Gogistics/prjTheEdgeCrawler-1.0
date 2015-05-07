@@ -49,7 +49,8 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 															temp_debt_to_inc_ratio >= 0){
 																
 																// do something...
-																GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.keys);
+																var temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.keys);
+																console.log(temp_result);
 																
 														}else if(GLOBAL.async_nlp.current_state !== undefined &&
 																GLOBAL.async_nlp.current_state !== "" &&
@@ -57,7 +58,8 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																temp_debt_to_inc_ratio >= 0){
 																
 																// do something...
-																GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title);
+																var temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title);
+																console.log(temp_result);
 														}
 													}
 													
