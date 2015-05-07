@@ -18,6 +18,7 @@ GLOBAL.async_nlp.csvWritableStream.on("finish", function(){
 GLOBAL.async_nlp.csvWriteStream = csv.createWriteStream({ headers : true });
 GLOBAL.async_nlp.count = 0, GLOBAL.async_nlp.ith_file = 0;
 GLOBAL.async_nlp.keys = [];
+GLOBAL.keywords = GLOBAL.keywords || [];
 GLOBAL.async_nlp.manipulated_obj = {};
 GLOBAL.async_nlp.csvWriteStream.pipe(GLOBAL.async_nlp.csvWritableStream);
 GLOBAL.async_nlp.parse_files = function (arg_files){
@@ -61,7 +62,9 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																temp_debt_to_inc_ratio >= 0){
 																
 																// do something...
-																var temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title);
+																var temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title.toLowerCase());
+																GLOBAL.keywords.concat(temp_result);
+																temp_result = GLOBAL.tokenizer.tokenize(GLOBAL.keywords.toString().toLowerCase());
 																console.log(temp_result);
 														}
 													}
