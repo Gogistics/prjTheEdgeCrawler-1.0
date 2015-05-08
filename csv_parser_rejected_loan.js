@@ -61,15 +61,20 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get employment length
 														GLOBAL.async_parser.employment_length_index = GLOBAL.async_parser.keys.indexOf("Employment Length");
 														GLOBAL.async_parser.employment_length = data[GLOBAL.async_parser.employment_length_index];
-														var regex_smaller_sign = /\</g, regex_plus_sign = /\+/g, regex_employment_length = /\d+/g, employment_length = 0;
+														var regex_smaller_sign = /\</g,
+														regex_plus_sign = /\+/g,
+														regex_employment_length = /\d+/g,
+														employment_length = 0,
+														temp_employment_length = GLOBAL.async_parser.employment_length.match(regex_employment_length);
 														
 														if(GLOBAL.async_parser.employment_length.match(regex_smaller_sign)){
 															employment_length = 0.5;
 														}else if(GLOBAL.async_parser.employment_length.match(regex_plus_sign)){
 															employment_length = 10.5;
+														}else if(temp_employment_length === undefined || temp_employment_length === null){
+															employment_length = 0;
 														}else{
-															var temp_employment_length = GLOBAL.async_parser.employment_length.match(regex_employment_length)
-															employment_length = Number(temp_employment_length[0])
+															employment_length = Number(employment_length[0])
 														}
 														
 														// temp FICO & Vantage Value
