@@ -74,7 +74,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														}else if(temp_employment_length === undefined || temp_employment_length === null){
 															employment_length = 0;
 														}else{
-															employment_length = Number(employment_length[0])
+															employment_length = Number(temp_employment_length[0]);
 														}
 														
 														// temp FICO & Vantage Value
