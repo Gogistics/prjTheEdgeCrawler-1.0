@@ -63,12 +63,12 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.employment_length = data[GLOBAL.async_parser.employment_length_index];
 														var regex_smaller_sign = /\</g, regex_plus_sign = /\+/g, regex_employment_length = /\d+/g, employment_length = 0;
 														
-														if(regex_smaller_sign.match(GLOBAL.async_parser.employment_length)){
+														if(GLOBAL.async_parser.employment_length.match(regex_smaller_sign)){
 															employment_length = 0.5;
-														}else if(regex_plus_sign.match(GLOBAL.async_parser.employment_length)){
+														}else if(GLOBAL.async_parser.employment_length.match(regex_plus_sign)){
 															employment_length = 10.5;
 														}else{
-															var temp_employment_length = regex_employment_length.match(GLOBAL.async_parser.employment_length)
+															var temp_employment_length = GLOBAL.async_parser.employment_length.match(regex_employment_length)
 															employment_length = Number(temp_employment_length[0])
 														}
 														
