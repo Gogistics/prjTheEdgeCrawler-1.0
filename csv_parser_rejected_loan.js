@@ -61,7 +61,16 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get employment length
 														GLOBAL.async_parser.employment_length_index = GLOBAL.async_parser.keys.indexOf("Employment Length");
 														GLOBAL.async_parser.employment_length = data[GLOBAL.async_parser.employment_length_index];
+														var regex_smaller_sign = /\</g, regex_plus_sign = /\+/g, regex_employment_length = /\d+/g, employment_length = 0;
 														
+														if(regex_smaller_sign.match(GLOBAL.async_parser.employment_length)){
+															employment_length = 0.5;
+														}else if(regex_plus_sign.match(GLOBAL.async_parser.employment_length)){
+															employment_length = 10.5;
+														}else{
+															var temp_employment_length = regex_employment_length.match(GLOBAL.async_parser.employment_length)
+															employment_length = Number(temp_employment_length[0])
+														}
 														
 														// temp FICO & Vantage Value
 														var temp_fico = 0, temp_vantage = 0, count_fico = 0, count_vantage = 0;
@@ -91,6 +100,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																			total_fico : temp_fico,
 																																			count_vantage : count_vantage,
 																																			total_vantage : temp_vantage,
+																																			employment_length : employment_length,
 																																			from_date : GLOBAL.async_parser.date,
 																																			to_date : GLOBAL.async_parser.date,
 																																		};
@@ -113,6 +123,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].total_fico += temp_fico;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].count_vantage += count_vantage;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].total_vantage += temp_vantage;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].employment_length += employment_length;
 														}
 													}
 													

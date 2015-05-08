@@ -42,6 +42,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 														GLOBAL.async_nlp.loan_title_index = GLOBAL.async_nlp.keys.indexOf("Loan Title");
 														GLOBAL.async_nlp.loan_title = data[GLOBAL.async_nlp.loan_title_index];
 														
+														
 														// build structure
 														if( GLOBAL.async_nlp.current_state !== undefined &&
 															GLOBAL.async_nlp.current_state !== "" &&
