@@ -131,6 +131,10 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																						other_score = score_valuation;
 																					}
 																					console.log('Score set: ' + JSON.stringify([business_score, personal_score, other_score]));
+																				}else{
+																					if(!(keyword in keywords_temp)){
+																						keywords_temp.push(keyword);
+																					}
 																				}
 																			});
 																		});
