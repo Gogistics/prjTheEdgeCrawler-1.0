@@ -118,17 +118,17 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																		keywords_ary.forEach(function(keyword_info, index_2){
 																			unique_ary.forEach(function(keyword, index_2){
 																				var score = natural.JaroWinklerDistance(keyword_info.keyword, keyword);
-																				if( score > score_valuation){
+																				if( score > 0.8 && score > score_valuation){
 																					score_valuation = score;
-																				}
-																				
-																				// assign score to the corresponding tag
-																				if(key === "keywords_personal"){
-																					personal_score = score_valuation;
-																				}else if(key === "keywords_business"){
-																					business_score = score_valuation;
-																				}else if(key === "keywords_other"){
-																					other_score = score_valuation;
+																					
+																					// assign score to the corresponding tag
+																					if(key === "keywords_personal"){
+																						personal_score = score_valuation;
+																					}else if(key === "keywords_business"){
+																						business_score = score_valuation;
+																					}else if(key === "keywords_other"){
+																						other_score = score_valuation;
+																					}
 																				}
 																			});
 																		});
