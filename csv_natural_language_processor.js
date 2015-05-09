@@ -22,7 +22,6 @@ GLOBAL.build_keyword_sets = function(arg_file_paths){
 			var csvReadStream = fs.createReadStream(arg_file_paths[key]);
 			var csvReadableStream = csv()
 								.on("data", function(data){
-									GLOBAL.keyword_sets[key].rank = data;
 									if(count === 0){
 										csv_keys = data;
 									}else{
@@ -38,7 +37,9 @@ GLOBAL.build_keyword_sets = function(arg_file_paths){
 									console.log("done...");
 									console.log(JSON.stringify(GLOBAL.keyword_sets, 2, 2));
 								});
-			
+								
+			// start to parse file
+			csvReadStream.pipe(csvReadableStream);
 		}
 	}
 }
