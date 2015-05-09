@@ -120,6 +120,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																				var score = natural.JaroWinklerDistance(keyword_info.keyword, keyword);
 																				if( score > 0.8 && score > score_valuation){
 																					score_valuation = score;
+																					keyword_info.number += 1;
 																					
 																					// assign score to the corresponding tag
 																					if(key === "keywords_personal"){
@@ -136,10 +137,10 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 															  	};
 																
 																// find max value
-																var max_val = GLOBAL.get_max([business_score, personal_score, other_score]);
-																if(max_val > 0.8){
-																	console.log([business_score, personal_score, other_score]);
-																}
+																// var max_val = GLOBAL.get_max([business_score, personal_score, other_score]);
+// 																if(max_val > 0.8){
+// 																	console.log([business_score, personal_score, other_score]);
+// 																}
 																// natural.JaroWinklerDistance("dixon","dicksonx");
 														}
 													}
@@ -148,6 +149,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 													GLOBAL.async_nlp.count += 1;
 												})
 												.on("end", function(){
+													console.log(GLOBAL.keyword_sets);
 													//
 													// GLOBAL.async_nlp.ith_file += 1;
 // 													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
