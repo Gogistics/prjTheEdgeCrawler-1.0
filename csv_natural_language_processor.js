@@ -28,7 +28,7 @@ GLOBAL.build_keyword_sets = function(arg_file_paths){
 										var keyword_index = csv_keys.indexOf("keyword"), keyword_number_index = csv_keys.indexOf("number");
 										var keyword = data[keyword_index], keyword_number = data[keyword_number_index];
 										
-										GLOBAL.keyword_sets[key].push( { keyword : keyword, number : keyword_number } );
+										GLOBAL.keyword_sets[current_key].push( { keyword : keyword, number : keyword_number } );
 									}
 									count += 1;
 								})
