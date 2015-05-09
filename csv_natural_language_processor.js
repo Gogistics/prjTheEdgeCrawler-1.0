@@ -116,12 +116,13 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																		var score_valuation = 0;
 															  			var keywords_ary = GLOBAL.keyword_sets[key];
 																		keywords_ary.forEach(function(keyword_info, index_2){
-																			unique_ary.forEach(function(keyword_2, index_2){
-																				var score = natural.JaroWinklerDistance(keyword_info.keyword, keyword_2);
+																			unique_ary.forEach(function(keyword, index_2){
+																				var score = natural.JaroWinklerDistance(keyword_info.keyword, keyword);
 																				if( score > score_valuation){
 																					score_valuation = score;
-																					console.log([business_score, personal_score, other_score]);
 																				}
+																				
+																				// assign score to the corresponding tag
 																				if(key === "keywords_personal"){
 																					personal_score = score_valuation;
 																				}else if(key === "keywords_business"){
