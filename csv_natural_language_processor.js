@@ -136,7 +136,9 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																
 																// find max value
 																var max_val = GLOBAL.get_max([business_score, personal_score, other_score]);
-																// console.log(max_val);
+																if(max_val > 0.8){
+																	console.log([business_score, personal_score, other_score]);
+																}
 																// natural.JaroWinklerDistance("dixon","dicksonx");
 														}
 													}
