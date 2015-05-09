@@ -122,9 +122,9 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																			other_score = score_valuation;
 																		}
 															  			var keywords_ary = GLOBAL.keyword_sets[key];
-																		keywords_ary.forEach(function(keyword_1, index_2){
+																		keywords_ary.forEach(function(keyword_info, index_2){
 																			unique_ary.forEach(function(keyword_2, index_2){
-																				var score = natural.JaroWinklerDistance(keyword_1, keyword_2);
+																				var score = natural.JaroWinklerDistance(keyword_info.keyword, keyword_2);
 																				if( score > score_valuation){
 																					score_valuation = score;
 																					console.log(score_valuation);
