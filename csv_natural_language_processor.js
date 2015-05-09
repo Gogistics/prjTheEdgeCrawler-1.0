@@ -127,6 +127,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																				var score = natural.JaroWinklerDistance(keyword_1, keyword_2);
 																				if( score > score_valuation){
 																					score_valuation = score;
+																					console.log(score_valuation);
 																				}
 																			});
 																		});
@@ -135,7 +136,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																
 																// find max value
 																var max_val = GLOBAL.get_max([business_score, personal_score, other_score]);
-																console.log(max_val);
+																// console.log(max_val);
 																// natural.JaroWinklerDistance("dixon","dicksonx");
 														}
 													}
