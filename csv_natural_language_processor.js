@@ -106,7 +106,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																// tokenize string
 																var tokenized_ary = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title);
 																var unique_ary = tokenized_ary.filter(function(elem, pos) {
-																				  	return duplicatesArray.indexOf(elem) == pos;
+																				  	return tokenized_ary.indexOf(elem) == pos;
 																				  });
 																				  
 																// get keywords
