@@ -81,7 +81,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 														
 														// get loan title
 														GLOBAL.async_nlp.loan_title_index = GLOBAL.async_nlp.keys.indexOf("Loan Title");
-														GLOBAL.async_nlp.loan_title = data[GLOBAL.async_nlp.loan_title_index];
+														GLOBAL.async_nlp.loan_title = data[GLOBAL.async_nlp.loan_title_index].toLowerCase();
 														
 														
 														// build structure
@@ -132,7 +132,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																					}
 																					console.log('Score set: ' + JSON.stringify([business_score, personal_score, other_score]));
 																				}else{
-																					if(!(keyword in GLOBAL.keyword_sets.keywords_temp) && GLOBAL.keyword_sets.keywords_temp.length < 200){
+																					if(GLOBAL.keyword_sets.keywords_temp.indexOf(keyword) === -1 && GLOBAL.keyword_sets.keywords_temp.length < 200){
 																						GLOBAL.keyword_sets.keywords_temp.push(keyword);
 																					}
 																				}
