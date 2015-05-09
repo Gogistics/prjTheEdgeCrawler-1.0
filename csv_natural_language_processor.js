@@ -17,7 +17,7 @@ GLOBAL.keyword_sets = GLOBAL.keyword_sets || {};
 GLOBAL.build_keyword_sets = function(arg_file_paths){
 	for( key in arg_file_paths){
 		if( arg_file_paths.hasOwnProperty(key) ){
-			GLOBAL.keyword_sets[key] = {};
+			GLOBAL.keyword_sets[key] = [];
 			var csv_keys, count = 0;
 			var csvReadStream = fs.createReadStream(arg_file_paths[key]);
 			var csvReadableStream = csv()
@@ -28,8 +28,7 @@ GLOBAL.build_keyword_sets = function(arg_file_paths){
 										var keyword_index = csv_keys.indexOf("keyword"), keyword_number_index = csv_keys.indexOf("number");
 										var keyword = data[keyword_index], keyword_number = data[keyword_number_index];
 										
-										GLOBAL.keyword_sets[key].keyword = keyword;
-										GLOBAL.keyword_sets[key].number = keyword_number;
+										GLOBAL.keyword_sets[key].push( { keyword : keyword, number : keyword_number };
 									}
 									count += 1;
 								})
