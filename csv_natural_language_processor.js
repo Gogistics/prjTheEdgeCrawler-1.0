@@ -43,7 +43,7 @@ GLOBAL.build_keyword_sets = function(arg_file_paths){
 		}
 	}
 }
-GLOBAL.build_keyword_sets();
+GLOBAL.build_keyword_sets(csv_files_of_keywords);
 /* end */
 
 /*===========================================*/
