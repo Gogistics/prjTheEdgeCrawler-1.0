@@ -5,8 +5,47 @@ var fs = require('fs'),
 	natural = require('natural');
 
 /* file paths */
-var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsA.csv",
-				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsB.csv"];
+var csv_files_for_parse = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsA.csv",
+						"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsB.csv"];
+						
+var csv_files_of_keywords = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_personal.csv",
+							  keywords_business : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_business.csv",
+							  keywords_other : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_other.csv" };
+						
+/* build keyword objects */
+GLOBAL.keyword_sets = GLOBAL.keyword_sets || {};
+GLOBAL.build_keyword_sets = function(arg_file_paths){
+	for( key in arg_file_paths){
+		if( arg_file_paths.hasOwnProperty(key) ){
+			GLOBAL.keyword_sets[key] = {};
+			var csv_keys, count = 0;
+			var csvReadStream = fs.createReadStream(arg_file_paths[key]);
+			var csvReadableStream = csv()
+								.on("data", function(data){
+									GLOBAL.keyword_sets[key].rank = data;
+									if(count === 0){
+										csv_keys = data;
+									}else{
+										var keyword_index = keys.indexOf("keyword"), keyword_number_index = keys.indexOf("number");
+										var keyword = data[key_index], keyword_number = data[keyword_number_index];
+										
+										GLOBAL.keyword_sets[key].keyword = keyword;
+										GLOBAL.keyword_sets[key].number = keyword_number;
+									}
+									count += 1;
+								})
+								.on("end", function(){
+									console.log("done...");
+									console.log(JSON.stringify(GLOBAL.keyword_sets, 2, 2));
+								});
+			
+		}
+	}
+}
+GLOBAL.build_keyword_sets();
+/* end */
+
+/*===========================================*/
 
 /* node.js NLP for multiple files with async */
 GLOBAL.tokenizer = new natural.RegexpTokenizer({ pattern : /\s|\,/});
@@ -15,6 +54,8 @@ GLOBAL.async_nlp.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-B
 GLOBAL.async_nlp.csvWritableStream.on("finish", function(){
 	console.log("finish parsing the file...")
 });
+
+/* parse big files */
 GLOBAL.async_nlp.csvWriteStream = csv.createWriteStream({ headers : true });
 GLOBAL.async_nlp.count = 0, GLOBAL.async_nlp.ith_file = 0;
 GLOBAL.async_nlp.keys = [];
@@ -81,7 +122,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 												.on("end", function(){
 										   			// close readable stream
 													GLOBAL.async_nlp.ith_file += 1;
-													if(GLOBAL.async_nlp.ith_file === csv_files.length){
+													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
 											   		     GLOBAL.async_nlp.csvWriteStream.write(GLOBAL.keywords);
 											   		}
 										            console.log("end readable stream ; current count:" + GLOBAL.async_nlp.count);
@@ -94,4 +135,4 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 									}
 
 // start to process
-GLOBAL.async_nlp.parse_files(csv_files);
+// GLOBAL.async_nlp.parse_files(csv_files_for_parse);
