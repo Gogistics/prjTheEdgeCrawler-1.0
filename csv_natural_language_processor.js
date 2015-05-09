@@ -120,7 +120,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																				var score = natural.JaroWinklerDistance(keyword_info.keyword, keyword);
 																				if( score > 0.8 && score > score_valuation){
 																					score_valuation = score;
-																					keyword_info.number += 1;
+																					keyword_info.number = Number(keyword_info.number) + 1;
 																					
 																					// assign score to the corresponding tag
 																					if(key === "keywords_personal"){
@@ -130,6 +130,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																					}else if(key === "keywords_other"){
 																						other_score = score_valuation;
 																					}
+																					console.log([business_score, personal_score, other_score]);
 																				}
 																			});
 																		});
