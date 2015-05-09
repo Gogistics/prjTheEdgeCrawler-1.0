@@ -114,13 +114,6 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 															  	for( key in GLOBAL.keyword_sets){
 															  		if( GLOBAL.keyword_sets.hasOwnProperty(key) ){
 																		var score_valuation = 0;
-																		if(key === "keywords_personal"){
-																			personal_score = score_valuation;
-																		}else if(key === "keywords_business"){
-																			business_score = score_valuation;
-																		}else if(key === "keywords_other"){
-																			other_score = score_valuation;
-																		}
 															  			var keywords_ary = GLOBAL.keyword_sets[key];
 																		keywords_ary.forEach(function(keyword_info, index_2){
 																			unique_ary.forEach(function(keyword_2, index_2){
@@ -128,6 +121,13 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																				if( score > score_valuation){
 																					score_valuation = score;
 																					console.log([business_score, personal_score, other_score]);
+																				}
+																				if(key === "keywords_personal"){
+																					personal_score = score_valuation;
+																				}else if(key === "keywords_business"){
+																					business_score = score_valuation;
+																				}else if(key === "keywords_other"){
+																					other_score = score_valuation;
 																				}
 																			});
 																		});
