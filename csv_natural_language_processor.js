@@ -18,7 +18,7 @@ GLOBAL.build_keyword_sets = function(arg_file_paths){
 	for( key in arg_file_paths){
 		if( arg_file_paths.hasOwnProperty(key) ){
 			GLOBAL.keyword_sets[key] = [];
-			var csv_keys, count = 0;
+			var csv_keys, count = 0, current_key = key;
 			var csvReadStream = fs.createReadStream(arg_file_paths[key]);
 			var csvReadableStream = csv()
 								.on("data", function(data){
