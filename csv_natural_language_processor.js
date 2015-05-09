@@ -111,32 +111,39 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																				  
 																// get keywords
 																var personal_score = 0, business_score = 0, other_score = 0, score_valuation = 0;
-															  	for( key in GLOBAL.keyword_sets){
-															  		if( GLOBAL.keyword_sets.hasOwnProperty(key) && key !== "keywords_temp"){
-															  			var keywords_ary = GLOBAL.keyword_sets[key];
-																		keywords_ary.forEach(function(keyword_info, index_2){
-																			unique_ary.forEach(function(keyword, index_2){
-																				var score = natural.JaroWinklerDistance(keyword_info.keyword, keyword);
-																				if( score > 0.8 && score > score_valuation){
-																					score_valuation = score;
-																					keyword_info.number = Number(keyword_info.number) + 1;
-																					console.log(keyword_info.number);
-																					// assign score to the corresponding tag
-																					if(key === "keywords_personal"){
-																						personal_score = score_valuation;
-																					}else if(key === "keywords_business"){
-																						business_score = score_valuation;
-																					}else if(key === "keywords_other"){
-																						other_score = score_valuation;
+																unique_ary.forEach(function(keyword, index_2){
+																  	for( key in GLOBAL.keyword_sets){
+																  		if( GLOBAL.keyword_sets.hasOwnProperty(key) && key !== "keywords_temp"){
+																  			var keywords_ary = GLOBAL.keyword_sets[key];
+																			keywords_ary.forEach(function(keyword_info, index_2){
+																					var score = natural.JaroWinklerDistance(keyword_info.keyword, keyword);
+																					if( score > 0.8 && score > score_valuation){
+																						score_valuation = score;
+																						keyword_info.number = Number(keyword_info.number) + 1;
+																						console.log(keyword_info.number);
+																						// assign score to the corresponding tag
+																						if(key === "keywords_personal"){
+																							personal_score = score_valuation;
+																						}else if(key === "keywords_business"){
+																							business_score = score_valuation;
+																						}else if(key === "keywords_other"){
+																							other_score = score_valuation;
+																						}
+																						console.log('Score set: ' + JSON.stringify([business_score, personal_score, other_score]));
 																					}
-																					console.log('Score set: ' + JSON.stringify([business_score, personal_score, other_score]));
-																				}else if(score <= 0.8 && GLOBAL.keyword_sets.keywords_temp.indexOf(keyword) === -1 && GLOBAL.keyword_sets.keywords_temp.length < 200){
-																						GLOBAL.keyword_sets.keywords_temp.push(keyword);
-																				}
+																				
 																			});
-																		});
-															  		}
-															  	};
+																  		}
+																  	};
+																	
+																	if( score_valuation <= 0.8 &&
+																		GLOBAL.keyword_sets.keywords_temp.indexOf(keyword) === -1 &&
+																		GLOBAL.keyword_sets.keywords_temp.length < 200){
+																			GLOBAL.keyword_sets.keywords_temp.push(keyword);
+																	};
+																});
+																
+																
 														}
 													}
 													
