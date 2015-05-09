@@ -39,8 +39,10 @@ GLOBAL.get_keywords = function(arg_key, arg_file_paths){
 							count += 1;
 						})
 						.on("end", function(){
-							console.log("done...");
-							console.log(JSON.stringify(GLOBAL.keyword_sets, 2, 2));
+							if(key === "keywords_other"){
+								console.log("done...");
+								console.log(JSON.stringify(GLOBAL.keyword_sets, 2, 2));
+							}
 						});
 						
 	// start to parse file
