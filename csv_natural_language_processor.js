@@ -10,7 +10,8 @@ var csv_files_for_parse = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/f
 						
 var csv_files_of_keywords = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_personal.csv",
 							  keywords_business : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_business.csv",
-							  keywords_other : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_other.csv" };
+							  keywords_other : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_other.csv",
+							  keywords_temp : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_temp.csv" };
 						
 /* build keyword objects */
 GLOBAL.keyword_sets = GLOBAL.keyword_sets || {};
@@ -42,33 +43,25 @@ GLOBAL.get_keywords = function(arg_key, arg_file_paths){
 							if(arg_key === "keywords_other"){
 								console.log("done...");
 								console.log(JSON.stringify(GLOBAL.keyword_sets, 2, 2));
+								
+								// start to parse data
+								GLOBAL.async_nlp.parse_files(csv_files_for_parse);
 							}
 						});
 						
 	// start to parse file
 	csvReadStream.pipe(csvReadableStream);
 }
-// start to get keywords
-GLOBAL.build_keyword_sets(csv_files_of_keywords);
 /* end */
 
 /*===========================================*/
 
 /* node.js NLP for multiple files with async */
-GLOBAL.tokenizer = new natural.RegexpTokenizer({ pattern : /\s|\,/});
+GLOBAL.tokenizer = new natural.RegexpTokenizer({ pattern : /\s|\_/});
 GLOBAL.async_nlp = GLOBAL.async_nlp || {};
-GLOBAL.async_nlp.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_of_loan_title.csv");
-GLOBAL.async_nlp.csvWritableStream.on("finish", function(){
-	console.log("finish parsing the file...")
-});
-
-/* parse big files */
-GLOBAL.async_nlp.csvWriteStream = csv.createWriteStream({ headers : true });
 GLOBAL.async_nlp.count = 0, GLOBAL.async_nlp.ith_file = 0;
 GLOBAL.async_nlp.keys = [];
-GLOBAL.keywords = GLOBAL.keywords || [];
 GLOBAL.async_nlp.manipulated_obj = {};
-GLOBAL.async_nlp.csvWriteStream.pipe(GLOBAL.async_nlp.csvWritableStream);
 GLOBAL.async_nlp.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
 											var csvReadStream = fs.createReadStream(file_path);
@@ -110,16 +103,36 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																GLOBAL.async_nlp.current_state === GLOBAL.async_nlp.current_state.toUpperCase() &&
 																temp_debt_to_inc_ratio >= 0){
 																
-																// do something...
-																var temp_keywords = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title.toLowerCase());
-																var temp_concat_str = temp_keywords.concat(GLOBAL.keywords).toString();
-																GLOBAL.keywords = GLOBAL.tokenizer.tokenize(temp_concat_str);
-																var temp_unique_keywords = GLOBAL.keywords.filter(function(elem, pos){
-																	return GLOBAL.keywords.indexOf(elem) == pos;
-																});
+																// tokenize string
+																var tokenized_ary = GLOBAL.tokenizer.tokenize(GLOBAL.async_nlp.loan_title);
+																var unique_ary = tokenized_ary.filter(function(elem, pos) {
+																				  	return duplicatesArray.indexOf(elem) == pos;
+																				  });
+																				  
+																// get keywords
+																var personal_score = 0, business_score = 0, other_score = 0;
+															  	for( key in GLOBAL.keyword_sets){
+															  		if( GLOBAL.keyword_sets.hasOwnProperty(key) ){
+																		var score_valuation;
+																		if(key === "keywords_personal"){
+																			personal_score = score_valuation;
+																		}
+															  			var keywords_ary = GLOBAL.keyword_sets[key];
+																		keywords_ary.forEach(function(keyword_1, index_2){
+																			unique_ary.forEach(function(keyword_2, index_2){
+																				var score = natural.JaroWinklerDistance(keyword_1, keyword_2);
+																				if( score > score_valuation){
+																					score_valuation = score;
+																				}
+																			});
+																		});
+															  		}
+															  	};
 																
-																GLOBAL.keywords = temp_unique_keywords;
-																console.log(GLOBAL.keywords);
+																// find max value
+																var max_val = GLOBAL.get_max([business_score, personal_score, other_score]);
+																console.log(max_val);
+																// natural.JaroWinklerDistance("dixon","dicksonx");
 														}
 													}
 													
@@ -127,19 +140,32 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 													GLOBAL.async_nlp.count += 1;
 												})
 												.on("end", function(){
-										   			// close readable stream
-													GLOBAL.async_nlp.ith_file += 1;
-													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
-											   		     GLOBAL.async_nlp.csvWriteStream.write(GLOBAL.keywords);
-											   		}
-										            console.log("end readable stream ; current count:" + GLOBAL.async_nlp.count);
-													console.log(GLOBAL.keywords);
+													//
+													// GLOBAL.async_nlp.ith_file += 1;
+// 													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
+// 														var csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_of_loan_title.csv");
+// 														csvWritableStream.on("finish", function(){
+// 															console.log("finish parsing the file...")
+// 														});
+//
+// 														for(key in csv_files_of_keywords){
+// 															var keywords = GLOBAL.keyword_sets[key];
+// 															var csvWriteStream = csv.createWriteStream({ headers : true });
+// 															csvWriteStream.pipe(csvWritableStream);
+// 	 											   		    csvWriteStream.write("");
+// 	 														csvWriteStream.end();
+// 														}
+// 														console.log("done...");
+// 											   		};
 												});
 												
 												// start to parse file
 												csvReadStream.pipe(csvReadableStream);
 										});
-									}
-
-// start to process
-// GLOBAL.async_nlp.parse_files(csv_files_for_parse);
+									};
+									
+GLOBAL.get_max = function(numArray) {
+  return Math.max.apply(null, numArray);
+}
+// start to get keywords and then parse data
+GLOBAL.build_keyword_sets(csv_files_of_keywords);
