@@ -131,7 +131,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																						other_score = score_valuation;
 																					}
 																					console.log('Score set: ' + JSON.stringify([business_score, personal_score, other_score]));
-																				}else if(score > 0.8 && GLOBAL.keyword_sets.keywords_temp.indexOf(keyword) === -1 && GLOBAL.keyword_sets.keywords_temp.length < 200){
+																				}else if(score <= 0.8 && GLOBAL.keyword_sets.keywords_temp.indexOf(keyword) === -1 && GLOBAL.keyword_sets.keywords_temp.length < 200){
 																						GLOBAL.keyword_sets.keywords_temp.push(keyword);
 																				}
 																			});
