@@ -154,6 +154,22 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 													GLOBAL.async_nlp.ith_file += 1;
 													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
 														console.log(GLOBAL.keyword_sets);
+														for( key in GLOBAL.keyword_sets){
+															if(GLOBAL.keyword_sets.hasOwnProperty(key)){
+																keywords = GLOBAL.keyword_sets[key];
+																var csvWriteStream = csv.createWriteStream({ headers : true });
+																var file_path = csv_files_of_keywords[key];
+																var csvWritableStream = fs.createWriteStream(file_path);
+																csvWriteStream.pipe(csvWritableStream);
+																csvWritableStream.on("finish", function(){
+																	console.log("done with store record in: " + file_path);
+																});
+																keywords.forEach(function(elem, index){
+																	csvWriteStream.write(elem);
+																});
+																csvWritableStream.end();
+															}
+														}
 													}
 													
 													//
