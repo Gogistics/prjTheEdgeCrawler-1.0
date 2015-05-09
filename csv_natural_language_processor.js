@@ -110,10 +110,9 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																				  });
 																				  
 																// get keywords
-																var personal_score = 0, business_score = 0, other_score = 0;
+																var personal_score = 0, business_score = 0, other_score = 0, score_valuation = 0;
 															  	for( key in GLOBAL.keyword_sets){
 															  		if( GLOBAL.keyword_sets.hasOwnProperty(key) && key !== "keywords_temp"){
-																		var score_valuation = 0;
 															  			var keywords_ary = GLOBAL.keyword_sets[key];
 																		keywords_ary.forEach(function(keyword_info, index_2){
 																			unique_ary.forEach(function(keyword, index_2){
@@ -138,13 +137,6 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																		});
 															  		}
 															  	};
-																
-																// find max value
-																// var max_val = GLOBAL.get_max([business_score, personal_score, other_score]);
-// 																if(max_val > 0.8){
-// 																	console.log([business_score, personal_score, other_score]);
-// 																}
-																// natural.JaroWinklerDistance("dixon","dicksonx");
 														}
 													}
 													
@@ -152,7 +144,11 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 													GLOBAL.async_nlp.count += 1;
 												})
 												.on("end", function(){
-													console.log(GLOBAL.keyword_sets);
+													GLOBAL.async_nlp.ith_file += 1;
+													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
+														console.log(GLOBAL.keyword_sets);
+													}
+													
 													//
 													// GLOBAL.async_nlp.ith_file += 1;
 // 													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
