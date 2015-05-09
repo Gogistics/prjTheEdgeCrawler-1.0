@@ -121,7 +121,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																				if( score > 0.8 && score > score_valuation){
 																					score_valuation = score;
 																					keyword_info.number = Number(keyword_info.number) + 1;
-																					
+																					console.log(keyword_info.number);
 																					// assign score to the corresponding tag
 																					if(key === "keywords_personal"){
 																						personal_score = score_valuation;
@@ -130,7 +130,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																					}else if(key === "keywords_other"){
 																						other_score = score_valuation;
 																					}
-																					console.log([business_score, personal_score, other_score]);
+																					console.log('Score set: ' + JSON.stringify([business_score, personal_score, other_score]));
 																				}
 																			});
 																		});
