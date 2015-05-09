@@ -127,7 +127,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																				var score = natural.JaroWinklerDistance(keyword_info.keyword, keyword_2);
 																				if( score > score_valuation){
 																					score_valuation = score;
-																					// console.log(score_valuation);
+																					console.log([business_score, personal_score, other_score]);
 																				}
 																			});
 																		});
