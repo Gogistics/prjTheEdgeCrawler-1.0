@@ -112,7 +112,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																// get keywords
 																var personal_score = 0, business_score = 0, other_score = 0;
 															  	for( key in GLOBAL.keyword_sets){
-															  		if( GLOBAL.keyword_sets.hasOwnProperty(key) ){
+															  		if( GLOBAL.keyword_sets.hasOwnProperty(key) && key !== "keywords_temp"){
 																		var score_valuation = 0;
 															  			var keywords_ary = GLOBAL.keyword_sets[key];
 																		keywords_ary.forEach(function(keyword_info, index_2){
