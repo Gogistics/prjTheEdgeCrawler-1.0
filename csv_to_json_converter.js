@@ -51,9 +51,10 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 								var keyword_index = csv_keys.indexOf("keyword"), keyword_number_index = csv_keys.indexOf("number");
 								var keyword = data[keyword_index], keyword_number = data[keyword_number_index];
 								if(GLOBAL.data_obj["children"]["children"] === undefined){
-									GLOBAL.data_obj["children"].push({ name : arg_key, children : []});
+									GLOBAL.data_obj["children"].push({ name : arg_key, children : [{ name : keyword, size : keyword_number }] });
+								}else{
+									GLOBAL.data_obj["children"]["children"].push( { name : keyword, size : keyword_number } );
 								}
-								GLOBAL.data_obj["children"]["children"].push( { name : keyword, size : keyword_number } );
 								console.log(GLOBAL.data_obj["children"], 2, 2);
 							}
 							count += 1;
