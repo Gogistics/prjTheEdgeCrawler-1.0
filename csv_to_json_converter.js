@@ -10,7 +10,7 @@ var csv_files = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/media/static
 						
 
 /*  */
-GLOBAL.data_obj = GLOBAL.data_obj || { name : "keywords_of_reject_loans", children : [ { name : "", children : []} ]};
+GLOBAL.data_obj = GLOBAL.data_obj || { name : "keywords_of_reject_loans", children : [] };
 GLOBAL.convert_files = function(arg_file_paths){
 	for( key in csv_files ){
 		if( csv_files.hasOwnProperty(key) ){
@@ -40,7 +40,7 @@ GLOBAL.create_json_file = function(){
 }
 
 GLOBAL.build_data_obj = function(arg_key, arg_file_path){
-	var csv_keys, count = 0;
+	var csv_keys, count = 0, data = { name : arg_key, children : []};
 	var csvReadStream = fs.createReadStream(arg_file_path);
 	var csvReadableStream = csv()
 						.on("data", function(data){
@@ -49,16 +49,12 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 							}else{
 								var keyword_index = csv_keys.indexOf("keyword"), keyword_number_index = csv_keys.indexOf("number");
 								var keyword = data[keyword_index], keyword_number = data[keyword_number_index];
-								if(GLOBAL.data_obj["children"]["children"] === undefined){
-									GLOBAL.data_obj["children"].push({ name : arg_key, children : [{ name : keyword, size : keyword_number }] });
-								}else{
-									GLOBAL.data_obj["children"]["children"].push( { name : keyword, size : keyword_number } );
-								}
-								console.log(GLOBAL.data_obj["children"]);
+								data.children.push( name : keyword, children : keyword_number);
 							}
 							count += 1;
 						})
 						.on("end", function(){
+							GLOBAL.data_obj.children.push(data);
 							if(arg_key === "keywords_other"){
 								// start to parse data
 								GLOBAL.create_json_file();
