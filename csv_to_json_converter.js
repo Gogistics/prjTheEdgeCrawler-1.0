@@ -53,7 +53,7 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 								if(GLOBAL.data_obj["children"]["children"] === undefined){
 									GLOBAL.data_obj["children"].push({ name : arg_key, children : []});
 								}
-								GLOBAL.data_obj["children"].children.push( { name : keyword, size : keyword_number } );
+								GLOBAL.data_obj["children"]["children"].push( { name : keyword, size : keyword_number } );
 								console.log(GLOBAL.data_obj["children"], 2, 2);
 							}
 							count += 1;
