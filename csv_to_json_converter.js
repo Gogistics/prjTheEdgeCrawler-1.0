@@ -1,6 +1,7 @@
-var converter = require("csvtojson").core.Converter;
-var jsonfile = require("jsonfile");
-var fs = require("fs");
+var converter = require("csvtojson").core.Converter,
+	jsonfile = require("jsonfile"),
+    csv = require('fast-csv'),
+	fs = require("fs");
 
 //
 var csv_files = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_personal.csv",
