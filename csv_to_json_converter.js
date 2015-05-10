@@ -44,12 +44,12 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 						.on("data", function(data){
 							if(count === 0){
 								csv_keys = data;
-								GLOBAL.data_obj.children.push({ name : arg_key, children : []});
+								GLOBAL.data_obj["children"].push({ name : arg_key, children : []});
 							}else{
 								var keyword_index = csv_keys.indexOf("keyword"), keyword_number_index = csv_keys.indexOf("number");
 								var keyword = data[keyword_index], keyword_number = data[keyword_number_index];
 								
-								GLOBAL.data_obj.children.children.push( { name : keyword, size : keyword_number } );
+								GLOBAL.data_obj["children"]["children"]push( { name : keyword, size : keyword_number } );
 							}
 							count += 1;
 						})
