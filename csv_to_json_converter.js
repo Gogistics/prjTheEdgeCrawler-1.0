@@ -40,10 +40,8 @@ GLOBAL.create_json_file = function(){
 }
 
 GLOBAL.build_data_obj = function(arg_key, arg_file_path){
-	var csv_keys, count = 0, data = {};
+	var csv_keys, count = 0, current_data = { name : arg_key, children : []};
 	var csvReadStream = fs.createReadStream(arg_file_path);
-	data.name = arg_key;
-	data.children = [];
 	var csvReadableStream = csv()
 						.on("data", function(data){
 							if(count === 0){
@@ -51,12 +49,12 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 							}else{
 								var keyword_index = csv_keys.indexOf("keyword"), keyword_number_index = csv_keys.indexOf("number");
 								var keyword = data[keyword_index], keyword_number = data[keyword_number_index];
-								data.children.push( { name : keyword, size : keyword_number });
+								current_data["children"].push( { name : keyword, size : keyword_number });
 							}
 							count += 1;
 						})
 						.on("end", function(){
-							GLOBAL.data_obj.children.push(data);
+							GLOBAL.data_obj.children.push(current_data);
 							if(arg_key === "keywords_other"){
 								// start to parse data
 								GLOBAL.create_json_file();
