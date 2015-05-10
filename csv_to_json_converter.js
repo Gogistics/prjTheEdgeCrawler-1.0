@@ -10,7 +10,7 @@ var csv_files = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/media/static
 						
 
 /*  */
-GLOBAL.data_obj = GLOBAL.data_obj || { name : "keywords_of_reject_loans", children : []};
+GLOBAL.data_obj = GLOBAL.data_obj || { name : "keywords_of_reject_loans", children : [ { name : "", children : []} ]};
 GLOBAL.convert_files = function(arg_file_paths){
 	for( key in csv_files ){
 		if( csv_files.hasOwnProperty(key) ){
