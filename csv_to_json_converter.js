@@ -40,7 +40,7 @@ GLOBAL.create_json_file = function(){
 }
 
 GLOBAL.build_data_obj = function(arg_key, arg_file_path){
-	var csv_keys, count = 0, data = { name : arg_key, children : []};
+	var csv_keys, count = 0, data = { name : arg_key, children : new Array() };
 	var csvReadStream = fs.createReadStream(arg_file_path);
 	var csvReadableStream = csv()
 						.on("data", function(data){
@@ -49,7 +49,7 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 							}else{
 								var keyword_index = csv_keys.indexOf("keyword"), keyword_number_index = csv_keys.indexOf("number");
 								var keyword = data[keyword_index], keyword_number = data[keyword_number_index];
-								data.children.push( { name : keyword, size : keyword_number });
+								data["children"].push( { name : keyword, size : keyword_number });
 							}
 							count += 1;
 						})
