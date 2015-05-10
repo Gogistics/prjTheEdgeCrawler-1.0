@@ -156,7 +156,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 														console.log(GLOBAL.keyword_sets);
 														for( key in GLOBAL.keyword_sets){
 															if(GLOBAL.keyword_sets.hasOwnProperty(key) && key !== "keywords_temp"){
-																keywords = GLOBAL.keyword_sets[key];
+																var keywords = GLOBAL.keyword_sets[key];
 																var csvWriteStream = csv.createWriteStream({ headers : true });
 																var file_path = csv_files_of_keywords[key];
 																var csvWritableStream = fs.createWriteStream(file_path);
@@ -165,30 +165,13 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																	console.log("done with store record in: " + file_path);
 																});
 																keywords.forEach(function(elem, index){
+																	console.log(elem);
 																	csvWriteStream.write(elem);
 																});
 																csvWritableStream.end();
 															}
 														}
 													}
-													
-													//
-													// GLOBAL.async_nlp.ith_file += 1;
-// 													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
-// 														var csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_of_loan_title.csv");
-// 														csvWritableStream.on("finish", function(){
-// 															console.log("finish parsing the file...")
-// 														});
-//
-// 														for(key in csv_files_of_keywords){
-// 															var keywords = GLOBAL.keyword_sets[key];
-// 															var csvWriteStream = csv.createWriteStream({ headers : true });
-// 															csvWriteStream.pipe(csvWritableStream);
-// 	 											   		    csvWriteStream.write("");
-// 	 														csvWriteStream.end();
-// 														}
-// 														console.log("done...");
-// 											   		};
 												});
 												
 												// start to parse file
