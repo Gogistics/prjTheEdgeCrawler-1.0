@@ -19,7 +19,7 @@ GLOBAL.convert_files = function(arg_file_paths){
 }
 
 // method 1.
-GLOBAl.convert_csv_to_json = function(arg_key, arg_file_path){
+GLOBAL.convert_csv_to_json = function(arg_key, arg_file_path){
 	var fileStream = fs.createReadStream(arg_file_path);
 	var csvConverter = new Converter({ constructResult : true });
 	
