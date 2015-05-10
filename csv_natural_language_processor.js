@@ -182,7 +182,7 @@ GLOBAL.write_data = function(key){
 			console.log(elem);
 			csvWriteStream.write(elem);
 		});
-		csvWritableStream.end();
+		// csvWritableStream.end();
 	}
 };
 
