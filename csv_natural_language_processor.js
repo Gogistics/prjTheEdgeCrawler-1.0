@@ -12,6 +12,7 @@ var csv_files_of_keywords = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/
 							  keywords_business : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_business.csv",
 							  keywords_other : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_other.csv",
 							  keywords_temp : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_temp.csv" };
+							  
 var csv_parsed_keywords = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_personal.csv",
 							  keywords_business : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_business.csv",
 							  keywords_other : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_other.csv",
@@ -174,15 +175,16 @@ GLOBAL.write_data = function(key){
 		var csvWriteStream = csv.createWriteStream({ headers : true });
 		var file_path = csv_parsed_keywords[key];
 		var csvWritableStream = fs.createWriteStream(file_path);
-		csvWriteStream.pipe(csvWritableStream);
 		csvWritableStream.on("finish", function(){
 			console.log("done with store record in: " + file_path);
 		});
+		
+		csvWriteStream.pipe(csvWritableStream);
 		keywords.forEach(function(elem, index){
 			console.log(elem);
 			csvWriteStream.write(elem);
 		});
-		// csvWritableStream.end();
+		csvWriteStream.end();
 	}
 };
 
