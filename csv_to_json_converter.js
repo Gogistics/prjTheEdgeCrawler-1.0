@@ -33,7 +33,9 @@ GLOBAL.convert_csv_to_json = function(arg_key, arg_file_path){
 GLOBAL.create_json_file = function(){
 	var write_file_path = "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_reject_loans.json";
 	jsonfile.writeFile(write_file_path, GLOBAL.data_obj, function(err){
-		console.log(err);
+		if(err){
+			console.log(err);
+		}
 	});
 }
 
@@ -48,7 +50,7 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 							}else{
 								var keyword_index = csv_keys.indexOf("keyword"), keyword_number_index = csv_keys.indexOf("number");
 								var keyword = data[keyword_index], keyword_number = data[keyword_number_index];
-								// console.log(GLOBAL.data_obj, 2, 2);
+								console.log({ name : keyword, size : keyword_number } , 2, 2);
 								if(GLOBAL.data_obj["children"]["children"] === undefined){
 									GLOBAL.data_obj["children"]["children"] = [];
 								}
@@ -58,9 +60,6 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 						})
 						.on("end", function(){
 							if(arg_key === "keywords_other"){
-								console.log("done...");
-								console.log(JSON.stringify(GLOBAL.data_obj, 2, 2));
-								
 								// start to parse data
 								GLOBAL.create_json_file();
 							}
