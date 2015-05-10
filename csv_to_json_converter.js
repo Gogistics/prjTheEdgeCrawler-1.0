@@ -48,7 +48,7 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 							}else{
 								var keyword_index = csv_keys.indexOf("keyword"), keyword_number_index = csv_keys.indexOf("number");
 								var keyword = data[keyword_index], keyword_number = data[keyword_number_index];
-								
+								console.log(GLOBAL.data_obj, 2, 2);
 								GLOBAL.data_obj["children"]["children"].push( { name : keyword, size : keyword_number } );
 							}
 							count += 1;
