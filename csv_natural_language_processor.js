@@ -155,7 +155,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
 														console.log(GLOBAL.keyword_sets);
 														for( key in GLOBAL.keyword_sets){
-															if(GLOBAL.keyword_sets.hasOwnProperty(key)){
+															if(GLOBAL.keyword_sets.hasOwnProperty(key) && key !== "keywords_temp"){
 																keywords = GLOBAL.keyword_sets[key];
 																var csvWriteStream = csv.createWriteStream({ headers : true });
 																var file_path = csv_files_of_keywords[key];
