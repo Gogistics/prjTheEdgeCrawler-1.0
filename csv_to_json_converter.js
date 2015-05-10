@@ -3,17 +3,17 @@ var jsonfile = require("jsonfile");
 var fs = require("fs");
 
 //
-var csv_parsed_keywords = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_personal.csv",
-							  keywords_business : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_business.csv",
-keywords_other : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_other.csv" };
+var csv_files = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_personal.csv",
+							keywords_business : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_business.csv",
+							keywords_other : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_other.csv" };
 						
 
 /*  */
 GLOBAL.data_obj = GLOBAL.data_obj || { name : "keywords_of_reject_loans", children : []};
 GLOBAL.convert_files = function(arg_file_paths){
-	for( key in csv_parsed_keywords ){
-		if( csv_parsed_keywords.hasOwnProperty(key) ){
-			GLOBAL.build_data_obj(key, csv_parsed_keywords[key]);
+	for( key in csv_files ){
+		if( csv_files.hasOwnProperty(key) ){
+			GLOBAL.build_data_obj(key, csv_files[key]);
 		}
 	}
 }
@@ -65,3 +65,6 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 	// start to parse file
 	csvReadStream.pipe(csvReadableStream);
 }
+
+// start to convert
+GLOBAL.convert_files(csv_files);
