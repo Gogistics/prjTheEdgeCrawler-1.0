@@ -159,21 +159,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
 														console.log(GLOBAL.keyword_sets);
 														for( key in GLOBAL.keyword_sets){
-															if(GLOBAL.keyword_sets.hasOwnProperty(key) && key !== "keywords_temp"){
-																var keywords = GLOBAL.keyword_sets[key];
-																var csvWriteStream = csv.createWriteStream({ headers : true });
-																var file_path = csv_parsed_keywords[key];
-																var csvWritableStream = fs.createWriteStream(file_path);
-																csvWriteStream.pipe(csvWritableStream);
-																csvWritableStream.on("finish", function(){
-																	console.log("done with store record in: " + file_path);
-																});
-																keywords.forEach(function(elem, index){
-																	console.log(elem);
-																	csvWriteStream.write(elem);
-																});
-																csvWritableStream.end();
-															}
+															GLOBAL.write_data(key);
 														}
 													}
 												});
@@ -182,7 +168,24 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 												csvReadStream.pipe(csvReadableStream);
 										});
 									};
-									
+GLOBAL.write_data = function(key){
+	if(GLOBAL.keyword_sets.hasOwnProperty(key) && key !== "keywords_temp"){
+		var keywords = GLOBAL.keyword_sets[key];
+		var csvWriteStream = csv.createWriteStream({ headers : true });
+		var file_path = csv_parsed_keywords[key];
+		var csvWritableStream = fs.createWriteStream(file_path);
+		csvWriteStream.pipe(csvWritableStream);
+		csvWritableStream.on("finish", function(){
+			console.log("done with store record in: " + file_path);
+		});
+		keywords.forEach(function(elem, index){
+			console.log(elem);
+			csvWriteStream.write(elem);
+		});
+		csvWritableStream.end();
+	}
+};
+
 GLOBAL.get_max = function(numArray) {
   return Math.max.apply(null, numArray);
 }
