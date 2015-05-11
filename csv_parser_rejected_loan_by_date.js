@@ -146,21 +146,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 												   		     	GLOBAL.async_parser.csvWriteStream.write(GLOBAL.async_parser.manipulated_obj[key]);
 												   		   	}
 												   		}
-											            console.log("end readable stream ; current count:" + GLOBAL.async_parser.count);
+											            console.log("current count:" + GLOBAL.async_parser.count);
 														console.log(JSON.stringify(GLOBAL.async_parser.manipulated_obj));
 													}
 												});
 												
 												// start to parse file
 												csvReadStream.pipe(csvReadableStream);
-										}, function(err){
-											console.log("done with parsing files");
-											if(err){
-												console.log(err);
-											}else{
-												GLOBAL.async_parser.csvWriteStream.end();
-												console.log(JSON.stringify(GLOBAL.async_parser.manipulated_obj));
-											}
 										});
 									}
 
