@@ -75,12 +75,12 @@ GLOBAL.quick_sort = function(arg_data_ary){
 	if(arg_data_ary.length <= 1){
 		return arg_data_ary;
 	}else{
-		var pivot_value = arg_data_ary[0].size;
+		var pivot_value = Number( arg_data_ary[0].size );
 		
 		for( var key in arg_data_ary){
-			if( arg_data_ary[key].size < pivot_value ){
+			if( Number( arg_data_ary[key].size ) < pivot_value ){
 				smaller_ary.push( arg_data_ary[key] );
-			}else if( arg_data_ary[key].size > pivot_value ){
+			}else if( Number( arg_data_ary[key].size ) > pivot_value ){
 				bigger_ary.push( arg_data_ary[key] );
 			}else{
 				pivot_ary.push( arg_data_ary[key] );
