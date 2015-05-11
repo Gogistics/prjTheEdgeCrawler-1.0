@@ -1,7 +1,8 @@
 /* required modules */
 var fs = require('fs'), 
     csv = require('fast-csv'),
-	async = require('async');
+	async = require('async'),
+	jsonfile = require("jsonfile");
 
 /* file paths */
 var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsA.csv",
@@ -21,7 +22,7 @@ function parser_two(){
 
 /* node.js parser for multiple files with async */
 GLOBAL.async_parser = GLOBAL.async_parser || {};
-GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByDate.csv");
+GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByDate.json");
 GLOBAL.async_parser.csvWritableStream.on("finish", function(){
 	console.log("finish parsing the file...")
 });
@@ -141,12 +142,19 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 										   			// close readable stream
 													GLOBAL.async_parser.ith_file += 1;
 													if(GLOBAL.async_parser.ith_file === csv_files.length){
-												   		for (var key in GLOBAL.async_parser.manipulated_obj) {
-												   		   	if (GLOBAL.async_parser.manipulated_obj.hasOwnProperty(key)) {
-												   		     	GLOBAL.async_parser.csvWriteStream.write(GLOBAL.async_parser.manipulated_obj[key]);
-												   		   	}
-												   		}
-											            console.log("current count:" + GLOBAL.async_parser.count);
+														var write_file_path = "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByDate.json";
+														jsonfile.writeFile(write_file_path, GLOBAL.async_parser.manipulated_obj, function(err){
+															if(err){
+																console.log(err);
+															}
+														});
+														
+												   		// for (var key in GLOBAL.async_parser.manipulated_obj) {
+// 												   		   	if (GLOBAL.async_parser.manipulated_obj.hasOwnProperty(key)) {
+// 												   		     	GLOBAL.async_parser.csvWriteStream.write(GLOBAL.async_parser.manipulated_obj[key]);
+// 												   		   	}
+// 												   		}
+// 											            console.log("current count:" + GLOBAL.async_parser.count);
 														console.log(JSON.stringify(GLOBAL.async_parser.manipulated_obj));
 													}
 												});
