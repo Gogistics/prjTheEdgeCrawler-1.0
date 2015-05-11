@@ -89,7 +89,7 @@ GLOBAL.quick_sort = function(arg_data_ary){
 		
 		//
 		smaller_ary = GLOBAL.quick_sort(smaller_ary);
-		bigger_ary = smaller_ary(bigger_ary);
+		bigger_ary = GLOBAL.quick_sort(bigger_ary);
 		
 		return bigger_ary.concat(pivot_ary).concat(smaller_ary);
 	}
