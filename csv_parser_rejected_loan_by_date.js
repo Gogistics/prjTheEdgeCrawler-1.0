@@ -99,7 +99,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																//
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date] = { date : GLOBAL.async_parser.date,
 																																numbers_of_loan : 1,
-																																state : { GLOBAL["async_parser"]["current_state"] : 1 },
 																																amount_requested : Math.round(Number(GLOBAL.async_parser.current_amount_requested)),
 																																debt_to_income_ratio : Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1))),
 																																count_fico : count_fico,
@@ -108,6 +107,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																total_vantage : temp_vantage,
 																																employment_length : employment_length,
 																															};
+																// set state count
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"][GLOBAL.async_parser.current_state] = 1;
+																
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state !== "" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
