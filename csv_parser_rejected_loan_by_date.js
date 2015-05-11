@@ -116,13 +116,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 																temp_debt_to_inc_ratio >= 0){
 																	// check if State info. already exist
-																	if( GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].state.hasOwnProperty( GLOBAL.async_parser.current_state ) ){
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].state[GLOBAL.async_parser.current_state] += 1;
+																	if( GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"].hasOwnProperty( GLOBAL.async_parser.current_state ) ){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"][GLOBAL.async_parser.current_state] += 1;
 																	}else{
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].state[GLOBAL.async_parser.current_state] = 1;
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"][GLOBAL.async_parser.current_state] = 1;
 																	}
 																	
-																	//
+																	// update data
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].numbers_of_loan += 1;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].amount_requested += Math.round(Number(GLOBAL.async_parser.current_amount_requested));
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].debt_to_income_ratio += Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
@@ -131,7 +131,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].count_vantage += count_vantage;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].total_vantage += temp_vantage;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].employment_length += employment_length;
-														}
+																}
 													}
 													
 													// count iteration
