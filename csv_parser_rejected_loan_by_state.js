@@ -90,7 +90,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// debt  to income ratio
 														var temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														
-														// build structure
+														// build new structure
 														if( GLOBAL.async_parser.current_state !== undefined &&
 															GLOBAL.async_parser.current_state !== "" &&
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&

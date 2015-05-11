@@ -90,45 +90,44 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// debt  to income ratio
 														var temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														
-														// build structure
+														// build new structure
 														if( GLOBAL.async_parser.current_state !== undefined &&
 															GLOBAL.async_parser.current_state !== "" &&
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
-															!(GLOBAL.async_parser.current_state in GLOBAL.async_parser.manipulated_obj) &&
-															temp_debt_to_inc_ratio >= 0){
+															temp_debt_to_inc_ratio >= 0 &&
+															!(GLOBAL.async_parser.date in GLOBAL.async_parser.manipulated_obj) ){
 																//
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state] = { state : GLOBAL.async_parser.current_state,
-																																			numbers_of_loan : 1,
-																																			amount_requested : Math.round(Number(GLOBAL.async_parser.current_amount_requested)),
-																																			debt_to_income_ratio : Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1))),
-																																			count_fico : count_fico,
-																																			total_fico : temp_fico,
-																																			count_vantage : count_vantage,
-																																			total_vantage : temp_vantage,
-																																			employment_length : employment_length,
-																																			from_date : GLOBAL.async_parser.date,
-																																			to_date : GLOBAL.async_parser.date,
-																																		};
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date] = { date : GLOBAL.async_parser.date,
+																																numbers_of_loan : 1,
+																																state : { GLOBAL.async_parser.current_state : 1 },
+																																amount_requested : Math.round(Number(GLOBAL.async_parser.current_amount_requested)),
+																																debt_to_income_ratio : Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1))),
+																																count_fico : count_fico,
+																																total_fico : temp_fico,
+																																count_vantage : count_vantage,
+																																total_vantage : temp_vantage,
+																																employment_length : employment_length,
+																															};
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state !== "" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 																temp_debt_to_inc_ratio >= 0){
-																	//
-																	if( new Date(GLOBAL.async_parser.date).valueOf() < new Date(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].from_date).valueOf() ){
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].from_date = GLOBAL.async_parser.date;
-																	}
-																	if( new Date(GLOBAL.async_parser.date).valueOf() > new Date(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].to_date).valueOf() ){
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].to_date = GLOBAL.async_parser.date;
+																	// check if State info. already exist
+																	if( GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].state.hasOwnProperty( GLOBAL.async_parser.current_state ) ){
+																		
+																	}else{
+																		
 																	}
 																	
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].numbers_of_loan += 1;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].amount_requested += Math.round(Number(GLOBAL.async_parser.current_amount_requested));
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].debt_to_income_ratio += Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].count_fico += count_fico;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].total_fico += temp_fico;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].count_vantage += count_vantage;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].total_vantage += temp_vantage;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_state].employment_length += employment_length;
+																	//
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].numbers_of_loan += 1;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].amount_requested += Math.round(Number(GLOBAL.async_parser.current_amount_requested));
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].debt_to_income_ratio += Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].count_fico += count_fico;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].total_fico += temp_fico;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].count_vantage += count_vantage;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].total_vantage += temp_vantage;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].employment_length += employment_length;
 														}
 													}
 													

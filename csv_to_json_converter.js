@@ -54,6 +54,10 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 							count += 1;
 						})
 						.on("end", function(){
+							// before push data to array, do sorting first
+							current_data["children"] = GLOBAL.quick_sort( current_data["children"] );
+							
+							// push data into ary
 							GLOBAL.data_obj.children.push(current_data);
 							if(arg_key === "keywords_other"){
 								// start to parse data
@@ -63,6 +67,32 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 						
 	// start to parse file
 	csvReadStream.pipe(csvReadableStream);
+}
+
+GLOBAL.quick_sort = function(arg_data_ary){
+	var smaller_ary = [], pivot_ary = [], bigger_ary = [];
+	
+	if(arg_data_ary.length <= 1){
+		return arg_data_ary;
+	}else{
+		var pivot_value = arg_data_ary[0].size;
+		
+		for( var key in arg_data_ary){
+			if( arg_data_ary[key].size < pivot_value ){
+				smaller_ary.push( arg_data_ary[key] );
+			}else if( arg_data_ary[key].size > pivot_value ){
+				bigger_ary.push( arg_data_ary[key] );
+			}else{
+				pivot_ary.push( arg_data_ary[key] );
+			}
+		}
+		
+		//
+		smaller_ary = GLOBAL.quick_sort(smaller_ary);
+		bigger_ary = smaller_ary(bigger_ary);
+		
+		return bigger_ary.concat(pivot_ary).concat(smaller_ary);
+	}
 }
 
 // start to convert
