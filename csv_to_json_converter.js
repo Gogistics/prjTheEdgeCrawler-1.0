@@ -56,7 +56,7 @@ GLOBAL.build_data_obj = function(arg_key, arg_file_path){
 						.on("end", function(){
 							// before push data to array, do sorting first
 							current_data["children"] = GLOBAL.quick_sort( current_data["children"] );
-							
+							console.log(current_data);
 							// push data into ary
 							GLOBAL.data_obj.children.push(current_data);
 							if(arg_key === "keywords_other"){
