@@ -13,7 +13,7 @@ config_mongojs.db_collections = ['crowd_funding_lending'];
 GLOBAL.my_mongo = mongojs.connect(config_mongojs.db_url, config_mongojs.db_collections);
 
 /* set new crawler */
-GLOBAL.config_crawler.url = 'http://www.forbes.com/';
+GLOBAL.config_crawler.url = 'http://www.wsj.com/';
 GLOBAL.config_crawler.setting = {maxConnection : 10,
 								 forceUTF8 : true,
 								};
@@ -52,6 +52,7 @@ GLOBAL.config_crawler.setting.callback = function(err, result){
 															GLOBAL.my_mongo.crowd_funding_lending.update({'link' : sub_url}, temp_info, {upsert : true} ,function(err, saved_info){
 																if(!err){
 																	console.log(saved_info);
+																	GLOBAL.crawler_1.queue( sub_url );
 																}
 															});
 
