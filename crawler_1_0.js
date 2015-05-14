@@ -9,7 +9,7 @@ GLOBAL.config_mongojs = GLOBAL.config_mongojs || {};
 
 // config mongojs
 config_mongojs.db_url = 'localhost/the_edge';
-config_mongojs.db_collections = ['crowd_funding_lending'];
+config_mongojs.db_collections = ['market_x'];
 GLOBAL.my_mongo = mongojs.connect(config_mongojs.db_url, config_mongojs.db_collections);
 
 /* set new crawler */
@@ -51,7 +51,7 @@ GLOBAL.config_crawler.setting.callback = function(err, result){
 															if(uber_keyword){
 																// save info to mongodb
 																var temp_info = new GLOBAL.config_crawler.setting.info(sub_url, str.toString("utf-8"));
-																GLOBAL.my_mongo.crowd_funding_lending.update({'link' : sub_url}, temp_info, {upsert : true} ,function(err, saved_info){
+																GLOBAL.my_mongo.market_x.update({'link' : sub_url}, temp_info, {upsert : true} ,function(err, saved_info){
 																	if(!err){
 																		console.log(saved_info);
 																	}
