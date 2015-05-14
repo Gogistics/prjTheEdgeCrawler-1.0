@@ -13,7 +13,7 @@ config_mongojs.db_collections = ['market_x'];
 GLOBAL.my_mongo = mongojs.connect(config_mongojs.db_url, config_mongojs.db_collections);
 
 /* set new crawler */
-GLOBAL.config_crawler.url = 'http://www.wsj.com/';
+GLOBAL.config_crawler.url = 'http://gsvcap.com/';
 GLOBAL.config_crawler.setting = {maxConnection : 10,
 								 forceUTF8 : true,
 								};
