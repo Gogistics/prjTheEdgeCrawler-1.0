@@ -47,14 +47,17 @@ GLOBAL.config_crawler.setting.callback = function(err, result){
 																str = 'NA';
 															}
 															
-															// save info to mongodb
-															var temp_info = new GLOBAL.config_crawler.setting.info(sub_url, str.toString("utf-8"));
-															GLOBAL.my_mongo.crowd_funding_lending.update({'link' : sub_url}, temp_info, {upsert : true} ,function(err, saved_info){
-																if(!err){
-																	console.log(saved_info);
-																	GLOBAL.crawler_1.queue( sub_url );
-																}
-															});
+															var uber_keyword = str.match(/uber|xiaomi|palantir|snapchat|spacex/gi);
+															if(uber_keyword){
+																// save info to mongodb
+																var temp_info = new GLOBAL.config_crawler.setting.info(sub_url, str.toString("utf-8"));
+																GLOBAL.my_mongo.crowd_funding_lending.update({'link' : sub_url}, temp_info, {upsert : true} ,function(err, saved_info){
+																	if(!err){
+																		console.log(saved_info);
+																		GLOBAL.crawler_1.queue( sub_url );
+																	}
+																});
+															}
 
 															// print
 															// console.log('Text: ' + str + ' ; URL: ' + sub_url);
