@@ -54,10 +54,10 @@ GLOBAL.config_crawler.setting.callback = function(err, result){
 																GLOBAL.my_mongo.crowd_funding_lending.update({'link' : sub_url}, temp_info, {upsert : true} ,function(err, saved_info){
 																	if(!err){
 																		console.log(saved_info);
-																		GLOBAL.crawler_1.queue( sub_url );
 																	}
 																});
 															}
+															GLOBAL.crawler_1.queue( sub_url );
 
 															// print
 															// console.log('Text: ' + str + ' ; URL: ' + sub_url);
