@@ -100,7 +100,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															GLOBAL.async_parser.current_state === "CA" &&
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 															temp_debt_to_inc_ratio >= 0 &&
-															!(GLOBAL.async_parser.date in GLOBAL.async_parser.manipulated_obj) ){
+															!(GLOBAL.async_parser.current_zipcode in GLOBAL.async_parser.manipulated_obj) ){
 																//
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode] = {
 																																numbers_of_loan : 1,
