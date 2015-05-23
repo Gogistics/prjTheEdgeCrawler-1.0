@@ -22,7 +22,7 @@ function parser_two(){
 
 /* node.js parser for multiple files with async */
 GLOBAL.async_parser = GLOBAL.async_parser || {};
-GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByDate.json");
+GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByCAZipcode.json");
 GLOBAL.async_parser.csvWritableStream.on("finish", function(){
 	console.log("finish parsing the file...")
 });
@@ -43,6 +43,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 													}else{
 														GLOBAL.async_parser.state_index = GLOBAL.async_parser.keys.indexOf("State");
 														GLOBAL.async_parser.current_state = data[GLOBAL.async_parser.state_index];
+														
+														GLOBAL.async_parser.zipcode_index = GLOBAL.async_parser.keys.indexOf("Zip Code");
+														GLOBAL.async_parser.current_zipcode = data[GLOBAL.async_parser.zipcode_index];
 													
 														// get annual inc
 														GLOBAL.async_parser.amount_requested_index = GLOBAL.async_parser.keys.indexOf("Amount Requested");
@@ -94,7 +97,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														
 														// build new structure
 														if( GLOBAL.async_parser.current_state !== undefined &&
-															GLOBAL.async_parser.current_state !== "" &&
+															GLOBAL.async_parser.current_state !== "CA" &&
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 															temp_debt_to_inc_ratio >= 0 &&
 															!(GLOBAL.async_parser.date in GLOBAL.async_parser.manipulated_obj) ){
@@ -112,9 +115,10 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																// set state count
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"] = {};
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"][GLOBAL.async_parser.current_state] = 1;
+																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
-																GLOBAL.async_parser.current_state !== "" &&
+																GLOBAL.async_parser.current_state !== "CA" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 																temp_debt_to_inc_ratio >= 0){
 																	// check if State info. already exist
@@ -133,6 +137,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].count_vantage += count_vantage;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].total_vantage += temp_vantage;
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].employment_length += employment_length;
+																	
+																	//
+																	console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																}
 													}
 													
@@ -143,7 +150,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 										   			// close readable stream
 													GLOBAL.async_parser.ith_file += 1;
 													if(GLOBAL.async_parser.ith_file === csv_files.length){
-														var write_file_path = "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByDate.json";
+														var write_file_path = "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByCAZipcode.json";
 														jsonfile.writeFile(write_file_path, GLOBAL.async_parser.manipulated_obj, function(err){
 															if(err){
 																console.log(err);
