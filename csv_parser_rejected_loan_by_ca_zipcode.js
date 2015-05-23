@@ -102,7 +102,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															temp_debt_to_inc_ratio >= 0 &&
 															!(GLOBAL.async_parser.date in GLOBAL.async_parser.manipulated_obj) ){
 																//
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date] = { date : GLOBAL.async_parser.date,
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode] = {
 																																numbers_of_loan : 1,
 																																amount_requested : Math.round(Number(GLOBAL.async_parser.current_amount_requested)),
 																																debt_to_income_ratio : Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1))),
@@ -112,21 +112,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																total_vantage : temp_vantage,
 																																employment_length : employment_length,
 																															};
-																// set state count
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"] = {};
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"][GLOBAL.async_parser.current_state] = 1;
 																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state === "CA" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 																temp_debt_to_inc_ratio >= 0){
-																	// check if State info. already exist
-																	if( GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"].hasOwnProperty( GLOBAL.async_parser.current_state ) ){
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"][GLOBAL.async_parser.current_state] += 1;
-																	}else{
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date]["state"][GLOBAL.async_parser.current_state] = 1;
-																	}
+																	
 																	
 																	// update data
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].numbers_of_loan += 1;
