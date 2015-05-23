@@ -121,14 +121,14 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	
 																	
 																	// update data
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].numbers_of_loan += 1;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].amount_requested += Math.round(Number(GLOBAL.async_parser.current_amount_requested));
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].debt_to_income_ratio += Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].count_fico += count_fico;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].total_fico += temp_fico;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].count_vantage += count_vantage;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].total_vantage += temp_vantage;
-																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.date].employment_length += employment_length;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].numbers_of_loan += 1;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].amount_requested += Math.round(Number(GLOBAL.async_parser.current_amount_requested));
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].debt_to_income_ratio += Math.round(Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1)));
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].count_fico += count_fico;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].total_fico += temp_fico;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].count_vantage += count_vantage;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].total_vantage += temp_vantage;
+																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].employment_length += employment_length;
 																	
 																	//
 																	console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
