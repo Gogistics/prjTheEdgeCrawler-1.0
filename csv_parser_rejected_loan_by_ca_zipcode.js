@@ -102,7 +102,8 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															temp_debt_to_inc_ratio >= 0 &&
 															!(GLOBAL.async_parser.current_zipcode in GLOBAL.async_parser.manipulated_obj) ){
 																
-																//
+																// get current date
+																var current_date = GLOBAL.async_parser.date;
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode] = {
 																																numbers_of_loan : 1,
 																																amount_requested : Math.round(Number(GLOBAL.async_parser.current_amount_requested)),
@@ -115,7 +116,8 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																from_date : current_date,
 																																to_date : current_date,
 																															};
-																var current_date = GLOBAL.async_parser.date;
+																															
+																// build dates arrary
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'] = {};
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date] = 1;
 																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
