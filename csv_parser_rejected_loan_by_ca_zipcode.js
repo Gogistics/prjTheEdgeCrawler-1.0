@@ -101,6 +101,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 															temp_debt_to_inc_ratio >= 0 &&
 															!(GLOBAL.async_parser.current_zipcode in GLOBAL.async_parser.manipulated_obj) ){
+																var current_date = GLOBAL.async_parser.date;
 																//
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode] = {
 																																numbers_of_loan : 1,
@@ -111,9 +112,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																count_vantage : count_vantage,
 																																total_vantage : temp_vantage,
 																																employment_length : employment_length,
-																																from_date : GLOBAL['async_parser']['date'],
-																																to_date : GLOBAL['async_parser']['date'],
-																																dates : { GLOBAL['async_parser']['date'] : 1},
+																																from_date : current_date,
+																																to_date : current_date,
+																																dates : { current_date : 1},
 																															};
 																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																
