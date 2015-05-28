@@ -14,9 +14,9 @@ var csv_files_of_keywords = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/
 							  keywords_temp : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/keywords_temp.csv" };
 							  
 var csv_parsed_keywords = { keywords_personal : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_personal.csv",
-							  keywords_business : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_business.csv",
-							  keywords_other : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_other.csv",
-							  keywords_temp : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_temp.csv" };
+						  keywords_business : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_business.csv",
+						  keywords_other : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_other.csv",
+						  keywords_temp : "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsed_keywords_temp.csv" };
 						
 /* build keyword objects */
 GLOBAL.keyword_sets = GLOBAL.keyword_sets || {};

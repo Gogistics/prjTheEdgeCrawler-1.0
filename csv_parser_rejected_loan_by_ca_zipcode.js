@@ -111,6 +111,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																count_vantage : count_vantage,
 																																total_vantage : temp_vantage,
 																																employment_length : employment_length,
+																																from_date : GLOBAL.async_parser.date,
+																																to_date : GLOBAL.async_parser.date,
+																																dates : { GLOBAL.async_parser['date' : 1},
 																															};
 																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																
@@ -119,6 +122,20 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 																temp_debt_to_inc_ratio >= 0){
 																	
+																	// update from_date and to_date
+																	if(new Date(GLOBAL.async_parser.date).valueOf() < new Date(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].from_date)){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].from_date = GLOBAL.async_parser.date;
+																	}
+																	
+																	if(new Date(GLOBAL.async_parser.date).valueOf() > new Date(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].to_date)){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].to_date = GLOBAL.async_parser.date;
+																	}
+																	
+																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates.hasOwnProperty(GLOBAL.async_parser.date)){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates[GLOBAL.async_parser.date] += 1;
+																	}else{
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates[GLOBAL.async_parser.date] = 1;
+																	}
 																	
 																	// update data
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].numbers_of_loan += 1;
