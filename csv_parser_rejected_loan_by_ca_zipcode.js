@@ -116,6 +116,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																to_date : current_date,
 																															};
 																var current_date = GLOBAL.async_parser.date;
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'] = {};
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date] = 1;
 																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																
