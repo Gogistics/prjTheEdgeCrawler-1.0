@@ -101,7 +101,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 															temp_debt_to_inc_ratio >= 0 &&
 															!(GLOBAL.async_parser.current_zipcode in GLOBAL.async_parser.manipulated_obj) ){
-																var current_date = GLOBAL.async_parser.date;
+																
 																//
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode] = {
 																																numbers_of_loan : 1,
@@ -114,8 +114,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																employment_length : employment_length,
 																																from_date : current_date,
 																																to_date : current_date,
-																																dates : { current_date : 1},
 																															};
+																var current_date = GLOBAL.async_parser.date;
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode][current_date] = 1;
 																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
