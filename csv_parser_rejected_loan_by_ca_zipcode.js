@@ -111,9 +111,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																count_vantage : count_vantage,
 																																total_vantage : temp_vantage,
 																																employment_length : employment_length,
-																																from_date : GLOBAL.async_parser.date,
-																																to_date : GLOBAL.async_parser.date,
-																																dates : { GLOBAL.async_parser['date'] : 1},
+																																from_date : GLOBAL['async_parser']['date'],
+																																to_date : GLOBAL['async_parser']['date'],
+																																dates : { GLOBAL['async_parser']['date'] : 1},
 																															};
 																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																
