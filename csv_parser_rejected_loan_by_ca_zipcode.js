@@ -9,12 +9,6 @@ var fs = require('fs'),
 var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsA.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsB.csv"];
 
-
-/* load classifier */
-natural.BayesClassifier.load('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/rejectLoansClassifier.json', null, function(err, classifier){
-	GLOBAL.classifier = classifier;
-});
-
 /* node.js parser for multiple files with async */
 GLOBAL.async_parser = GLOBAL.async_parser || {};
 // set writablestream
@@ -196,6 +190,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 										});
 									}
 
-// start to parse
-GLOBAL.async_parser.parse_files(csv_files);
+/* load classifier */
+natural.BayesClassifier.load('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/rejectLoansClassifier.json', null, function(err, classifier){
+	// classifier is ready to go
+	GLOBAL.classifier = classifier;
+	
+	// start to parse
+	GLOBAL.async_parser.parse_files(csv_files);
+});
+
 /* end of parser */
