@@ -132,7 +132,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																						training_subset.keyword = keyword_info.keyword;
 																						training_subset.sentence = GLOBAL.async_nlp.loan_title;
 																						training_subset.score = score_valuation;
-																						
+																						console.log(training_subset);
 																						// assign score to the corresponding tag
 																						if(key === "keywords_personal"){
 																							personal_score = score_valuation;
@@ -154,11 +154,12 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																			GLOBAL.keyword_sets.keywords_temp.push(keyword);
 																	};
 																	
-																	// add new training subset
-																	if(training_subset.score > 0.8 && GLOBAL.training_set.length < 500){
-																		GLOBAL.training_set.push(training_subset);
-																	}
 																});
+																
+																// add new training subset
+																if(training_subset.score > 0.8 && GLOBAL.training_set.length < 500){
+																	GLOBAL.training_set.push(training_subset);
+																}
 																
 														}
 													}
