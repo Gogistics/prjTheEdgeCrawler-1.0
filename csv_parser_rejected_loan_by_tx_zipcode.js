@@ -8,18 +8,6 @@ var fs = require('fs'),
 var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsA.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsB.csv"];
 
-/* prototype two */
-function parser_two(){
-	async.forEach(csv_files, function (item, callback){ 
-	    console.log(item); // print the key
-	    callback(); // tell async that the iterator has completed
-
-	}, function(err) {
-	    console.log('iterating done');
-	});
-}
-/* end */
-
 /* node.js parser for multiple files with async */
 GLOBAL.async_parser = GLOBAL.async_parser || {};
 GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByTXZipcode.json");
