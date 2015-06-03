@@ -67,7 +67,7 @@ GLOBAL.async_nlp = GLOBAL.async_nlp || {};
 GLOBAL.async_nlp.count = 0, GLOBAL.async_nlp.ith_file = 0;
 GLOBAL.async_nlp.keys = [];
 GLOBAL.async_nlp.manipulated_obj = {};
-GLOABL.training_set = [];
+GLOBAL.training_set = [];
 GLOBAL.async_nlp.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
 											var csvReadStream = fs.createReadStream(file_path);
