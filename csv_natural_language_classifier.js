@@ -168,7 +168,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 													GLOBAL.async_nlp.count += 1;
 												})
 												.on("end", function(){
-													console.log(GLOBAL.training_subset);
+													console.log(GLOBAL.training_set);
 													GLOBAL.async_nlp.ith_file += 1;
 													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
 														// console.log(GLOBAL.keyword_sets);
