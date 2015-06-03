@@ -157,8 +157,8 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																
 																
 																// add new training subset
-																if(GLOBAL.training_subset.score > 0.8){
-																	GLOBAL.training_subset.push(training_subset);
+																if(training_subset.score > 0.8){
+																	GLOBAL.training_set.push(training_subset);
 																}
 														}
 													}
