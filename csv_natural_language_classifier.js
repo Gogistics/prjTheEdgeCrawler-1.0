@@ -127,11 +127,11 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																					if( score > 0.8 && score > score_valuation){
 																						score_valuation = score;
 																						keyword_info.number = Number(keyword_info.number) + 1;
-																						console.log(keyword_info.number);
 																						
 																						training_subset.key = key;
 																						training_subset.keyword = keyword_info.keyword;
 																						training_subset.sentence = GLOBAL.async_nlp.loan_title;
+																						training_subset.score = score_valuation;
 																						
 																						// assign score to the corresponding tag
 																						if(key === "keywords_personal"){
