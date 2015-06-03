@@ -2,7 +2,8 @@
 var fs = require('fs'), 
     csv = require('fast-csv'),
 	async = require('async'),
-	natural = require('natural');
+	natural = require('natural'),
+	jsonfile = require("jsonfile");
 
 /* file paths */
 var csv_files_for_parse = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsA.csv",
@@ -169,6 +170,14 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 												})
 												.on("end", function(){
 													console.log(GLOBAL.training_set);
+													var write_file_path = "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultTrainingSet.json";
+													jsonfile.writeFile(write_file_path, GLOBAL.async_parser.manipulated_obj, function(err){
+														if(err){
+															console.log(err);
+														}
+													});
+													
+													// show key words
 													GLOBAL.async_nlp.ith_file += 1;
 													if(GLOBAL.async_nlp.ith_file === csv_files_for_parse.length){
 														// console.log(GLOBAL.keyword_sets);
