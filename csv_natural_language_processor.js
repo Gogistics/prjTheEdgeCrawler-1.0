@@ -67,6 +67,7 @@ GLOBAL.async_nlp = GLOBAL.async_nlp || {};
 GLOBAL.async_nlp.count = 0, GLOBAL.async_nlp.ith_file = 0;
 GLOBAL.async_nlp.keys = [];
 GLOBAL.async_nlp.manipulated_obj = {};
+GLOABL.training_set = [];
 GLOBAL.async_nlp.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
 											var csvReadStream = fs.createReadStream(file_path);
@@ -114,8 +115,11 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																				  	return tokenized_ary.indexOf(elem) == pos;
 																				  });
 																				  
-																// get keywords
-																var personal_score = 0, business_score = 0, other_score = 0, score_valuation = 0;
+																// evaluate keywords keywords
+																var personal_temp_keyword, personal_score = 0,
+																	business_temp_keyword, business_score = 0,
+																	other_temp_keyword, other_score = 0,
+																	score_valuation = 0;
 																unique_ary.forEach(function(keyword, index_2){
 																  	for( key in GLOBAL.keyword_sets){
 																  		if( GLOBAL.keyword_sets.hasOwnProperty(key) && key !== "keywords_temp"){
@@ -126,6 +130,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																						score_valuation = score;
 																						keyword_info.number = Number(keyword_info.number) + 1;
 																						console.log(keyword_info.number);
+																						
 																						// assign score to the corresponding tag
 																						if(key === "keywords_personal"){
 																							personal_score = score_valuation;
@@ -141,13 +146,13 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																  		}
 																  	};
 																	
+																	// check value
 																	if( score_valuation <= 0.8 &&
 																		GLOBAL.keyword_sets.keywords_temp.indexOf(keyword) === -1 &&
 																		GLOBAL.keyword_sets.keywords_temp.length < 200){
 																			GLOBAL.keyword_sets.keywords_temp.push(keyword);
 																	};
 																});
-																
 																
 														}
 													}
