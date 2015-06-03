@@ -171,7 +171,7 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 												.on("end", function(){
 													console.log(GLOBAL.training_set);
 													var write_file_path = "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultTrainingSet.json";
-													jsonfile.writeFile(write_file_path, GLOBAL.async_parser.manipulated_obj, function(err){
+													jsonfile.writeFile(write_file_path, GLOBAL.training_set, function(err){
 														if(err){
 															console.log(err);
 														}
