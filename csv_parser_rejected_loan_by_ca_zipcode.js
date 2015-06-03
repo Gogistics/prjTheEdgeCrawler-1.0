@@ -60,6 +60,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.loan_title = GLOBAL.async_parser.loan_title.replace(/^\w\s/gi, ' '); // remove all special characters
 														// classify loan type
 														var loan_type = GLOBAL.classifier.classify(GLOBAL.async_parser.loan_title);
+														if(loan_type === undefined || loan_type === null){
+															loan_type = "other";
+														}
 														
 														// get employment length
 														GLOBAL.async_parser.employment_length_index = GLOBAL.async_parser.keys.indexOf("Employment Length");
