@@ -65,7 +65,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.loan_title = data[GLOBAL.async_parser.loan_title_index].toLowerCase();
 														GLOBAL.async_parser.loan_title = GLOBAL.async_parser.loan_title.replace(/^\w\s/gi, ' '); // remove all special characters
 														// classify loan type
-														var loan_type = classifier.classify(GLOBAL.async_parser.loan_title);
+														var loan_type = GLOBAL.classifier.classify(GLOBAL.async_parser.loan_title);
 														
 														// get employment length
 														GLOBAL.async_parser.employment_length_index = GLOBAL.async_parser.keys.indexOf("Employment Length");
@@ -152,7 +152,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	}
 																	
 																	// update loan types
-																	var classify
 																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'].hasOwnProperty(loan_type)){
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types']['loan_type'] += 1;
 																	}else{
