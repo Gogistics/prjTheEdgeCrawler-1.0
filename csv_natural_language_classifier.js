@@ -46,8 +46,8 @@ GLOBAL.get_keywords = function(arg_key, arg_file_paths){
 						})
 						.on("end", function(){
 							if(arg_key === "keywords_other"){
-								console.log("done...");
-								console.log(JSON.stringify(GLOBAL.keyword_sets, 2, 2));
+								console.log("done and start next job...");
+								// console.log(JSON.stringify(GLOBAL.keyword_sets, 2, 2));
 								
 								// start to parse data
 								GLOBAL.async_nlp.parse_files(csv_files_for_parse);
@@ -153,13 +153,13 @@ GLOBAL.async_nlp.parse_files = function (arg_files){
 																		GLOBAL.keyword_sets.keywords_temp.length < 200){
 																			GLOBAL.keyword_sets.keywords_temp.push(keyword);
 																	};
+																	
+																	// add new training subset
+																	if(training_subset.score > 0.8 && GLOBAL.training_set.length < 500){
+																		GLOBAL.training_set.push(training_subset);
+																	}
 																});
 																
-																
-																// add new training subset
-																if(training_subset.score > 0.8 && GLOBAL.training_set.length < 500){
-																	GLOBAL.training_set.push(training_subset);
-																}
 														}
 													}
 													
