@@ -149,7 +149,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	
 																	// update loan types
 																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'].hasOwnProperty(loan_type)){
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types']['loan_type'] += 1;
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] += 1;
 																	}else{
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] = 1;
 																	}
