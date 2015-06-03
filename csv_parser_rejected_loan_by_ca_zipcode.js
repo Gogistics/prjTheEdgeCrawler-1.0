@@ -128,7 +128,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																
 																
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'] = {};
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types']['loan_type'] = loan_types;
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types']['loan_type'] = loan_type;
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types']['count'] = 1;
 																
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
