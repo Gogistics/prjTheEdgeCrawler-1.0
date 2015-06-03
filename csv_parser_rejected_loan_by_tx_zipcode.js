@@ -2,7 +2,8 @@
 var fs = require('fs'), 
     csv = require('fast-csv'),
 	async = require('async'),
-	jsonfile = require("jsonfile");
+	jsonfile = require("jsonfile"),
+	natural = require('natural');
 
 /* file paths */
 var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/RejectStatsA.csv",
@@ -50,6 +51,16 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get risk score
 														GLOBAL.async_parser.risk_score_index = GLOBAL.async_parser.keys.indexOf("Risk_Score");
 														GLOBAL.async_parser.risk_score = data[GLOBAL.async_parser.risk_score_index];
+														
+														// get loan title
+														GLOBAL.async_parser.loan_title_index = GLOBAL.async_parser.keys.indexOf("Loan Title");
+														GLOBAL.async_parser.loan_title = data[GLOBAL.async_parser.loan_title_index].toLowerCase();
+														GLOBAL.async_parser.loan_title = GLOBAL.async_parser.loan_title.replace(/^\w\s/gi, ' '); // remove all special characters
+														// classify loan type
+														var loan_type = GLOBAL.classifier.classify(GLOBAL.async_parser.loan_title);
+														if(loan_type === undefined || loan_type === null){
+															loan_type = "other";
+														}
 														
 														// get employment length
 														GLOBAL.async_parser.employment_length_index = GLOBAL.async_parser.keys.indexOf("Employment Length");
@@ -110,6 +121,10 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date] = 1;
 																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																
+																//
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'] = {};
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] = 1;
+																
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state === "TX" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
@@ -128,6 +143,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates[GLOBAL.async_parser.date] += 1;
 																	}else{
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates[GLOBAL.async_parser.date] = 1;
+																	}
+																	
+																	// update loan types
+																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'].hasOwnProperty(loan_type)){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] += 1;
+																	}else{
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] = 1;
 																	}
 																	
 																	// update data
@@ -168,6 +190,12 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 										});
 									}
 
-// start to parse
-GLOBAL.async_parser.parse_files(csv_files);
+/* load classifier */
+natural.BayesClassifier.load('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/rejectLoansClassifier.json', null, function(err, classifier){
+	// classifier is ready to go
+	GLOBAL.classifier = classifier;
+
+	// start to parse
+	GLOBAL.async_parser.parse_files(csv_files);
+});
 /* end of parser */
