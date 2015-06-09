@@ -12,7 +12,7 @@ var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lendi
 /* node.js parser for multiple files with async */
 GLOBAL.async_parser = GLOBAL.async_parser || {};
 // set writablestream
-GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByCAZipcode.json");
+GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByCAZipcodeDate.json");
 GLOBAL.async_parser.csvWritableStream.on("finish", function(){
 	console.log("finish parsing the file...")
 });
@@ -120,11 +120,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																															
 																// build dates arrary
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'] = {};
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date] = 1;
-																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
-																
-																//
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'] = {};
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date]['loan_types'] = {};
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] = 1;
 																
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
@@ -141,18 +137,18 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].to_date = GLOBAL.async_parser.date;
 																	}
 																	
-																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates.hasOwnProperty(GLOBAL.async_parser.date)){
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates[GLOBAL.async_parser.date] += 1;
+																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'].hasOwnProperty(GLOBAL.async_parser.date)){
+																		// update loan types
+																		if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'].hasOwnProperty(loan_type)){
+																			GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'][loan_type] += 1;
+																		}else{
+																			GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'][loan_type] = 1;
+																		}
 																	}else{
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates[GLOBAL.async_parser.date] = 1;
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'] = {};
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'][loan_type] = 1;
 																	}
 																	
-																	// update loan types
-																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'].hasOwnProperty(loan_type)){
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] += 1;
-																	}else{
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] = 1;
-																	}
 																	
 																	// update data
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].numbers_of_loan += 1;
@@ -176,7 +172,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 										   			// close readable stream
 													GLOBAL.async_parser.ith_file += 1;
 													if(GLOBAL.async_parser.ith_file === csv_files.length){
-														var write_file_path = "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByCAZipcode.json";
+														var write_file_path = "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByCAZipcodeDate.json";
 														jsonfile.writeFile(write_file_path, GLOBAL.async_parser.manipulated_obj, function(err){
 															if(err){
 																console.log(err);
