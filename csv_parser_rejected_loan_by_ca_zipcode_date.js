@@ -120,6 +120,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																															
 																// build dates arrary
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'] = {};
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date] = {};
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date]['loan_types'] = {};
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] = 1;
 																
@@ -145,6 +146,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																			GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'][loan_type] = 1;
 																		}
 																	}else{
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date] = {};
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'] = {};
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'][loan_type] = 1;
 																	}
