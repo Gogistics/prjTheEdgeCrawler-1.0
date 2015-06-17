@@ -71,16 +71,21 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														regex_plus_sign = /\+/g,
 														regex_employment_length = /\d+/g,
 														employment_length = 0,
+														emply_length_key = '',
 														temp_employment_length = GLOBAL.async_parser.employment_length.match(regex_employment_length);
 														
 														if(GLOBAL.async_parser.employment_length.match(regex_smaller_sign)){
 															employment_length = 0.5;
+															emply_length_key = 'less_than_1';
 														}else if(GLOBAL.async_parser.employment_length.match(regex_plus_sign)){
 															employment_length = 10.5;
+															emply_length_key = 'longer_than_10';
 														}else if(temp_employment_length === undefined || temp_employment_length === null){
 															employment_length = 0;
+															emply_length_key = '0';
 														}else{
 															employment_length = Number(temp_employment_length[0]);
+															emply_length_key = temp_employment_length[0];
 														}
 														
 														// temp FICO & Vantage Value
@@ -118,14 +123,19 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																to_date : current_date,
 																															};
 																															
-																// build dates arrary
+																// build dates obj
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'] = {};
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date] = 1;
 																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																
-																//
+																// build loan type obj
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'] = {};
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] = 1;
+																
+																//
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'] = {};
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'][emply_length_key] = 1;
+																
 																
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state === "CA" &&
@@ -141,6 +151,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].to_date = GLOBAL.async_parser.date;
 																	}
 																	
+																	//
 																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates.hasOwnProperty(GLOBAL.async_parser.date)){
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates[GLOBAL.async_parser.date] += 1;
 																	}else{
@@ -152,6 +163,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] += 1;
 																	}else{
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] = 1;
+																	}
+																	
+																	// update loan types
+																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'].hasOwnProperty(emply_length_key)){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'][emply_length_key] += 1;
+																	}else{
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'][emply_length_key] = 1;
 																	}
 																	
 																	// update data
