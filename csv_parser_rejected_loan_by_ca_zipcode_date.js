@@ -11,7 +11,7 @@ var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lendi
 
 /* node.js parser for multiple files with async */
 GLOBAL.async_parser = GLOBAL.async_parser || {};
-// set writablestream
+// set writablestream (not necessary for jsonfile)
 GLOBAL.async_parser.csvWritableStream = fs.createWriteStream("/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedRejectResultByCAZipcodeDate.json");
 GLOBAL.async_parser.csvWritableStream.on("finish", function(){
 	console.log("finish parsing the file...")
