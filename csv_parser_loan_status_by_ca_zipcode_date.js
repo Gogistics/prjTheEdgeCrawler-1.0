@@ -43,7 +43,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.date_index = GLOBAL.async_parser.keys.indexOf("desc");
 														GLOBAL.async_parser.date = data[GLOBAL.async_parser.date_index];
 														var day_regex = /\d{2}\/\d{2}\/\d{2}\//;
-														console.log(GLOBAL.async_parser.date);
+														console.log(day_regex.exec(GLOBAL.async_parser.date));
 														GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
 														/*
 														day_regex = /(\d{2})/g;
