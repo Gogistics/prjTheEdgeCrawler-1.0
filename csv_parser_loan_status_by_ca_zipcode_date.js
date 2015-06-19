@@ -5,7 +5,7 @@ var fs = require('fs'),
 	jsonfile = require('jsonfile'),
 	natural = require('natural'),
 	request = require('request'),
-	sync_request = require('sync-request')
+	sync_request = require('sync-request'),
 	cheerio = require("cheerio");
 	
 /* file paths */
@@ -20,7 +20,7 @@ GLOBAL.async_parser.keys = [];
 GLOBAL.async_parser.manipulated_obj = {};
 
 GLOBAL.async_parser.request_loan_detail = function(arg_url, callback){
-	var res = request('GET', arg_url);
+	var res = sync_request('GET', arg_url);
 	return res.getBody();
 }
 
