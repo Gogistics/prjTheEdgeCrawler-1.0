@@ -64,7 +64,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
 														day_regex = /(\d+)/g;
 														var month_day_year_ary = GLOBAL.async_parser.date.match(day_regex);
-														GLOBAL.async_parser.date = ( Number(month_day_year_ary[2]) + 2000 ) + '-' + month_day_year_ary[0] + '-' + GLOBAL.async_parser.date[1];
+														GLOBAL.async_parser.date = ( Number(month_day_year_ary[2]) + 2000 ) + '-' + month_day_year_ary[0] + '-' + month_day_year_ary[1];
 														console.log(GLOBAL.async_parser.url);
 														console.log(GLOBAL.async_parser.date);
 
