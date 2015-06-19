@@ -3,7 +3,10 @@ var fs = require('fs'),
 	csv = require('fast-csv'),
 	async = require('async'),
 	jsonfile = require('jsonfile'),
-	natural = require('natural');
+	natural = require('natural'),
+	request = require('request'),
+	sync_request = require('sync-request')
+	cheerio = require("cheerio");
 	
 /* file paths */
 var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv",
@@ -15,6 +18,11 @@ GLOBAL.async_parser = GLOBAL.async_parser || {};
 GLOBAL.async_parser.count = 0, GLOBAL.async_parser.ith_file = 0;
 GLOBAL.async_parser.keys = [];
 GLOBAL.async_parser.manipulated_obj = {};
+
+GLOBAL.async_parser.request_loan_detail = function(arg_url, callback){
+	var res = request('GET', arg_url);
+	return res.getBody();
+}
 
 GLOBAL.async_parser.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
@@ -39,9 +47,20 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("dti");
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
 														
-														// get date
-														GLOBAL.async_parser.date_index = GLOBAL.async_parser.keys.indexOf("desc");
-														GLOBAL.async_parser.date = data[GLOBAL.async_parser.date_index];
+														// get date (not done; get date from web-page)
+														GLOBAL.async_parser.url_index = GLOBAL.async_parser.keys.indexOf("url");
+														GLOBAL.async_parser.url = data[GLOBAL.async_parser.url_index];
+														var body = GLOBAL.async_parser.request_loan_detail(GLOBAL.async_parser.url);
+														var $ = cheerio.load(body);
+														$('table.loan-details').each(function(){
+															var table = this;
+															$(table).find('th').each(function(){
+																if($(this).text() == 'Loan Submitted on'){
+																	GLOBAL.async_parser.date = $(this).parent().find('td').text();
+																}
+															});
+														});
+														
 														var day_regex = /\d{2}\/\d{2}\/\d{2}/;
 														console.log(day_regex.exec(GLOBAL.async_parser.date));
 														GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
