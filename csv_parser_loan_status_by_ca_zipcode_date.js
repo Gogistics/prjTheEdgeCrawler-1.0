@@ -4,7 +4,6 @@ var fs = require('fs'),
 	async = require('async'),
 	jsonfile = require('jsonfile'),
 	natural = require('natural'),
-	request = require('request'),
 	sync_request = require('sync-request'),
 	cheerio = require("cheerio");
 	
