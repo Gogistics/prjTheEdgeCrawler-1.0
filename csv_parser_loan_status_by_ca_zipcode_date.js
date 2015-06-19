@@ -59,17 +59,14 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																}
 															});
 														});
-
-														console.log(GLOBAL.async_parser.url);
-														console.log(GLOBAL.async_parser.date);
 														
-														var day_regex = /\d{2}\/\d{2}\/\d{2}/;
+														var day_regex = /\d+\/\d+\/\d+/;
 														GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
-														console.log(GLOBAL.async_parser.url);
-														console.log(GLOBAL.async_parser.date);
-														day_regex = /(\d{2})/g;
+														day_regex = /(\d+)/g;
 														var month_day_year_ary = GLOBAL.async_parser.date.match(day_regex);
 														GLOBAL.async_parser.date = ( GLOBAL.async_parser.date[2] + 2000 ) + '-' + month_day_year_ary[0] + '-' + GLOBAL.async_parser.date[1];
+														console.log(GLOBAL.async_parser.url);
+														console.log(GLOBAL.async_parser.date);
 
 														
 														// get risk score
