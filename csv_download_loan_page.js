@@ -45,7 +45,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														var content = $('div.master_content-outer-container').html()
 																											.replace(/(\r\n|\n|\r|\s)/gm,"")
 																											.toString();
-														console.log(content);
+														// console.log(content);
 														
 														// save file
 														var write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".txt";
