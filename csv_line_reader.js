@@ -18,7 +18,7 @@ function get_line(filename, line_no, callback) {
 		if(index !== 0){
 			data = elem.replace(/"/g, '');
 			data = data.split(',');
-			console.log(data);
+			console.log(data[index]);
 		}
 	});
 }
