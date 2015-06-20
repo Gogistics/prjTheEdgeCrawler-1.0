@@ -15,7 +15,7 @@ function get_line(filename, line_no, callback) {
 	//
 	lines.forEach(function(elem, ith){
 		if(index !== 0){
-			elem = elem.replace(/"/g, '');
+			elem = elem.replace(/"/g, ' ');
 			elem = elem.split(',');
 			console.log(elem[index]);
 		}
