@@ -42,8 +42,10 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														
 														var body = GLOBAL.async_parser.request_loan_detail(GLOBAL.async_parser.url);
 														var $ = cheerio.load(body);
-														var content = $('div.master_content-outer-container').html().replace(/(\r\n|\n|\r|\s)/gm,"");
-														// console.log(content);
+														var content = $('div.master_content-outer-container').html()
+																											.replace(/(\r\n|\n|\r|\s)/gm,"")
+																											.toString();
+														console.log(content);
 														
 														// save file
 														var write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".txt";
