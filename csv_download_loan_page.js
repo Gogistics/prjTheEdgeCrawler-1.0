@@ -62,4 +62,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 												csvReadStream.pipe(csvReadableStream);
 										});
 									};
+									
+// start to parse
+GLOBAL.async_parser.parse_files(csv_files);
 /* end of parser */
