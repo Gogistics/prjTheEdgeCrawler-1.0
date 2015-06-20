@@ -15,7 +15,7 @@ function get_line(filename, line_no, callback) {
 			var url_regex = /https.+loan_id=\d+/g;
 				url = url_regex.exec(elem);
 				
-			console.log(url);
+			console.log(url[0]);
 		}
 	});
 }
