@@ -9,7 +9,7 @@ function get_line(filename, line_no, callback) {
     }
     callback(null, lines[+line_no]);
 	
-  	var line = lines[0].replace(/"/g, '');
+  	var line = lines[0].replace(/"/g, '\\"');
 	var data_ary = line.split(',');
 	var index = data_ary.indexOf('url');
 	//
