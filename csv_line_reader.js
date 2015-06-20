@@ -12,12 +12,13 @@ function get_line(filename, line_no, callback) {
   	var data = lines[0].replace(/"/g, '');
 	data = data.split(',');
 	var index = data.indexOf('url');
+	console.log(index);
 	//
 	lines.forEach(function(elem, index){
 		if(index !== 0){
 			data = elem.replace(/"/g, '');
 			data = data.split(',');
-			console.log(elem);
+			console.log(data);
 		}
 	});
 }
