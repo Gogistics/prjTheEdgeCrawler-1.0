@@ -68,7 +68,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														var body = GLOBAL.async_parser.request_loan_detail(GLOBAL.async_parser.url);
 														var $ = cheerio.load(body);
 														var content = $('div.master_content-outer-container').html()
-																											.replace(/(\r\n|\n|\r|\s)/gm,"")
+																											.replace(/(\r\n|\n|\r)/gm,"")
 																											.toString();
 														// console.log(content);
 														
