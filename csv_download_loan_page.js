@@ -3,7 +3,6 @@ var fs = require('fs'),
 	csv = require('fast-csv'),
 	async = require('async'),
 	jsonfile = require('jsonfile'),
-	natural = require('natural'),
 	sync_request = require('sync-request'),
 	cheerio = require("cheerio");
 	
@@ -34,15 +33,19 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 													}else{
 														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("url");
 														GLOBAL.async_parser.id = data[GLOBAL.async_parser.id_index];
+														console.log(GLOBAL.async_parser.id);
 														
 														// get date (not done; get date from web-page)
 														GLOBAL.async_parser.url_index = GLOBAL.async_parser.keys.indexOf("url");
 														GLOBAL.async_parser.url = data[GLOBAL.async_parser.url_index];
+														console.log(GLOBAL.async_parser.url);
+														
 														var body = GLOBAL.async_parser.request_loan_detail(GLOBAL.async_parser.url);
 														var $ = cheerio.load(body);
 														var content = $('div.master_content-outer-container').html();
+														console.log(content);
 														
-														var write_file_path = "./lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".json";
+														var write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".json";
 														jsonfile.writeFile(write_file_path, content, function(err){
 															if(err){
 																console.log(err);
