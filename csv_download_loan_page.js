@@ -50,7 +50,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// save file
 														var file_fs = require('fs'),
 															write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".txt";
-															file_fs.writeFile(write_file_path, content, function(err, data) {
+															file_fs.writeFile(write_file_path, "test", function(err, data) {
 															    if(err) {
 															        return console.log(err);
 															    }else{
