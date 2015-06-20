@@ -28,7 +28,7 @@ GLOBAL.async_parser.download_page = function(id, content){
 		write_file_path = "lendingclub/loan_stats_" + id + ".txt";
 
 	//
-	fs.writeFile(write_file_path, content, function (err) {
+	file_fs.writeFile(write_file_path, content, function (err) {
 	  	if (err) return console.log(err);
 	  	console.log('done...');
 	});
