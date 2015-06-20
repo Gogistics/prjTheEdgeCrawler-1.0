@@ -46,10 +46,12 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// console.log(content);
 														
 														// save file
-														var write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".json";
-														fs.writeFile(write_file_path, content, function(err) {
+														var write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".txt";
+														fs.writeFile(write_file_path, content, 'utf8', function(err) {
 														    if(err) {
 														        return console.log(err);
+														    }else{
+														    	console.log('saved-' + GLOBAL.async_parser.id);
 														    }
 														}); 
 														
@@ -57,9 +59,11 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														var download_status = { line : GLOBAL.async_parser.count,
 																				id : GLOBAL.async_parser.id,
 																				file_path : file_path};
-														jsonfile.writeFile("lendingclub/download_status", download_status, function(err){
+														jsonfile.writeFile("lendingclub/download_status.json", download_status, function(err){
 															if(err){
 																console.log(err);
+															}else{
+																console.log('saved-download');
 															}
 														});
 													}
