@@ -9,16 +9,15 @@ function get_line(filename, line_no, callback) {
     }
     callback(null, lines[+line_no]);
 	
-  	var line = lines[0].replace(/"/g, '\\"');
+  	var line = lines[0];
 	var data_ary = line.split(',');
-	console.log(data_ary);
-	var index = data_ary.indexOf('url');
+	var index = data_ary.indexOf('"url"');
 	//
 	lines.forEach(function(elem, ith){
 		if(index !== 0){
 			elem = elem.replace(/"/g, ' ');
 			elem = elem.split(',');
-			// console.log(elem[index]);
+			console.log(elem[index]);
 		}
 	});
 }
