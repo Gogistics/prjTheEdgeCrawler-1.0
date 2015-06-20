@@ -31,7 +31,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 													if(GLOBAL.async_parser.count === 0 || (JSON.stringify(data) === JSON.stringify(GLOBAL.async_parser.keys))){
 														GLOBAL.async_parser.keys = data;
 													}else{
-														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("url");
+														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("id");
 														GLOBAL.async_parser.id = data[GLOBAL.async_parser.id_index];
 														console.log(GLOBAL.async_parser.id);
 														
@@ -42,11 +42,19 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														
 														var body = GLOBAL.async_parser.request_loan_detail(GLOBAL.async_parser.url);
 														var $ = cheerio.load(body);
-														var content = $('div.master_content-outer-container').html();
+														var content = $('div.master_content-outer-container').html().replace(/(\r\n|\n|\r)/gm,"");
 														console.log(content);
 														
 														var write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".json";
 														jsonfile.writeFile(write_file_path, content, function(err){
+															if(err){
+																console.log(err);
+															}
+														});
+														
+														// log
+														var download_status = {};
+														jsonfile.writeFile("lendingclub/download_status", download_status, function(err){
 															if(err){
 																console.log(err);
 															}
