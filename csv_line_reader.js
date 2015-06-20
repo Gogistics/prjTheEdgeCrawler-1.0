@@ -1,5 +1,11 @@
+/* required */
 var fs = require('fs');
 
+/* file paths */
+var files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv",
+			"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv",
+			"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv"];
+	
 function get_line(filename, line_no, callback) {
     var data = fs.readFileSync(filename, 'utf8');
     var lines = data.split("\n");
@@ -24,11 +30,14 @@ function get_line(filename, line_no, callback) {
 	});
 }
 
-get_line('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv', 0, function(err, line){
-  	/* var data = line.replace(/"/g, '');
-	console.log(data);
-	data = data.split(',');
-	console.log(data);
-	console.log(data[data.indexOf('url')]); */
-	console.log('done...');
-})
+files.forEach(function(path, ith){
+	get_line(path, 0, function(err, line){
+	  	/* var data = line.replace(/"/g, '');
+		console.log(data);
+		data = data.split(',');
+		console.log(data);
+		console.log(data[data.indexOf('url')]); */
+		console.log('done...');
+	})
+	
+});
