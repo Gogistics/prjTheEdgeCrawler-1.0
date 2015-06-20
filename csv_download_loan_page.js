@@ -23,12 +23,6 @@ GLOBAL.async_parser.request_loan_detail = function(arg_url, callback){
 }
 
 //
-fs.writeFile('helloworld.txt', 'Hello World!', function (err) {
-  if (err) return console.log(err);
-  console.log('Hello World > helloworld.txt');
-});
-
-//
 GLOBAL.async_parser.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
 											var csvReadStream = fs.createReadStream(file_path);
@@ -57,14 +51,12 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// save file
 														var file_fs = require('fs'),
 															write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".txt";
-															file_fs.writeFile(write_file_path, "test", function(err, data) {
-															    if(err) {
-															        return console.log(err);
-															    }else{
-															    	console.log('saved-' + GLOBAL.async_parser.id);
-															    }
-																console.log(data);
-															});
+
+														//
+														fs.writeFile(write_file_path, 'Hello World!', function (err) {
+														  	if (err) return console.log(err);
+														  	console.log('Hello World > helloworld.txt');
+														});
 														
 														// log
 														var file_jsonfile = require('jsonfile'),
