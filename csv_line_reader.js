@@ -14,7 +14,7 @@ function get_line(filename, line_no, callback) {
 		if(ith !== 0){
 			var url_regex = /^https.+\d+$/;
 			url = url_regex.exec(elem);
-			console.log(url);
+			console.log(elem);
 		}
 	});
 }
