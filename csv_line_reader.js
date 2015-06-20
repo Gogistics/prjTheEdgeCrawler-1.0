@@ -11,7 +11,7 @@ function get_line(filename, line_no, callback) {
 	
 	//
 	lines.forEach(function(elem, ith){
-		if(index !== 0){
+		if(ith !== 0){
 			var url_regex = /https.+?\d+/g;
 			url = url_regex.exec(elem);
 			console.log(url);
