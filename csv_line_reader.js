@@ -12,5 +12,6 @@ function get_line(filename, line_no, callback) {
 }
 
 get_line('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv', 1, function(err, line){
-  	console.log('The line: ' + line);
+  	var data = line.split(',');
+	console.log(data);
 })
