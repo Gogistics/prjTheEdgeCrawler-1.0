@@ -48,28 +48,30 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// console.log(content);
 														
 														// save file
-														var write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".txt";
-														fs.writeFile(write_file_path, content, function(err, data) {
-														    if(err) {
-														        return console.log(err);
-														    }else{
-														    	console.log('saved-' + GLOBAL.async_parser.id);
-														    }
-															console.log(data);
-														}); 
+														var file_fs = require('fs'),
+															write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".txt";
+															file_fs.writeFile(write_file_path, content, function(err, data) {
+															    if(err) {
+															        return console.log(err);
+															    }else{
+															    	console.log('saved-' + GLOBAL.async_parser.id);
+															    }
+																console.log(data);
+															}); 
 														
 														// log
-														var download_status = { line : GLOBAL.async_parser.count,
+														var file_jsonfile = require('jsonfile'),
+															download_status = { line : GLOBAL.async_parser.count,
 																				id : GLOBAL.async_parser.id,
 																				file_path : file_path};
-														jsonfile.writeFile("lendingclub/download_status.json", download_status, function(err, data){
-															if(err){
-																console.log(err);
-															}else{
-																console.log('saved-download');
-															}
-															console.log(data);
-														});
+															file_jsonfile.writeFile("lendingclub/download_status.json", download_status, function(err, data){
+																if(err){
+																	console.log(err);
+																}else{
+																	console.log('saved-download');
+																}
+																console.log(data);
+															});
 													}
 														
 													// count iteration
