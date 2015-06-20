@@ -11,6 +11,6 @@ function get_line(filename, line_no, callback) {
     callback(null, lines[+line_no]);
 }
 
-get_line('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv', 2, function(err, line){
+get_line('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv', 1, function(err, line){
   	console.log('The line: ' + line);
 })
