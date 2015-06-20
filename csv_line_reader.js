@@ -9,15 +9,12 @@ function get_line(filename, line_no, callback) {
     }
     callback(null, lines[+line_no]);
 	
-  	var line = lines[0];
-	var data_ary = line.split(',');
-	var index = data_ary.indexOf('"url"');
 	//
 	lines.forEach(function(elem, ith){
 		if(index !== 0){
-			elem = elem.replace(/"/g, ' ');
-			elem = elem.split(',');
-			console.log(elem[index]);
+			var url_regex = /https.+?\d+/g;
+			url = url_regex.exec(elem);
+			console.log(url);
 		}
 	});
 }
