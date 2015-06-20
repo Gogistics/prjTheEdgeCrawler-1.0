@@ -23,6 +23,32 @@ GLOBAL.async_parser.request_loan_detail = function(arg_url, callback){
 }
 
 //
+GLOBAL.async_parser.download_page = function(id, content){
+	var file_fs = require('fs'),
+		write_file_path = "lendingclub/loan_stats_" + id + ".txt";
+
+	//
+	fs.writeFile(write_file_path, content, function (err) {
+	  	if (err) return console.log(err);
+	  	console.log('done...');
+	});
+}
+
+GLOBAL.async_parser.save_log = function( line, id, path ){
+	var file_jsonfile = require('jsonfile'),
+		download_status = { line : line,
+							id : id,
+							file_path : path};
+	file_jsonfile.writeFile("lendingclub/download_status.json", download_status, function(err, data){
+		if(err){
+			console.log(err);
+		}else{
+			console.log('saved-download');
+		}
+	});
+}
+
+//
 GLOBAL.async_parser.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
 											var csvReadStream = fs.createReadStream(file_path);
@@ -49,28 +75,11 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// console.log(content);
 														
 														// save file
-														var file_fs = require('fs'),
-															write_file_path = "lendingclub/loan_stats_" + GLOBAL.async_parser.id + ".txt";
-
-														//
-														fs.writeFile(write_file_path, 'Hello World!', function (err) {
-														  	if (err) return console.log(err);
-														  	console.log('Hello World > helloworld.txt');
-														});
+														GLOBAL.async_parser.download_page( GLOBAL.async_parser.id, content );
 														
 														// log
-														var file_jsonfile = require('jsonfile'),
-															download_status = { line : GLOBAL.async_parser.count,
-																				id : GLOBAL.async_parser.id,
-																				file_path : file_path};
-															file_jsonfile.writeFile("lendingclub/download_status.json", download_status, function(err, data){
-																if(err){
-																	console.log(err);
-																}else{
-																	console.log('saved-download');
-																}
-																console.log(data);
-															});
+														GLOBAL.async_parser.save_log(GLOBAL.async_parser.count, GLOBAL.async_parser.id, file_path);
+														
 													}
 														
 													// count iteration
