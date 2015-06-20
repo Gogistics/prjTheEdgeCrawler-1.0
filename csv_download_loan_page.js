@@ -24,22 +24,20 @@ GLOBAL.async_parser.request_loan_detail = function(arg_url, callback){
 
 //
 GLOBAL.async_parser.download_page = function(id, content){
-	var file_fs = require('fs'),
-		write_file_path = "lendingclub/loan_stats_" + id + ".txt";
+	var write_file_path = "lendingclub/loan_stats_" + id + ".txt";
 
 	//
-	file_fs.writeFile(write_file_path, content, function (err) {
+	fs.writeFile(write_file_path, content, function (err) {
 	  	if (err) return console.log(err);
 	  	console.log('done...');
 	});
 }
 
 GLOBAL.async_parser.save_log = function( line, id, path ){
-	var file_jsonfile = require('jsonfile'),
-		download_status = { line : line,
+	var download_status = { line : line,
 							id : id,
 							file_path : path};
-	file_jsonfile.writeFile("lendingclub/download_status.json", download_status, function(err, data){
+	jsonfile.writeFile("lendingclub/download_status.json", download_status, function(err, data){
 		if(err){
 			console.log(err);
 		}else{
