@@ -76,7 +76,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.download_page( GLOBAL.async_parser.id, content );
 														
 														// log
-														GLOBAL.async_parser.save_log(GLOBAL.async_parser.count, GLOBAL.async_parser.id, file_path);
+														console.log( GLOBAL.async_parser.count + '-' + GLOBAL.async_parser.id + '-' + file_path);
 														
 													}
 														
