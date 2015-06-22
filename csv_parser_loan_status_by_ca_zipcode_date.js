@@ -109,6 +109,11 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get employment length
 														GLOBAL.async_parser.employment_length_index = GLOBAL.async_parser.keys.indexOf("emp_length");
 														GLOBAL.async_parser.employment_length = data[GLOBAL.async_parser.employment_length_index];
+														
+														// prevent undefined emply. length
+														if(GLOBAL.async_parser.employment_length === undefined){
+															GLOBAL.async_parser.employment_length = 0;
+														}
 														var regex_smaller_sign = /\</g,
 														regex_plus_sign = /\+/g,
 														regex_employment_length = /\d+/g,
