@@ -116,7 +116,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.employment_length = data[GLOBAL.async_parser.employment_length_index];
 														
 														// prevent undefined emply. length
-														var employment_length = 0,
+														var employment_length = 0;
 														if(GLOBAL.async_parser.employment_length !== undefined){
 															var regex_smaller_sign = /\</g,
 															regex_plus_sign = /\+/g,
