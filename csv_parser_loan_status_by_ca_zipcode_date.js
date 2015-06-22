@@ -60,7 +60,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														
 														try{
 															var body = fs.readFileSync(file_path).toString();
-															console.log(body);
 															var $ = cheerio.load(body);
 															$('table.loan-details').each(function(){
 																var table = this;
