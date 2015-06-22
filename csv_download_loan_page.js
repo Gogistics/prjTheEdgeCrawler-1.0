@@ -29,7 +29,7 @@ GLOBAL.async_parser.download_page = function(id, content){
 	//
 	fs.writeFile(write_file_path, content, function (err) {
 	  	if (err) return console.log(err);
-	  	console.log('done...');
+	  	// console.log('done...');
 	});
 }
 
@@ -58,25 +58,27 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 													}else{
 														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("id");
 														GLOBAL.async_parser.id = data[GLOBAL.async_parser.id_index];
-														console.log(GLOBAL.async_parser.id);
+														// console.log(GLOBAL.async_parser.id);
 														
 														// get date (not done; get date from web-page)
 														GLOBAL.async_parser.url_index = GLOBAL.async_parser.keys.indexOf("url");
 														GLOBAL.async_parser.url = data[GLOBAL.async_parser.url_index];
-														console.log(GLOBAL.async_parser.url);
+														// console.log(GLOBAL.async_parser.url);
 														
-														var body = GLOBAL.async_parser.request_loan_detail(GLOBAL.async_parser.url);
-														var $ = cheerio.load(body);
-														var content = $('div.master_content-outer-container').html()
-																											.replace(/(\r\n|\n|\r)/gm,"")
-																											.toString();
-														// console.log(content);
+														if(GLOBAL.async_parser.url !== undefined){
+															var body = GLOBAL.async_parser.request_loan_detail(GLOBAL.async_parser.url);
+															var $ = cheerio.load(body);
+															var content = $('div.master_content-outer-container').html()
+																												.replace(/(\r\n|\n|\r)/gm,"")
+																												.toString();
+															// console.log(content);
 														
-														// save file
-														GLOBAL.async_parser.download_page( GLOBAL.async_parser.id, content );
+															// save file
+															GLOBAL.async_parser.download_page( GLOBAL.async_parser.id, content );
+														}
 														
 														// log
-														console.log( GLOBAL.async_parser.count + '-' + GLOBAL.async_parser.id + '-' + file_path);
+														// console.log( GLOBAL.async_parser.count + '-' + GLOBAL.async_parser.id + '-' + file_path);
 														
 													}
 														
