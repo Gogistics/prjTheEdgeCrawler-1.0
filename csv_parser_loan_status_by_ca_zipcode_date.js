@@ -54,12 +54,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
 														
 														// get date (not done; get date from web-page)
-														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("addr_state");
+														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("id");
 														GLOBAL.async_parser.id = data[GLOBAL.async_parser.id_index];
 														var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
 														
 														try{
 															var body = fs.readFileSync(file_path).toString();
+															console.log(body);
 															var $ = cheerio.load(body);
 															$('table.loan-details').each(function(){
 																var table = this;
