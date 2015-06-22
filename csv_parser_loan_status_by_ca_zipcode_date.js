@@ -49,9 +49,14 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.amount_requested_index = GLOBAL.async_parser.keys.indexOf("loan_amnt");
 														GLOBAL.async_parser.current_amount_requested = data[GLOBAL.async_parser.amount_requested_index];
 													
-														// get loan amnt
+														// debt  to income ratio
 														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("dti");
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
+														console.log(GLOBAL.async_parser.debt_to_income_ratio);
+														var temp_debt_to_inc_ratio = undefined;
+														if(GLOBAL.async_parser.debt_to_income_ratio !== undefined){
+															temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
+														}
 														
 														// get date (not done; get date from web-page)
 														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("id");
@@ -111,23 +116,22 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.employment_length = data[GLOBAL.async_parser.employment_length_index];
 														
 														// prevent undefined emply. length
-														if(GLOBAL.async_parser.employment_length === undefined){
-															GLOBAL.async_parser.employment_length = '0';
-														}
-														var regex_smaller_sign = /\</g,
-														regex_plus_sign = /\+/g,
-														regex_employment_length = /\d+/g,
-														employment_length = 0,
-														temp_employment_length = GLOBAL.async_parser.employment_length.match(regex_employment_length);
+														if(GLOBAL.async_parser.employment_length !== undefined){
+															var regex_smaller_sign = /\</g,
+															regex_plus_sign = /\+/g,
+															regex_employment_length = /\d+/g,
+															employment_length = 0,
+															temp_employment_length = GLOBAL.async_parser.employment_length.match(regex_employment_length);
 														
-														if(GLOBAL.async_parser.employment_length.match(regex_smaller_sign)){
-															employment_length = 0.5;
-														}else if(GLOBAL.async_parser.employment_length.match(regex_plus_sign)){
-															employment_length = 10.5;
-														}else if(temp_employment_length === undefined || temp_employment_length === null){
-															employment_length = 0;
-														}else{
-															employment_length = Number(temp_employment_length[0]);
+															if(GLOBAL.async_parser.employment_length.match(regex_smaller_sign)){
+																employment_length = 0.5;
+															}else if(GLOBAL.async_parser.employment_length.match(regex_plus_sign)){
+																employment_length = 10.5;
+															}else if(temp_employment_length === undefined || temp_employment_length === null){
+																employment_length = 0;
+															}else{
+																employment_length = Number(temp_employment_length[0]);
+															}
 														}
 														
 														// temp FICO & Vantage Value
@@ -139,9 +143,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															temp_vantage = Number(GLOBAL.async_parser.risk_score);
 															count_vantage = 1;
 														}
-														
-														// debt  to income ratio
-														var temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														
 														// build new structure
 														if( GLOBAL.async_parser.current_state !== undefined &&
