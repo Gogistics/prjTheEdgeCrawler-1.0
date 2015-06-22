@@ -14,12 +14,19 @@ var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lendi
 				
 /* init */
 GLOBAL.async_parser = GLOBAL.async_parser || {};
-GLOBAL.async_parser.count = 0, GLOBAL.async_parser.ith_file = 0;
+GLOBAL.async_parser.count = 0, GLOBAL.async_parser.ith_file = 0, GLOBAL.async_parser.current_date_of_loan = '';
 GLOBAL.async_parser.keys = [];
 GLOBAL.async_parser.manipulated_obj = {};
 
+/* get info. from LendingClub url (backup mechanism) */
 GLOBAL.async_parser.request_loan_detail = function(arg_url, callback){
 	var res = sync_request('GET', arg_url);
+	return res.getBody();
+}
+
+/* parse data form local files */
+GLOBAL.async_parser.get_loan_detail_from_local_file = function(arg_file_path){
+	var contents = fs.readFileSync(arg_file_path).toString();
 	return res.getBody();
 }
 
@@ -47,26 +54,35 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
 														
 														// get date (not done; get date from web-page)
-														GLOBAL.async_parser.url_index = GLOBAL.async_parser.keys.indexOf("url");
-														GLOBAL.async_parser.url = data[GLOBAL.async_parser.url_index];
-														var body = GLOBAL.async_parser.request_loan_detail(GLOBAL.async_parser.url);
-														var $ = cheerio.load(body);
-														$('table.loan-details').each(function(){
-															var table = this;
-															$(table).find('th').each(function(){
-																if($(this).text() == 'Loan Submitted on'){
-																	GLOBAL.async_parser.date = $(this).parent().find('td').text();
-																}
-															});
-														});
+														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("addr_state");
+														GLOBAL.async_parser.id = data[GLOBAL.async_parser.id_index];
+														var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
 														
-														var day_regex = /\d+\/\d+\/\d+/;
-														GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
-														day_regex = /(\d+)/g;
-														var month_day_year_ary = GLOBAL.async_parser.date.match(day_regex);
-														GLOBAL.async_parser.date = ( Number(month_day_year_ary[2]) + 2000 ) + '-' + month_day_year_ary[0] + '-' + month_day_year_ary[1];
-														console.log(GLOBAL.async_parser.url);
-														console.log(GLOBAL.async_parser.date);
+														try{
+															var body = fs.readFileSync(file_path).toString();
+															var $ = cheerio.load(body);
+															$('table.loan-details').each(function(){
+																var table = this;
+																$(table).find('th').each(function(){
+																	if($(this).text() == 'Loan Submitted on'){
+																		GLOBAL.async_parser.date = $(this).parent().find('td').text();
+																	}
+																});
+															});
+														
+															var day_regex = /\d+\/\d+\/\d+/;
+															GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
+															day_regex = /(\d+)/g;
+															var month_day_year_ary = GLOBAL.async_parser.date.match(day_regex);
+															GLOBAL.async_parser.date = ( Number(month_day_year_ary[2]) + 2000 ) + '-' + month_day_year_ary[0] + '-' + month_day_year_ary[1];
+															GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
+															console.log(GLOBAL.async_parser.url);
+															console.log(GLOBAL.async_parser.date);
+															
+														}catch( err ){
+															GLOBAL.async_parser.date = GLOBAL.async_parser.current_date_of_loan;
+															console.log('no such file and date will be replaced with the date from the previous date');
+														}
 
 														
 														// get risk score
