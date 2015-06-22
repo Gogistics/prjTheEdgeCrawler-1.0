@@ -55,7 +55,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														console.log(GLOBAL.async_parser.debt_to_income_ratio);
 														var temp_debt_to_inc_ratio = undefined;
 														if(GLOBAL.async_parser.debt_to_income_ratio !== undefined){
-															temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
+															temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio);
 														}
 														
 														// get date (not done; get date from web-page)
@@ -116,11 +116,11 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.employment_length = data[GLOBAL.async_parser.employment_length_index];
 														
 														// prevent undefined emply. length
+														var employment_length = 0,
 														if(GLOBAL.async_parser.employment_length !== undefined){
 															var regex_smaller_sign = /\</g,
 															regex_plus_sign = /\+/g,
 															regex_employment_length = /\d+/g,
-															employment_length = 0,
 															temp_employment_length = GLOBAL.async_parser.employment_length.match(regex_employment_length);
 														
 															if(GLOBAL.async_parser.employment_length.match(regex_smaller_sign)){
