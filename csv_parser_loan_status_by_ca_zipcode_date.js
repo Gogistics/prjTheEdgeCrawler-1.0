@@ -76,7 +76,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															var month_day_year_ary = GLOBAL.async_parser.date.match(day_regex);
 															GLOBAL.async_parser.date = ( Number(month_day_year_ary[2]) + 2000 ) + '-' + month_day_year_ary[0] + '-' + month_day_year_ary[1];
 															GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
-															console.log(GLOBAL.async_parser.url);
 															console.log(GLOBAL.async_parser.date);
 															
 														}catch( err ){
@@ -94,8 +93,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														
 														// get loan title
 														GLOBAL.async_parser.loan_title_index = GLOBAL.async_parser.keys.indexOf("purpose");
-														GLOBAL.async_parser.loan_title = data[GLOBAL.async_parser.loan_title_index].toLowerCase();
-														GLOBAL.async_parser.loan_title = GLOBAL.async_parser.loan_title.replace(/^\w\s/gi, ' '); // remove all special characters
+														if(data[GLOBAL.async_parser.loan_title_index] === undefined){
+															GLOBAL.async_parser.loan_title = 'other';
+														}else{
+															GLOBAL.async_parser.loan_title = data[GLOBAL.async_parser.loan_title_index].toLowerCase();
+															GLOBAL.async_parser.loan_title = GLOBAL.async_parser.loan_title.replace(/^\w\s/gi, ' '); // remove all special characters
+															
+														}
 														// classify loan type
 														var loan_type = GLOBAL.classifier.classify(GLOBAL.async_parser.loan_title);
 														if(loan_type === undefined || loan_type === null){
