@@ -1,35 +1,19 @@
 /* required modules */
-var fs = require('fs'),
-	csv = require('fast-csv'),
+var fs = require('fs'), 
+    csv = require('fast-csv'),
 	async = require('async'),
-	jsonfile = require('jsonfile'),
-	natural = require('natural'),
-	sync_request = require('sync-request'),
-	cheerio = require("cheerio");
-	
+	jsonfile = require("jsonfile"),
+	natural = require('natural');
+
 /* file paths */
 var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv"];
-				
-/* init */
-GLOBAL.async_parser = GLOBAL.async_parser || {};
-GLOBAL.async_parser.count = 0, GLOBAL.async_parser.ith_file = 0, GLOBAL.async_parser.current_date_of_loan = '';
+
+//
+GLOBAL.async_parser.count = 0, GLOBAL.async_parser.ith_file = 0;
 GLOBAL.async_parser.keys = [];
 GLOBAL.async_parser.manipulated_obj = {};
-
-/* get info. from LendingClub url (backup mechanism) */
-GLOBAL.async_parser.request_loan_detail = function(arg_url, callback){
-	var res = sync_request('GET', arg_url);
-	return res.getBody();
-}
-
-/* parse data form local files */
-GLOBAL.async_parser.get_loan_detail_from_local_file = function(arg_file_path){
-	var contents = fs.readFileSync(arg_file_path).toString();
-	return res.getBody();
-}
-
 GLOBAL.async_parser.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
 											var csvReadStream = fs.createReadStream(file_path);
@@ -49,14 +33,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.amount_requested_index = GLOBAL.async_parser.keys.indexOf("loan_amnt");
 														GLOBAL.async_parser.current_amount_requested = data[GLOBAL.async_parser.amount_requested_index];
 													
-														// debt  to income ratio
+														// get loan amnt
 														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("dti");
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
-														console.log(GLOBAL.async_parser.debt_to_income_ratio);
-														var temp_debt_to_inc_ratio = undefined;
-														if(GLOBAL.async_parser.debt_to_income_ratio !== undefined){
-															temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio);
-														}
 														
 														// get date (not done; get date from web-page)
 														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("id");
@@ -87,13 +66,14 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															GLOBAL.async_parser.date = GLOBAL.async_parser.current_date_of_loan;
 															console.log('no such file and date will be replaced with the date from the previous date');
 														}
-
+														
 														// get risk score
 														GLOBAL.async_parser.fico_range_high_index = GLOBAL.async_parser.keys.indexOf("fico_range_high");
 														GLOBAL.async_parser.fico_range_high = data[GLOBAL.async_parser.fico_range_high_index];
 														GLOBAL.async_parser.fico_range_low_index = GLOBAL.async_parser.keys.indexOf("fico_range_low");
 														GLOBAL.async_parser.fico_range_low = data[GLOBAL.async_parser.fico_range_low_index];
 														GLOBAL.async_parser.risk_score = Math.round( (Number(GLOBAL.async_parser.fico_range_high) + Number(GLOBAL.async_parser.fico_range_low)) / 2 );
+														
 														
 														// get loan title
 														GLOBAL.async_parser.loan_title_index = GLOBAL.async_parser.keys.indexOf("purpose");
@@ -104,7 +84,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															GLOBAL.async_parser.loan_title = GLOBAL.async_parser.loan_title.replace(/^\w\s/gi, ' '); // remove all special characters
 															
 														}
-														// classify loan type
 														var loan_type = GLOBAL.classifier.classify(GLOBAL.async_parser.loan_title);
 														if(loan_type === undefined || loan_type === null){
 															loan_type = "other";
@@ -143,6 +122,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															count_vantage = 1;
 														}
 														
+														// debt  to income ratio
+														var temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
+														
 														// build new structure
 														if( GLOBAL.async_parser.current_state !== undefined &&
 															GLOBAL.async_parser.current_state === "CA" &&
@@ -165,11 +147,19 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																																to_date : current_date,
 																															};
 																															
-																// build dates arrary
+																// build dates obj
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'] = {};
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date] = {};
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date]['loan_types'] = {};
-																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date]['loan_types'][loan_type] = 1;
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date] = 1;
+																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
+																
+																// build loan type obj
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'] = {};
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] = 1;
+																
+																//
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'] = {};
+																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'][emply_length_key] = 1;
+																
 																
 														}else if(GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state === "CA" &&
@@ -185,19 +175,26 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].to_date = GLOBAL.async_parser.date;
 																	}
 																	
-																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'].hasOwnProperty(GLOBAL.async_parser.date)){
-																		// update loan types
-																		if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'].hasOwnProperty(loan_type)){
-																			GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'][loan_type] += 1;
-																		}else{
-																			GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'][loan_type] = 1;
-																		}
+																	//
+																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates.hasOwnProperty(GLOBAL.async_parser.date)){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates[GLOBAL.async_parser.date] += 1;
 																	}else{
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date] = {};
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'] = {};
-																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][GLOBAL.async_parser.date]['loan_types'][loan_type] = 1;
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].dates[GLOBAL.async_parser.date] = 1;
 																	}
 																	
+																	// update loan types
+																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'].hasOwnProperty(loan_type)){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] += 1;
+																	}else{
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'][loan_type] = 1;
+																	}
+																	
+																	// update loan types
+																	if(GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'].hasOwnProperty(emply_length_key)){
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'][emply_length_key] += 1;
+																	}else{
+																		GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'][emply_length_key] = 1;
+																	}
 																	
 																	// update data
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].numbers_of_loan += 1;
@@ -221,7 +218,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 										   			// close readable stream
 													GLOBAL.async_parser.ith_file += 1;
 													if(GLOBAL.async_parser.ith_file === csv_files.length){
-														var write_file_path = "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedLoanStatsResultByCAZipcodeDate.json";
+														var write_file_path = "/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/parsedLoanStatsResultByCAZipcode.json";
 														jsonfile.writeFile(write_file_path, GLOBAL.async_parser.manipulated_obj, function(err){
 															if(err){
 																console.log(err);
