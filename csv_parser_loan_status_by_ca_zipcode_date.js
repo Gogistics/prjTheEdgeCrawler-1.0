@@ -83,9 +83,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															current_year = ( Number(month_day_year_ary[2]) + 2000 ).toString();
 															if(month_day_year_ary[0] < 10){
 																current_month = '0' + month_day_year_ary[0].toString();
+															}else{
+																current_month = month_day_year_ary[0].toString();
 															}
 															if(month_day_year_ary[1] < 10){
 																current_day = '0' + month_day_year_ary[1].toString();
+															}else{
+																current_day = month_day_year_ary[1].toString();
 															}
 															GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
 															
