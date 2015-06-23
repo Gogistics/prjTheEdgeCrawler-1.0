@@ -1,9 +1,11 @@
 /* required modules */
-var fs = require('fs'), 
-    csv = require('fast-csv'),
+var fs = require('fs'),
+	csv = require('fast-csv'),
 	async = require('async'),
-	jsonfile = require("jsonfile"),
-	natural = require('natural');
+	jsonfile = require('jsonfile'),
+	natural = require('natural'),
+	sync_request = require('sync-request'),
+	cheerio = require("cheerio");
 
 /* file paths */
 var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv",
@@ -46,6 +48,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														
 														try{
 															var body = fs.readFileSync(file_path).toString();
+															console.log(body);
 															var $ = cheerio.load(body);
 															$('table.loan-details').each(function(){
 																var table = this;
