@@ -67,7 +67,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	}
 																});
 															});
-														
+															console.log(GLOBAL.async_parser.date);
 															var day_regex = /\d+\/\d+\/\d+/;
 															GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
 															day_regex = /(\d+)/g;
