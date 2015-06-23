@@ -73,6 +73,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															
 														}catch( err ){
 															GLOBAL.async_parser.date = GLOBAL.async_parser.current_date_of_loan;
+															console.log(GLOBAL.async_parser.id);
 															console.log('no such file and date will be replaced with the date from the previous date');
 														}
 														
