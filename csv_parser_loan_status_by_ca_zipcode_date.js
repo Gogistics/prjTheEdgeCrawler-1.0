@@ -61,7 +61,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get date (not done; get date from web-page)
 														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("id");
 														GLOBAL.async_parser.id = data[GLOBAL.async_parser.id_index];
-														if(GLOBAL.async_parser.id !== undefined){
+														if( GLOBAL.async_parser.id !== undefined && !isNaN(GLOBAL.async_parser.id) ){
 															var body;
 															try{
 																var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;

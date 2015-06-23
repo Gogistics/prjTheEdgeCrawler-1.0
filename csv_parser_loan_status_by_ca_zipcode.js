@@ -57,7 +57,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("id");
 														GLOBAL.async_parser.id = data[GLOBAL.async_parser.id_index];
 														
-														if(GLOBAL.async_parser.id !== undefined){
+														if(GLOBAL.async_parser.id !== undefined && !isNaN(GLOBAL.async_parser.id) ){
 															var body;
 															try{
 																var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
@@ -67,6 +67,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																body = GLOBAL.async_parser.request_loan_detail(url);
 															}finally{
 																console.log(GLOBAL.async_parser.id);
+																console.log(data);
 																var $ = cheerio.load(body);
 																$('table.loan-details').each(function(){
 																	var table = this;
