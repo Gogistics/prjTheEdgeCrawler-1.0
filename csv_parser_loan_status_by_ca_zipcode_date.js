@@ -158,7 +158,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														}
 														
 														// build new structure
-														if( GLOBAL.async_parser.current_state !== undefined &&
+														if( GLOBAL.async_parser.id !== undefined &&
+															!isNaN(GLOBAL.async_parser.id) &&
+															GLOBAL.async_parser.current_state !== undefined &&
 															GLOBAL.async_parser.current_state === "CA" &&
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 															temp_debt_to_inc_ratio >= 0 &&
@@ -185,7 +187,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date]['loan_types'] = {};
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date]['loan_types'][loan_type] = 1;
 																
-														}else if(GLOBAL.async_parser.current_state !== undefined &&
+														}else if(GLOBAL.async_parser.id !== undefined &&
+																!isNaN(GLOBAL.async_parser.id) &&
+																GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state === "CA" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 																temp_debt_to_inc_ratio >= 0){

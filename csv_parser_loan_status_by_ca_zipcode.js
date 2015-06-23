@@ -64,7 +64,8 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																body = fs.readFileSync(file_path).toString();
 															}catch( err ){
 																var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
-																body = GLOBAL.async_parser.request_loan_detail(url);
+																var res = sync_request('GET', url);
+																body = res.getBody();
 															}finally{
 																console.log(GLOBAL.async_parser.id);
 																console.log(data);
@@ -160,7 +161,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														}
 														
 														// build new structure
-														if( GLOBAL.async_parser.current_state !== undefined &&
+														if( GLOBAL.async_parser.id !== undefined &&
+															!isNaN(GLOBAL.async_parser.id) &&
+															GLOBAL.async_parser.current_state !== undefined &&
 															GLOBAL.async_parser.current_state === "CA" &&
 															GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 															temp_debt_to_inc_ratio >= 0 &&
@@ -195,7 +198,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['emply_length'][emply_length_key] = 1;
 																
 																
-														}else if(GLOBAL.async_parser.current_state !== undefined &&
+														}else if(GLOBAL.async_parser.id !== undefined &&
+																!isNaN(GLOBAL.async_parser.id) &&
+																GLOBAL.async_parser.current_state !== undefined &&
 																GLOBAL.async_parser.current_state === "CA" &&
 																GLOBAL.async_parser.current_state === GLOBAL.async_parser.current_state.toUpperCase() &&
 																temp_debt_to_inc_ratio >= 0){
