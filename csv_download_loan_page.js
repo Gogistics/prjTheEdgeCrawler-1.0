@@ -65,8 +65,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.url = data[GLOBAL.async_parser.url_index];
 														// console.log(GLOBAL.async_parser.url);
 														
-														if(GLOBAL.async_parser.url !== undefined){
-															var body = GLOBAL.async_parser.request_loan_detail(GLOBAL.async_parser.url);
+														if(GLOBAL.async_parser.id !== undefined){
+															var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
+															var body = GLOBAL.async_parser.request_loan_detail(url);
 															var $ = cheerio.load(body);
 															var content = $('div.master_content-outer-container').html()
 																												.replace(/(\r\n|\n|\r)/gm,"")

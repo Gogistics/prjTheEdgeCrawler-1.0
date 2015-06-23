@@ -173,7 +173,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																// build dates obj
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'] = {};
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['dates'][current_date] = 1;
-																console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
+																// console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																
 																// build loan type obj
 																GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode]['loan_types'] = {};
@@ -230,7 +230,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	GLOBAL.async_parser.manipulated_obj[GLOBAL.async_parser.current_zipcode].employment_length += employment_length;
 																	
 																	//
-																	console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
+																	// console.log('Zipcode: ' + GLOBAL.async_parser.current_zipcode );
 																}
 													}
 													
