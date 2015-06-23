@@ -71,6 +71,8 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																console.log('get data...');
 															}finally{
 																console.log(GLOBAL.async_parser.id);
+																if ( body === undefined || body === null ) return false;
+																//
 																var $ = cheerio.load(body);
 																$('table.loan-details').each(function(){
 																	var table = this;
