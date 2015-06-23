@@ -51,8 +51,13 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.id = data[GLOBAL.async_parser.id_index];
 														var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
 														
+														var body;
 														try{
-															var body = fs.readFileSync(file_path).toString();
+															body = fs.readFileSync(file_path).toString();
+														}catch( err ){
+															var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
+															body = GLOBAL.async_parser.request_loan_detail(url);
+														}finally{
 															var $ = cheerio.load(body);
 															$('table.loan-details').each(function(){
 																var table = this;
@@ -81,11 +86,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															}
 															GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
 															GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
-															
-														}catch( err ){
-															GLOBAL.async_parser.date = GLOBAL.async_parser.current_date_of_loan;
-															console.log(GLOBAL.async_parser.id);
-															console.log('no such file and date will be replaced with the date from the previous date');
 														}
 														
 														// get risk score
