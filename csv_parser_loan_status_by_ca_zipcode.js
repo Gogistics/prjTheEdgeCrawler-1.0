@@ -60,8 +60,10 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														if(GLOBAL.async_parser.id !== undefined && !isNaN(GLOBAL.async_parser.id) ){
 															var body;
 															try{
-																var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
-																body = fs.readFileSync(file_path).toString();
+																// var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
+																// body = fs.readFileSync(file_path).toString();
+																var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
+																var res = sync_request('GET', url);
 																console.log('working fine...');
 															}catch( err ){
 																console.log('sth wrong...');
