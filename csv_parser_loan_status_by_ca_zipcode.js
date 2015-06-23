@@ -96,7 +96,8 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.employment_length = data[GLOBAL.async_parser.employment_length_index];
 														
 														// prevent undefined emply. length
-														var employment_length = 0;
+														var employment_length = 0,
+															emply_length_key = 'less_than_1';
 														if(GLOBAL.async_parser.employment_length !== undefined){
 															var regex_smaller_sign = /\</g,
 															regex_plus_sign = /\+/g,
@@ -105,12 +106,16 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														
 															if(GLOBAL.async_parser.employment_length.match(regex_smaller_sign)){
 																employment_length = 0.5;
+																emply_length_key = 'less_than_1';
 															}else if(GLOBAL.async_parser.employment_length.match(regex_plus_sign)){
 																employment_length = 10.5;
+															emply_length_key = 'longer_than_10';
 															}else if(temp_employment_length === undefined || temp_employment_length === null){
 																employment_length = 0;
+																emply_length_key = '0';
 															}else{
 																employment_length = Number(temp_employment_length[0]);
+																emply_length_key = temp_employment_length[0];
 															}
 														}
 														
