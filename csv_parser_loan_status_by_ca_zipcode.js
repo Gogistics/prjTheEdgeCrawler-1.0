@@ -40,6 +40,11 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get loan amnt
 														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("dti");
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
+														// console.log(GLOBAL.async_parser.debt_to_income_ratio);
+														var temp_debt_to_inc_ratio = undefined;
+														if(GLOBAL.async_parser.debt_to_income_ratio !== undefined){
+															temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio);
+														}
 														
 														// get date (not done; get date from web-page)
 														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("id");
@@ -48,7 +53,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														
 														try{
 															var body = fs.readFileSync(file_path).toString();
-															console.log(body);
 															var $ = cheerio.load(body);
 															$('table.loan-details').each(function(){
 																var table = this;
@@ -131,9 +135,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															temp_vantage = Number(GLOBAL.async_parser.risk_score);
 															count_vantage = 1;
 														}
-														
-														// debt  to income ratio
-														var temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio.slice(0, -1));
 														
 														// build new structure
 														if( GLOBAL.async_parser.current_state !== undefined &&

@@ -52,7 +52,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// debt  to income ratio
 														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("dti");
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
-														console.log(GLOBAL.async_parser.debt_to_income_ratio);
+														// console.log(GLOBAL.async_parser.debt_to_income_ratio);
 														var temp_debt_to_inc_ratio = undefined;
 														if(GLOBAL.async_parser.debt_to_income_ratio !== undefined){
 															temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio);
