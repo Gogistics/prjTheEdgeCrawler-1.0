@@ -92,9 +92,10 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																current_day = month_day_year_ary[1].toString();
 															}
 															GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
-															
+															GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
 														}catch( err ){
 															GLOBAL.async_parser.date = GLOBAL.async_parser.current_date_of_loan;
+															console.log(GLOBAL.async_parser.id);
 															console.log('no such file and date will be replaced with the date from the previous date');
 														}
 

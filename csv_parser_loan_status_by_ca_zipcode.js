@@ -81,7 +81,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															}
 															GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
 															GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
-															console.log(GLOBAL.async_parser.date);
 															
 														}catch( err ){
 															GLOBAL.async_parser.date = GLOBAL.async_parser.current_date_of_loan;
