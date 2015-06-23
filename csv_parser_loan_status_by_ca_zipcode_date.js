@@ -69,6 +69,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
 															body = GLOBAL.async_parser.request_loan_detail(url);
 														}finally{
+															console.log(GLOBAL.async_parser.id);
 															var $ = cheerio.load(body);
 															$('table.loan-details').each(function(){
 																var table = this;
@@ -78,8 +79,8 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																	}
 																});
 															});
-														
-															var day_regex = /\d+\/\d+\/\d+/;
+															console.log(GLOBAL.async_parser.date);
+															var day_regex = /\d+(\/|\-)\d+(\/|\-)\d+/;
 															GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
 															day_regex = /(\d+)/g;
 															var month_day_year_ary = GLOBAL.async_parser.date.match(day_regex),

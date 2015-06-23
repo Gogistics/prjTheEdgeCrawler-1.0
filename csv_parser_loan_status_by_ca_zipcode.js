@@ -18,6 +18,13 @@ GLOBAL.async_parser = GLOBAL.async_parser || {};
 GLOBAL.async_parser.count = 0, GLOBAL.async_parser.ith_file = 0;
 GLOBAL.async_parser.keys = [];
 GLOBAL.async_parser.manipulated_obj = {};
+
+/* get info. from LendingClub url (backup mechanism) */
+GLOBAL.async_parser.request_loan_detail = function(arg_url, callback){
+	var res = sync_request('GET', arg_url);
+	return res.getBody();
+}
+
 GLOBAL.async_parser.parse_files = function (arg_files){
 										async.forEach(arg_files, function(file_path, callback){
 											var csvReadStream = fs.createReadStream(file_path);
@@ -58,6 +65,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
 															body = GLOBAL.async_parser.request_loan_detail(url);
 														}finally{
+															console.log(GLOBAL.async_parser.id);
 															var $ = cheerio.load(body);
 															$('table.loan-details').each(function(){
 																var table = this;
