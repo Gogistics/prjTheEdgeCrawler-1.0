@@ -32,6 +32,6 @@ GLOBAL.async_parser.request_loan_detail = function(arg_url){
 	return res.getBody();
 }
 var res = GLOBAL.async_parser.request_loan_detail('https://www.lendingclub.com/browse/loanDetail.action?loan_id=29194030');
-print res.getBody();
+console.log(res.getBody());
 
 
