@@ -100,7 +100,10 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
 																GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
 															}
+														}else{
+															return true;
 														}
+														console.log('done with getting date...');
 														
 														// get risk score
 														GLOBAL.async_parser.fico_range_high_index = GLOBAL.async_parser.keys.indexOf("fico_range_high");
