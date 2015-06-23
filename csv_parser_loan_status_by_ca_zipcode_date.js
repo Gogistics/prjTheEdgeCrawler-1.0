@@ -78,10 +78,16 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 															var day_regex = /\d+\/\d+\/\d+/;
 															GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
 															day_regex = /(\d+)/g;
-															var month_day_year_ary = GLOBAL.async_parser.date.match(day_regex);
-															GLOBAL.async_parser.date = ( Number(month_day_year_ary[2]) + 2000 ) + '-' + month_day_year_ary[0] + '-' + month_day_year_ary[1];
-															GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
-															console.log(GLOBAL.async_parser.date);
+															var month_day_year_ary = GLOBAL.async_parser.date.match(day_regex),
+																current_year = '', current_month = '', current_day = '';
+															current_year = ( Number(month_day_year_ary[2]) + 2000 ).toString();
+															if(month_day_year_ary[0] < 10){
+																current_month = '0' + month_day_year_ary[0].toString();
+															}
+															if(month_day_year_ary[1] < 10){
+																current_day = '0' + month_day_year_ary[1].toString();
+															}
+															GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
 															
 														}catch( err ){
 															GLOBAL.async_parser.date = GLOBAL.async_parser.current_date_of_loan;
