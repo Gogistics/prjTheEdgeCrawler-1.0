@@ -1,4 +1,4 @@
-var request = require("request"),
+var sync_request = require('sync-request'),
     cheerio = require("cheerio"),
 	url = require('url');
 
@@ -27,12 +27,11 @@ request('https://news.ycombinator.com', function (error, response, html) {
 	*/
 
 // sample 2.
-request('https://www.lendingclub.com/browse/loanDetail.action?loan_id=29194030', function (error, response, html) {
-    if (!error && response.statusCode == 200) {
-        var $ = cheerio.load(html);
-		console.log(response);
-        
-    }
-});
+GLOBAL.async_parser.request_loan_detail = function(arg_url){
+	var res = sync_request('GET', arg_url);
+	return res.getBody();
+}
+var res = GLOBAL.async_parser.request_loan_detail('https://www.lendingclub.com/browse/loanDetail.action?loan_id=29194030');
+print res.getBody();
 
 
