@@ -27,11 +27,11 @@ request('https://news.ycombinator.com', function (error, response, html) {
 	*/
 
 // sample 2.
-GLOBAL.async_parser.request_loan_detail = function(arg_url){
+GLOBAL.request_loan_detail = function(arg_url){
 	var res = sync_request('GET', arg_url);
 	return res.getBody();
 }
-var res = GLOBAL.async_parser.request_loan_detail('https://www.lendingclub.com/browse/loanDetail.action?loan_id=29194030');
+var res = GLOBAL.request_loan_detail('https://www.lendingclub.com/browse/loanDetail.action?loan_id=29194030');
 console.log(res.getBody());
 
 
