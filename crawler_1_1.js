@@ -31,7 +31,7 @@ GLOBAL.request_loan_detail = function(arg_url){
 	var res = sync_request('GET', arg_url);
 	return res.getBody();
 }
-var res = GLOBAL.request_loan_detail('https://www.lendingclub.com/browse/loanDetail.action?loan_id=29194030');
-console.log(res.getBody());
+var body = GLOBAL.request_loan_detail('https://www.lendingclub.com/browse/loanDetail.action?loan_id=29194030');
+console.log(body);
 
 
