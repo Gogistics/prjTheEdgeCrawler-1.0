@@ -64,6 +64,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																// body = fs.readFileSync(file_path).toString();
 																var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
 																var res = sync_request('GET', url);
+																body = res.getBody();
 																console.log('working fine...');
 															}catch( err ){
 																console.log('sth wrong...');
@@ -73,6 +74,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																console.log('get data...');
 															}finally{
 																console.log(GLOBAL.async_parser.id);
+																console.log(body);
 																var $ = cheerio.load(body);
 																$('table.loan-details').each(function(){
 																	var table = this;
