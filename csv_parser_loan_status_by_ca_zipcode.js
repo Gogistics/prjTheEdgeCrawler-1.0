@@ -10,7 +10,9 @@ var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lendi
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv"];
 
-//
+				
+/* init */
+GLOBAL.async_parser = GLOBAL.async_parser || {};
 GLOBAL.async_parser.count = 0, GLOBAL.async_parser.ith_file = 0;
 GLOBAL.async_parser.keys = [];
 GLOBAL.async_parser.manipulated_obj = {};
