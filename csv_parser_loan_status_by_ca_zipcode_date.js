@@ -61,43 +61,45 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get date (not done; get date from web-page)
 														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("id");
 														GLOBAL.async_parser.id = data[GLOBAL.async_parser.id_index];
-														var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
-														var body;
-														try{
-															body = fs.readFileSync(file_path).toString();
-														}catch( err ){
-															var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
-															body = GLOBAL.async_parser.request_loan_detail(url);
-														}finally{
-															console.log(GLOBAL.async_parser.id);
-															var $ = cheerio.load(body);
-															$('table.loan-details').each(function(){
-																var table = this;
-																$(table).find('th').each(function(){
-																	if($(this).text() == 'Loan Submitted on'){
-																		GLOBAL.async_parser.date = $(this).parent().find('td').text();
-																	}
+														if(GLOBAL.async_parser.id !== undefined){
+															var body;
+															try{
+																var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
+																body = fs.readFileSync(file_path).toString();
+															}catch( err ){
+																var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
+																body = GLOBAL.async_parser.request_loan_detail(url);
+															}finally{
+																console.log(GLOBAL.async_parser.id);
+																var $ = cheerio.load(body);
+																$('table.loan-details').each(function(){
+																	var table = this;
+																	$(table).find('th').each(function(){
+																		if($(this).text() == 'Loan Submitted on'){
+																			GLOBAL.async_parser.date = $(this).parent().find('td').text();
+																		}
+																	});
 																});
-															});
-															console.log(GLOBAL.async_parser.date);
-															var day_regex = /\d+(\/|\-)\d+(\/|\-)\d+/;
-															GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
-															day_regex = /(\d+)/g;
-															var month_day_year_ary = GLOBAL.async_parser.date.match(day_regex),
-																current_year = '', current_month = '', current_day = '';
-															current_year = ( Number(month_day_year_ary[2]) + 2000 ).toString();
-															if(month_day_year_ary[0] < 10){
-																current_month = '0' + month_day_year_ary[0].toString();
-															}else{
-																current_month = month_day_year_ary[0].toString();
+																console.log(GLOBAL.async_parser.date);
+																var day_regex = /\d+(\/|\-)\d+(\/|\-)\d+/;
+																GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
+																day_regex = /(\d+)/g;
+																var month_day_year_ary = GLOBAL.async_parser.date.match(day_regex),
+																	current_year = '', current_month = '', current_day = '';
+																current_year = ( Number(month_day_year_ary[2]) + 2000 ).toString();
+																if(month_day_year_ary[0] < 10){
+																	current_month = '0' + month_day_year_ary[0].toString();
+																}else{
+																	current_month = month_day_year_ary[0].toString();
+																}
+																if(month_day_year_ary[1] < 10){
+																	current_day = '0' + month_day_year_ary[1].toString();
+																}else{
+																	current_day = month_day_year_ary[1].toString();
+																}
+																GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
+																GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
 															}
-															if(month_day_year_ary[1] < 10){
-																current_day = '0' + month_day_year_ary[1].toString();
-															}else{
-																current_day = month_day_year_ary[1].toString();
-															}
-															GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
-															GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
 														}
 
 														// get risk score
