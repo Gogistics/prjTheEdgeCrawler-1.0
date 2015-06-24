@@ -73,6 +73,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
 																var res = sync_request('GET', url);
 																body = res.getBody();
+																if ( body === undefined || body === null ) return false;
 																console.log('get data...');
 															}finally{
 																console.log(GLOBAL.async_parser.id);
