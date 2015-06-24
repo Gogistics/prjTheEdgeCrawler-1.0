@@ -66,16 +66,25 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// console.log(GLOBAL.async_parser.url);
 														
 														if(GLOBAL.async_parser.id !== undefined && !isNaN(GLOBAL.async_parser.id)){
-															var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
-															var body = GLOBAL.async_parser.request_loan_detail(url);
-															var $ = cheerio.load(body);
-															var content = $('div.master_content-outer-container').html()
-																												.replace(/(\r\n|\n|\r)/gm,"")
-																												.toString();
-															// console.log(content);
+															try{
+																var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
+																body = fs.readFileSync(file_path).toString();
+																console.log('working fine...');
+															}catch( err ){
+																console.log('file may not exist...');
+																var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
+																var body = GLOBAL.async_parser.request_loan_detail(url);
+																var $ = cheerio.load(body);
+																var content = $('div.master_content-outer-container').html()
+																													.replace(/(\r\n|\n|\r)/gm,"")
+																													.toString();
+																// console.log(content);
 														
-															// save file
-															GLOBAL.async_parser.download_page( GLOBAL.async_parser.id, content );
+																// save file
+																GLOBAL.async_parser.download_page( GLOBAL.async_parser.id, content );
+															}
+														}else{
+															return false;
 														}
 														
 														// log
