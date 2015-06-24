@@ -61,17 +61,23 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// get date (not done; get date from web-page)
 														GLOBAL.async_parser.id_index = GLOBAL.async_parser.keys.indexOf("id");
 														GLOBAL.async_parser.id = data[GLOBAL.async_parser.id_index];
-														if( GLOBAL.async_parser.id !== undefined && !isNaN(GLOBAL.async_parser.id) ){
+														
+														if(GLOBAL.async_parser.id !== undefined && !isNaN(GLOBAL.async_parser.id) ){
 															var body;
 															try{
 																var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
 																body = fs.readFileSync(file_path).toString();
+																console.log('working fine...');
 															}catch( err ){
+																console.log('sth wrong...');
 																var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
 																var res = sync_request('GET', url);
 																body = res.getBody();
+																console.log('get data...');
 															}finally{
 																console.log(GLOBAL.async_parser.id);
+																if ( body === undefined || body === null ) return false;
+																//
 																var $ = cheerio.load(body);
 																$('table.loan-details').each(function(){
 																	var table = this;
@@ -101,7 +107,10 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
 																GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
 															}
+														}else{
+															return true;
 														}
+														console.log('done with getting date...');
 
 														// get risk score
 														GLOBAL.async_parser.fico_range_high_index = GLOBAL.async_parser.keys.indexOf("fico_range_high");
