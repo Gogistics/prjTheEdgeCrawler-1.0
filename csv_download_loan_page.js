@@ -70,6 +70,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																var file_path = './lendingclub/loan_stats_' + GLOBAL.async_parser.id + '.txt' ;
 																body = fs.readFileSync(file_path).toString();
 																console.log('working fine...');
+																if(body === undefined || body === null || body === ''){
+																	throw 'file is empty';
+																}
 															}catch( err ){
 																console.log('file may not exist...');
 																var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
