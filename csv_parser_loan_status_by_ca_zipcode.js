@@ -68,7 +68,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																var url = 'https://www.lendingclub.com/browse/loanDetail.action?loan_id=' + GLOBAL.async_parser.id;
 																var res = sync_request('GET', url);
 																body = res.getBody();
-																console.log('get data...');
+																if ( body === undefined || body === null ) return false;
 															}finally{
 																console.log(GLOBAL.async_parser.id);
 																if ( body === undefined || body === null ) return false;
@@ -82,7 +82,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																		}
 																	});
 																});
-																console.log(GLOBAL.async_parser.date);
 																var day_regex = /\d+(\/|\-)\d+(\/|\-)\d+/;
 																GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
 																day_regex = /(\d+)/g;
@@ -101,11 +100,11 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																}
 																GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
 																GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
+																console.log(GLOBAL.async_parser.date);
 															}
 														}else{
-															return true;
+															return false;
 														}
-														console.log('done with getting date...');
 														
 														// get risk score
 														GLOBAL.async_parser.fico_range_high_index = GLOBAL.async_parser.keys.indexOf("fico_range_high");

@@ -52,7 +52,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														// debt  to income ratio
 														GLOBAL.async_parser.debt_to_income_ratio_index = GLOBAL.async_parser.keys.indexOf("dti");
 														GLOBAL.async_parser.debt_to_income_ratio = data[GLOBAL.async_parser.debt_to_income_ratio_index];
-														// console.log(GLOBAL.async_parser.debt_to_income_ratio);
 														var temp_debt_to_inc_ratio = undefined;
 														if(GLOBAL.async_parser.debt_to_income_ratio !== undefined){
 															temp_debt_to_inc_ratio = Number(GLOBAL.async_parser.debt_to_income_ratio);
@@ -74,11 +73,9 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																var res = sync_request('GET', url);
 																body = res.getBody();
 																if ( body === undefined || body === null ) return false;
-																console.log('get data...');
 															}finally{
 																console.log(GLOBAL.async_parser.id);
 																if ( body === undefined || body === null ) return false;
-																//
 																var $ = cheerio.load(body);
 																$('table.loan-details').each(function(){
 																	var table = this;
@@ -88,7 +85,6 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																		}
 																	});
 																});
-																console.log(GLOBAL.async_parser.date);
 																var day_regex = /\d+(\/|\-)\d+(\/|\-)\d+/;
 																GLOBAL.async_parser.date = day_regex.exec(GLOBAL.async_parser.date)[0];
 																day_regex = /(\d+)/g;
@@ -107,11 +103,11 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																}
 																GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
 																GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
+																console.log(GLOBAL.async_parser.date);
 															}
 														}else{
-															return true;
+															return false;
 														}
-														console.log('done with getting date...');
 
 														// get risk score
 														GLOBAL.async_parser.fico_range_high_index = GLOBAL.async_parser.keys.indexOf("fico_range_high");
