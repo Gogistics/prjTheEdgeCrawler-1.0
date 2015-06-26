@@ -113,7 +113,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 														GLOBAL.async_parser.fico_range_high = data[GLOBAL.async_parser.fico_range_high_index];
 														GLOBAL.async_parser.fico_range_low_index = GLOBAL.async_parser.keys.indexOf("fico_range_low");
 														GLOBAL.async_parser.fico_range_low = data[GLOBAL.async_parser.fico_range_low_index];
-														GLOBAL.async_parser.risk_score = Math.round( (Number(GLOBAL.async_parser.fico_range_high) + Number(GLOBAL.async_parser.fico_range_low)) / 2 );
+														GLOBAL.async_parser.risk_score = Math.round( ( Number(GLOBAL.async_parser.fico_range_high) + Number(GLOBAL.async_parser.fico_range_low) ) / 2 );
 														
 														
 														// get loan title
