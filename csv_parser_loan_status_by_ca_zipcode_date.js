@@ -10,7 +10,8 @@ var fs = require('fs'),
 /* file paths */
 var csv_files = ["/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3a.csv",
 				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3b.csv",
-				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv"];
+				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3c.csv",
+				"/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/LoanStats3d.csv"];
 				
 /* init */
 GLOBAL.async_parser = GLOBAL.async_parser || {};
