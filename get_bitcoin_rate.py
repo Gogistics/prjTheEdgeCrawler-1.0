@@ -67,7 +67,7 @@ class BitcoinHandler():
     def save_data(self, arg_file_path, arg_data):
         try:
             with open(arg_file_path, 'a') as f:
-                f.write(arg_data)
+                f.write(arg_data + '\n')
                 return True
         except BaseException as e:
             print("Error on_data: %s" % str(e))
