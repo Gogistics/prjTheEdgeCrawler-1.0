@@ -12,48 +12,56 @@ class BitcoinHandler():
         resp = urllib2.urlopen(self._coinbase_url)
         content = json.loads( resp.read() )
         rate = '{0:.2f}'.format(float(content['btc_to_usd']))
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        rate_info = { 'current_time' : current_time, 'rate' : rate}
         print rate
 
         today = time.strftime('%Y-%m-%d')
         file_name = "coinbase_exchange_rate_{current_date}.txt".format(current_date = today)
-        file_path = "{path}{file_name}".format(path = './', file_name = file_name)
-        self.save_data(file_path, json.dumps(content))
+        file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coinbase/', file_name = file_name)
+        self.save_data(file_path, json.dumps(rate_info))
         return content
         
     def get_coindesk_exchange_rate(self):
         resp = urllib2.urlopen(self._coindesk_url)
         content = json.loads( resp.read() )
         rate = '{0:.2f}'.format(float(content['bpi']['USD']['rate']))
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        rate_info = { 'current_time' : current_time, 'rate' : rate}
         print rate
 
         today = time.strftime('%Y-%m-%d')
-        file_name = "conindesk_exchange_rate_{current_date}.txt".format(current_date = today)
-        file_path = "{path}{file_name}".format(path = './', file_name = file_name)
-        self.save_data(file_path, json.dumps(content))
+        file_name = "coindesk_exchange_rate_{current_date}.txt".format(current_date = today)
+        file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coindesk/', file_name = file_name)
+        self.save_data(file_path, json.dumps(rate_info))
         return content
         
     def get_bitstamp_exchange_rate(self):
         resp = urllib2.urlopen(self._bitstamp_url)
         content = json.loads( resp.read() )
         rate = '{0:.2f}'.format(float(content['last']))
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        rate_info = { 'current_time' : current_time, 'rate' : rate}
         print rate
 
         today = time.strftime('%Y-%m-%d')
         file_name = "bitstamp_exchange_rate_{current_date}.txt".format(current_date = today)
-        file_path = "{path}{file_name}".format(path = './', file_name = file_name)
-        self.save_data(file_path, json.dumps(content))
+        file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/bitstamp/', file_name = file_name)
+        self.save_data(file_path, json.dumps(rate_info))
         return content
         
     def get_btc_e_exchange_rate(self):
         resp = urllib2.urlopen(self._btc_e_url)
         content = json.loads( resp.read() )
         rate = '{0:.2f}'.format(float(content['ticker']['avg']))
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        rate_info = { 'current_time' : current_time, 'rate' : rate}
         print rate
 
         today = time.strftime('%Y-%m-%d')
         file_name = "btc_e_exchange_rate_{current_date}.txt".format(current_date = today)
-        file_path = "{path}{file_name}".format(path = './', file_name = file_name)
-        self.save_data(file_path, json.dumps(content))
+        file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/btc_e/', file_name = file_name)
+        self.save_data(file_path, json.dumps(rate_info))
         return content
         
     def save_data(self, arg_file_path, arg_data):
