@@ -11,7 +11,7 @@ class BitcoinHandler():
     def get_coinbase_exchange_rate(self):
         resp = urllib2.urlopen(self._coinbase_url)
         content = json.loads( resp.read() )
-        rate = '{0:.2f}'.format(content['btc_to_usd'])
+        rate = '{0:.2f}'.format(float(content['btc_to_usd']))
 
         today = time.strftime('%Y-%m-%d')
         file_name = "btc_e-exchange_rate_{current_date}.txt".format(current_date = today)
@@ -22,7 +22,7 @@ class BitcoinHandler():
     def get_coindesk_exchange_rate(self):
         resp = urllib2.urlopen(self._coindesk_url)
         content = json.loads( resp.read() )
-        rate = '{0:.2f}'.format(content['bpi']['USD']['rate'])
+        rate = '{0:.2f}'.format(float(content['bpi']['USD']['rate']))
 
         today = time.strftime('%Y-%m-%d')
         file_name = "btc_e-exchange_rate_{current_date}.txt".format(current_date = today)
@@ -33,7 +33,7 @@ class BitcoinHandler():
     def get_bitstamp_exchange_rate(self):
         resp = urllib2.urlopen(self._bitstamp_url)
         content = json.loads( resp.read() )
-        rate = '{0:.2f}'.format(content['last'])
+        rate = '{0:.2f}'.format(float(content['last']))
 
         today = time.strftime('%Y-%m-%d')
         file_name = "btc_e-exchange_rate_{current_date}.txt".format(current_date = today)
@@ -44,7 +44,7 @@ class BitcoinHandler():
     def get_btc_e_exchange_rate(self):
         resp = urllib2.urlopen(self._btc_e_url)
         content = json.loads( resp.read() )
-        rate = '{0:.2f}'.format(content['ticker']['avg'])
+        rate = '{0:.2f}'.format(float(content['ticker']['avg']))
 
         today = time.strftime('%Y-%m-%d')
         file_name = "btc_e-exchange_rate_{current_date}.txt".format(current_date = today)
