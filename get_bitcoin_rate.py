@@ -12,9 +12,10 @@ class BitcoinHandler():
         resp = urllib2.urlopen(self._coinbase_url)
         content = json.loads( resp.read() )
         rate = '{0:.2f}'.format(float(content['btc_to_usd']))
+        print rate
 
         today = time.strftime('%Y-%m-%d')
-        file_name = "btc_e-exchange_rate_{current_date}.txt".format(current_date = today)
+        file_name = "coinbase_exchange_rate_{current_date}.txt".format(current_date = today)
         file_path = "{path}{file_name}".format(path = './', file_name = file_name)
         self.save_data(file_path, json.dumps(content))
         return content
@@ -23,9 +24,10 @@ class BitcoinHandler():
         resp = urllib2.urlopen(self._coindesk_url)
         content = json.loads( resp.read() )
         rate = '{0:.2f}'.format(float(content['bpi']['USD']['rate']))
+        print rate
 
         today = time.strftime('%Y-%m-%d')
-        file_name = "btc_e-exchange_rate_{current_date}.txt".format(current_date = today)
+        file_name = "conindesk_exchange_rate_{current_date}.txt".format(current_date = today)
         file_path = "{path}{file_name}".format(path = './', file_name = file_name)
         self.save_data(file_path, json.dumps(content))
         return content
@@ -34,9 +36,10 @@ class BitcoinHandler():
         resp = urllib2.urlopen(self._bitstamp_url)
         content = json.loads( resp.read() )
         rate = '{0:.2f}'.format(float(content['last']))
+        print rate
 
         today = time.strftime('%Y-%m-%d')
-        file_name = "btc_e-exchange_rate_{current_date}.txt".format(current_date = today)
+        file_name = "bitstamp_exchange_rate_{current_date}.txt".format(current_date = today)
         file_path = "{path}{file_name}".format(path = './', file_name = file_name)
         self.save_data(file_path, json.dumps(content))
         return content
@@ -45,9 +48,10 @@ class BitcoinHandler():
         resp = urllib2.urlopen(self._btc_e_url)
         content = json.loads( resp.read() )
         rate = '{0:.2f}'.format(float(content['ticker']['avg']))
+        print rate
 
         today = time.strftime('%Y-%m-%d')
-        file_name = "btc_e-exchange_rate_{current_date}.txt".format(current_date = today)
+        file_name = "btc_e_exchange_rate_{current_date}.txt".format(current_date = today)
         file_path = "{path}{file_name}".format(path = './', file_name = file_name)
         self.save_data(file_path, json.dumps(content))
         return content
