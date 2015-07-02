@@ -102,7 +102,7 @@ GLOBAL.async_parser.parse_files = function (arg_files){
 																}
 																GLOBAL.async_parser.date = current_year + '-' + current_month + '-' + current_day;
 																GLOBAL.async_parser.current_date_of_loan = GLOBAL.async_parser.date;
-																if( ( Number(month_day_year_ary[2]) + 2000 ) < 2007 || ( Number(month_day_year_ary[2]) + 2000 ) > 2014){
+																if( ( Number(month_day_year_ary[2]) + 2000 ) < 2007 || ( Number(month_day_year_ary[2]) + 2000 ) > 2015){
 																	console.log(GLOBAL.async_parser.id);
 																	console.log(GLOBAL.async_parser.date);
 																	return false;
