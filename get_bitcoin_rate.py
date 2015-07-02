@@ -56,7 +56,7 @@ class BitcoinHandler():
         try:
             with open(arg_file_path, 'a') as f:
                 f.write(arg_data)
-                return true
+                return True
         except BaseException as e:
             print("Error on_data: %s" % str(e))
         return True
