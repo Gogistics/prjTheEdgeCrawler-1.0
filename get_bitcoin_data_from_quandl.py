@@ -22,7 +22,7 @@ class QuandlHandler():
             today = time.strftime('%Y-%m-%d')
             file_name = "{platform}_{current_date}.txt".format(platform = key ,current_date = today)
             file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/quandl/', file_name = file_name)
-            self.save_data(file_path, content)
+            self.save_data(file_path, json.dumps(content))
         
     def save_data(self, arg_file_path, arg_data):
         try:
