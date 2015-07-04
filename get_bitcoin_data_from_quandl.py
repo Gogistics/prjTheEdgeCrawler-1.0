@@ -8,8 +8,8 @@ class QuandlHandler():
             'itbit' : 'https://www.quandl.com/api/v1/datasets/BCHARTS/ITBITUSD.json',
             'lakebtc' : 'https://www.quandl.com/api/v1/datasets/BCHARTS/LAKEUSD.json',
             'bitfinex' : 'https://www.quandl.com/api/v1/datasets/BCHARTS/BITFINEXUSD.json',
-            'btc_e' : 'https://www.quandl.com/api/v1/datasets/BCHARTS/BTCEUSD.json'
-            'bitstamp' : 'https://www.quandl.com/api/v1/datasets/BCHARTS/BITSTAMPUSD.json'
+            'btc_e' : 'https://www.quandl.com/api/v1/datasets/BCHARTS/BTCEUSD.json',
+            'bitstamp' : 'https://www.quandl.com/api/v1/datasets/BCHARTS/BITSTAMPUSD.json',
             'average' : 'https://www.quandl.com/api/v1/datasets/BAVERAGE/USD.json'
         }
         
