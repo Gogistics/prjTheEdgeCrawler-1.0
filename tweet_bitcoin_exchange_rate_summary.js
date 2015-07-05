@@ -35,8 +35,8 @@ var get_bitcoin_exchange_rate_summary = function( arg_file_path ){
 	summary.change_percentage = ( (summary.close_rate - summary.start_rate) / summary.start_rate * 100 ).toFixed(2);
 	return summary;
 }
-var tweet_bitcoin_exchange_rate_summary = function(){
-	var tweet_detail = { status : '',
+var tweet_bitcoin_exchange_rate_summary = function( arg_status ){
+	var tweet_detail = { status : arg_status,
 						lat : 37.605369,
 						long : -122.414169,
 						display_coordinates : true,
@@ -69,16 +69,12 @@ var loop_through_files_and_tweet = function(){
 	var summary_coinbase = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coinbase/coinbase_exchange_rate_' + yesterday + '.txt')
 	var summary_coindesk = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coindesk/coindesk_exchange_rate_' + yesterday + '.txt')
 	
-	console.log(summary_bistamp);
-	console.log(summary_btc_e);
-	console.log(summary_coinbase);
-	console.log(summary_coindesk);
-	/*
-	tweet_bitcoin_exchange_rate_summary();
-	tweet_bitcoin_exchange_rate_summary();
-	tweet_bitcoin_exchange_rate_summary();
-	tweet_bitcoin_exchange_rate_summary();
-	*/
+	tweet_bitcoin_exchange_rate_summary(yesterday + ' start rate:' + summary_bistamp.start_rate + ' close rate:' + summary_bistamp.close_rate + 'change:' + summary_bistamp.change_percentage + '%' + ' #bitstamp');
+	tweet_bitcoin_exchange_rate_summary(yesterday + ' start rate:' + summary_btc_e.start_rate + ' close rate:' + summary_btc_e.close_rate + 'change:' + summary_btc_e.change_percentage + '%' + ' #btc_e');
+	tweet_bitcoin_exchange_rate_summary(yesterday + ' start rate:' + summary_coinbase.start_rate + ' close rate:' + summary_coinbase.close_rate + 'change:' + summary_coinbase.change_percentage + '%' + ' #coinbase');
+	tweet_bitcoin_exchange_rate_summary(yesterday + ' start rate:' + summary_coindesk.start_rate + ' close rate:' + summary_coindesk.close_rate + 'change:' + summary_coindesk.change_percentage + '%' + ' #coindesk');
+	
 }
+
 /* tweet summary */
 loop_through_files_and_tweet()
