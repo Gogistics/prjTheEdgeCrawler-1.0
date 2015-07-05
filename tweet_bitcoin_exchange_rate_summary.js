@@ -69,8 +69,10 @@ var loop_through_files_and_tweet = function(){
 	var summary_coinbase = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coinbase/coinbase_exchange_rate_' + yesterday + '.txt')
 	var summary_coindesk = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coindesk/coindesk_exchange_rate_' + yesterday + '.txt')
 	
-	console.log(summary_coindesk);
+	console.log(summary_bistamp);
+	console.log(summary_btc_e);
 	console.log(summary_coinbase);
+	console.log(summary_coindesk);
 	/*
 	tweet_bitcoin_exchange_rate_summary();
 	tweet_bitcoin_exchange_rate_summary();
