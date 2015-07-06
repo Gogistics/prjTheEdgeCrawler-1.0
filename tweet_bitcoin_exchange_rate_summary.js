@@ -69,13 +69,13 @@ var loop_through_files_and_tweet = function(){
 	var summary_coinbase = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coinbase/coinbase_exchange_rate_' + yesterday + '.txt')
 	var summary_coindesk = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coindesk/coindesk_exchange_rate_' + yesterday + '.txt')
 	
-	/*
-	tweet_bitcoin_exchange_rate_summary(yesterday + ' start rate:' + summary_bistamp.start_rate + ' close rate:' + summary_bistamp.close_rate + 'change:' + summary_bistamp.change_percentage + '%' + ' #bitstamp');
-	tweet_bitcoin_exchange_rate_summary(yesterday + ' start rate:' + summary_btc_e.start_rate + ' close rate:' + summary_btc_e.close_rate + 'change:' + summary_btc_e.change_percentage + '%' + ' #btc_e');
-	tweet_bitcoin_exchange_rate_summary(yesterday + ' start rate:' + summary_coinbase.start_rate + ' close rate:' + summary_coinbase.close_rate + 'change:' + summary_coinbase.change_percentage + '%' + ' #coinbase');
-	tweet_bitcoin_exchange_rate_summary(yesterday + ' start rate:' + summary_coindesk.start_rate + ' close rate:' + summary_coindesk.close_rate + 'change:' + summary_coindesk.change_percentage + '%' + ' #coindesk');
-	*/
-	console.log(yesterday + ' start rate:' + summary_bistamp.start_rate + ' close rate:' + summary_bistamp.close_rate + 'change:' + summary_bistamp.change_percentage + '%' + ' #bitstamp');
+	
+	tweet_bitcoin_exchange_rate_summary(yesterday + ' start_rate:' + summary_bistamp.start_rate + ' close_rate:' + summary_bistamp.close_rate + ' change:' + summary_bistamp.change_percentage + '%' + ' #bitstamp');
+	tweet_bitcoin_exchange_rate_summary(yesterday + ' start_rate:' + summary_btc_e.start_rate + ' close_rate:' + summary_btc_e.close_rate + ' change:' + summary_btc_e.change_percentage + '%' + ' #btc_e');
+	tweet_bitcoin_exchange_rate_summary(yesterday + ' start_rate:' + summary_coinbase.start_rate + ' close_rate:' + summary_coinbase.close_rate + ' change:' + summary_coinbase.change_percentage + '%' + ' #coinbase');
+	tweet_bitcoin_exchange_rate_summary(yesterday + ' start_rate:' + summary_coindesk.start_rate + ' close_rate:' + summary_coindesk.close_rate + ' change:' + summary_coindesk.change_percentage + '%' + ' #coindesk');
+	
+	// console.log(yesterday + ' start_rate:' + summary_bistamp.start_rate + ' close_rate:' + summary_bistamp.close_rate + ' change:' + summary_bistamp.change_percentage + '%' + ' #bitstamp');
 }
 
 /* tweet summary */
