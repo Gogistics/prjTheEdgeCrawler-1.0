@@ -19,7 +19,7 @@ class StockPriceHandler():
             file_name = "{platform}_{current_date}.csv".format(platform = key ,current_date = today)
             file_dir = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/stock_market/lending/{sub_dir}/'.format( sub_dir = key)
             file_path = "{file_dir}{file_name}".format( file_dir = file_dir, file_name = file_name )
-            self.save_csv(file_path, json.dumps(content))
+            self.save_csv(file_path, content)
         
     def save_csv(self, arg_file_path, arg_data):
         try:
