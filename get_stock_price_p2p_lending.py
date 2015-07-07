@@ -13,14 +13,13 @@ class StockPriceHandler():
     def get_csv(self):
         for key, val in self._quandl_urls.iteritems():
             resp = urllib2.urlopen(val)
-            content = csv.reader( resp.read() )
+            content = resp.read()
             
             today = time.strftime('%Y-%m-%d')
             file_name = "{platform}_{current_date}.csv".format(platform = key ,current_date = today)
             file_dir = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/stock_market/lending/{sub_dir}/'.format( sub_dir = key)
             file_path = "{file_dir}{file_name}".format( file_dir = file_dir, file_name = file_name )
-            for elem in content:
-                print elem
+            print content
             # self.save_csv(file_path, content)
         
     def save_csv(self, arg_file_path, arg_data):
