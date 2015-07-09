@@ -6,7 +6,8 @@ class StockPriceHandler():
         self._quandl_urls = {
             'lendingclub' : 'http://download.finance.yahoo.com/d/quotes.csv?s=LC&f=sl1d1t1c1ohgv&e=.csv',
             'lendingtree' : 'http://download.finance.yahoo.com/d/quotes.csv?s=TREE&f=sl1d1t1c1ohgv&e=.csv',
-            'tslx' : 'http://download.finance.yahoo.com/d/quotes.csv?s=TSLX&f=sl1d1t1c1ohgv&e=.csv'
+            'tslx' : 'http://download.finance.yahoo.com/d/quotes.csv?s=TSLX&f=sl1d1t1c1ohgv&e=.csv',
+            'ondeck' : ''
         }
         
         
