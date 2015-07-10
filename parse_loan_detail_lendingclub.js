@@ -22,10 +22,11 @@ var parse_html_to_json = function(arg_file_name){
 						        .children() //select all the children
 						        .remove()   //remove all the children
 						        .end()  //again go back to selected element
-						        .text(),
-					grade_number = $(this).find('td.rateAndAmountRequested').find('div').find('span').find('span').text(),
-					rate = $(this).find('td.rateAndAmountRequested').find('div').find('strong').text(),
-					loan_type_length = $(this).find('td.yui-dt1-col-typeAndTerm').find('div').find('span').text();
+						        .text()
+								.trim(),
+					grade_number = $(this).find('td.rateAndAmountRequested').find('div').find('span').find('span').text().trim(),
+					rate = $(this).find('td.rateAndAmountRequested').find('div').find('strong').text().trim(),
+					loan_type_length = $(this).find('td.yui-dt1-col-typeAndTerm').find('div').find('span').text().trim();
 				
 				data_json['grade'] = grade;
 				data_json['grade_number'] = grade_number;
