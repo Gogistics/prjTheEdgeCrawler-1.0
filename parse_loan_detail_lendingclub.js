@@ -21,7 +21,9 @@ var parse_html_to_json = function(arg_file_path){
 var parser_callback = function(err, files){
 	files.forEach(function(file, index){
 		console.log(file);
-		parse_html_to_json(file);
+		if(file !== undefined){
+			parse_html_to_json(file);
+		}
 	});
 }
 
