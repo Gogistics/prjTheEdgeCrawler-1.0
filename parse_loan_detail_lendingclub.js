@@ -20,11 +20,12 @@ var parse_html_to_json = function(arg_file_path){
 }
 var parser_callback = function(err, files){
 	files.forEach(function(file, index){
+		console.log(file);
 		parse_html_to_json(file);
 	});
 }
 
-var file_dir = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media/.*';
+var file_dir = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media';
 var get_and_parse_data = function(){
 	fs.readdir(file_dir, parser_callback);
 }
