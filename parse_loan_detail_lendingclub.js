@@ -9,7 +9,7 @@ var fs = require('fs'),
 var file_dir = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media/';
 var parse_html_to_json = function(arg_file_name){
 	var file_path = file_dir + arg_file_name;
-	fs.readFile(arg_file_path, 'utf-8', function(err, file_html){
+	fs.readFile(file_path, 'utf-8', function(err, file_html){
 		if(file_html !== undefined){
 			var $ = cheerio.load(file_html);
 			$('tr').each(function(index, value){
