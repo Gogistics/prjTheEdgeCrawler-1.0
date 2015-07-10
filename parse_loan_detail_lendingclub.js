@@ -15,7 +15,7 @@ var parse_html_to_json = function(arg_file_name){
 			$('tr').each(function(index, value){
 				var grade = $(this).find('.rateAndAmountRequestd').find('span').text();
 				var grade_number = $(this).find('.rateAndAmountRequestd').find('span').find('span').text();
-				console.log(grade + grade_number);
+				console.log(value);
 			});
 		}
 	});
