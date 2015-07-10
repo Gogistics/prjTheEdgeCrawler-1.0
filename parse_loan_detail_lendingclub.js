@@ -6,8 +6,10 @@ var fs = require('fs'),
 	cheerio = require("cheerio");
 	
 /* */
-var file_dir = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media/';
+var file_dir = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media/',
+	data_ary = [];
 var parse_html_to_json = function(arg_file_name){
+	var data_json = {};
 	var file_path = file_dir + arg_file_name;
 	fs.readFile(file_path, 'utf-8', function(err, file_html){
 		if(file_html !== undefined){
@@ -20,10 +22,17 @@ var parse_html_to_json = function(arg_file_name){
 						        .children() //select all the children
 						        .remove()   //remove all the children
 						        .end()  //again go back to selected element
-						        .text();
-				var grade_number = $(this).find('td.rateAndAmountRequested').find('div').find('span').find('span').text();
-				console.log(grade);
-				console.log(grade_number);
+						        .text(),
+					grade_number = $(this).find('td.rateAndAmountRequested').find('div').find('span').find('span').text(),
+					rate = $(this).find('td.rateAndAmountRequested').find('div').find('span').find('strong').text(),
+					loan_type_length = $(this).find('td.yui-dt1-col-typeAndTerm').find('div').find('span').text();
+				
+				data_json['grade'] = grade;
+				data_json['grade_number'] = grade_number;
+				data_json['rate'] = rate;
+				data_json['loan_type_length'] = loan_type_length;
+					
+				console.log(data_json);
 			});
 		}
 	});
