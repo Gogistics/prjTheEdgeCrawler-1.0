@@ -13,8 +13,8 @@ var parse_html_to_json = function(arg_file_name){
 		if(file_html !== undefined){
 			var $ = cheerio.load(file_html);
 			$('tr').each(function(){
-				var grade = $(this).find('td.rateAndAmountRequestd').find('div').find('span').text();
-				var grade_number = $(this).find('td.rateAndAmountRequestd').find('div').find('span').find('span').text();
+				var grade = $(this).find('td.rateAndAmountRequested').find('div').find('span').text();
+				var grade_number = $(this).find('td.rateAndAmountRequested').find('div').find('span').find('span').text();
 				console.log(grade + grade_number);
 			});
 		}
