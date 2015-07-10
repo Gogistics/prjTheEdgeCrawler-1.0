@@ -11,12 +11,11 @@ var parse_html_to_json = function(arg_file_name){
 	var file_path = file_dir + arg_file_name;
 	fs.readFile(file_path, 'utf-8', function(err, file_html){
 		if(file_html !== undefined){
+			console.log(file_html);
 			var $ = cheerio.load(file_html);
 			$('tr').each(function(index, value){
 				var grade = $('td').find('.rateAndAmountRequestd').find('span').text();
 				var grade_number = $('td').find('.rateAndAmountRequestd').find('span').find('span').text();
-				console.log(grade);
-				console.log(grade_number);
 			});
 		}
 	});
