@@ -13,9 +13,9 @@ var parse_html_to_json = function(arg_file_name){
 		if(file_html !== undefined){
 			var $ = cheerio.load(file_html);
 			$('tr').each(function(index, value){
-				var grade = $(value).find('.rateAndAmountRequestd').find('span').text();
-				var grade_number = $(value).find('.rateAndAmountRequestd').find('span').find('span').text();
-				console.log(grade + grade_number);
+				var grade = $(value).find('td.rateAndAmountRequestd').find('span');
+				var grade_number = $(value).find('td.rateAndAmountRequestd').find('span').find('span').text();
+				console.log(grade);
 			});
 		}
 	});
