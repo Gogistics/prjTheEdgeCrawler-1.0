@@ -7,15 +7,16 @@ var fs = require('fs'),
 	
 /* */
 var parse_html_to_json = function(arg_file_path){
-	console.log(arg_file_path);
 	fs.readFile(arg_file_path, 'utf-8', function(err, file_html){
-		var $ = cheerio.load(file_html);
-		$('tr').each(function(index, value){
-			var grade = $('td').find('.rateAndAmountRequestd').find('span').text();
-			var grade_number = $('td').find('.rateAndAmountRequestd').find('span').find('span').text();
-			console.log(grade);
-			console.log(grade_number);
-		});
+		if(file_html !== undefined){
+			var $ = cheerio.load(file_html);
+			$('tr').each(function(index, value){
+				var grade = $('td').find('.rateAndAmountRequestd').find('span').text();
+				var grade_number = $('td').find('.rateAndAmountRequestd').find('span').find('span').text();
+				console.log(grade);
+				console.log(grade_number);
+			});
+		}
 	});
 }
 var parser_callback = function(err, files){
