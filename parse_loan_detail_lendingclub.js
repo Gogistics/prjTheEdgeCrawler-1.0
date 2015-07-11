@@ -9,7 +9,7 @@ var fs = require('fs'),
 var save_file = function(arg_file, arg_file_name){
 	var write_file_path = file_dir + arg_file_name + '.json' ;
 	console.log(arg_file);
-	console.log(arg_file_name);
+	console.log(write_file_path);
 	/*
 	jsonfile.writeFile(write_file_path, arg_file, function(err){
 		if(err){
