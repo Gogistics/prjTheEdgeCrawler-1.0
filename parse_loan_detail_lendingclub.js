@@ -33,7 +33,7 @@ var parse_html_to_json = function(arg_file_name){
 					purpose = $(this).find('td.yui-dt1-col-titleAndPurpose').find('span.loan_purpose').text().trim(),
 					id = $(this).find('td.yui-dt1-col-titleAndPurpose').find('a.expand-loan-details').attr('href'),
 					purpose = $(this).find('td.yui-dt1-col-unfundedAmount').find('div.percent_funded').text().trim(),
-					amount_left = $(this).find('td.yui-dt1-col-timeAndAmountLeft').find('div.timeDisplay')[0].text();
+					amount_left = $(this).find('td.yui-dt1-col-timeAndAmountLeft').find('div.timeDisplay').slice(0).eq(0).text();
 					
 				var number_pattern = /\d+/g;	
 				id = id.match(number_pattern)[0];
