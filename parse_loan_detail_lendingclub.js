@@ -29,9 +29,11 @@ var parse_html_to_json = function(arg_file_name){
 					rate = $(this).find('td.rateAndAmountRequested').find('div').find('strong').text().trim(),
 					loan_type_length = $(this).find('td.yui-dt1-col-typeAndTerm').find('div').find('span').text().trim(),
 					fico = $(this).find('td.yui-dt1-col-fico').find('div.ficoDisplay').text().trim(),
-					total_amount = $(this).find('td.yui-dt1-col-totalAmount').find('div.timeDisplay').text().trim(),
+					total_amount = $(this).find('td.yui-dt1-col-totalAmount').find('div.amountCol').text().trim(),
 					purpose = $(this).find('td.yui-dt1-col-titleAndPurpose').find('span.loan_purpose').text().trim(),
-					id = $(this).find('td.yui-dt1-col-titleAndPurpose').find('a.expand-loan-details').attr('href');
+					id = $(this).find('td.yui-dt1-col-titleAndPurpose').find('a.expand-loan-details').attr('href'),
+					purpose = $(this).find('td.yui-dt1-col-unfundedAmount').find('div.percent_funded').text().trim(),
+					amount_left = $(this).find('td.yui-dt1-col-timeAndAmountLeft').find('div.timeDisplay')[0].text();
 					
 				var number_pattern = /\d+/g;	
 				id = id.match(number_pattern)[0];
@@ -44,6 +46,7 @@ var parse_html_to_json = function(arg_file_name){
 				data_json['fico'] = fico;
 				data_json['total_amount'] = total_amount;
 				data_json['purpose'] = purpose;
+				data_json['amount_left'] = amount_left;
 					
 				console.log(data_json);
 			});
