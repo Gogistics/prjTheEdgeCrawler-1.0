@@ -42,7 +42,7 @@ var parse_html_to_json = function(arg_file_name){
 					total_amount = $(this).find('td.yui-dt1-col-totalAmount').find('div.amountCol').text().trim(),
 					purpose = $(this).find('td.yui-dt1-col-titleAndPurpose').find('span.loan_purpose').text().trim(),
 					id = $(this).find('td.yui-dt1-col-titleAndPurpose').find('a.expand-loan-details').attr('href'),
-					purpose = $(this).find('td.yui-dt1-col-unfundedAmount').find('div.percent_funded').text().trim(),
+					percent_funded = $(this).find('td.yui-dt1-col-unfundedAmount').find('div.percent_funded').text().trim(),
 					amount_left = $(this).find('td.yui-dt1-col-timeAndAmountLeft').find('div.timeDisplay').slice(0).eq(0).text(),
 					days_left = $(this).find('td.yui-dt1-col-timeAndAmountLeft').find('div.timeDisplay').slice(1).eq(0).text();
 					
@@ -58,6 +58,7 @@ var parse_html_to_json = function(arg_file_name){
 				data_json['fico'] = fico;
 				data_json['total_amount'] = total_amount;
 				data_json['purpose'] = purpose;
+				data_json['percent_funded'] = percent_funded;
 				data_json['amount_left'] = amount_left;
 				data_json['days_left'] = days_left;
 				data_ary.push(data_json);
