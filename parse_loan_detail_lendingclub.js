@@ -38,6 +38,7 @@ var parse_html_to_json = function(arg_file_name){
 					
 				var number_pattern = /\d+/g;	
 				id = id.match(number_pattern)[0];
+				days_left = days_left.match(number_pattern)[0];
 				
 				data_json['id'] = id;
 				data_json['grade'] = grade;
