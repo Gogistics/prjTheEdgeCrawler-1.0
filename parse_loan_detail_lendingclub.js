@@ -6,6 +6,14 @@ var fs = require('fs'),
 	cheerio = require("cheerio");
 	
 /* */
+var save_file = function(arg_file, arg_file_name){
+	var write_file_path = file_dir + arg_file_name + '.json' ;
+	jsonfile.writeFile(write_file_path, arg_file, function(err){
+		if(err){
+			console.log(err);
+		}
+	});
+}
 var file_dir = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media/',
 	data_ary = [];
 var parse_html_to_json = function(arg_file_name){
@@ -50,9 +58,9 @@ var parse_html_to_json = function(arg_file_name){
 				data_json['purpose'] = purpose;
 				data_json['amount_left'] = amount_left;
 				data_json['days_left'] = days_left;
-					
 				console.log(data_json);
 			});
+			console.log(arg_file_name.substring(0,arg_file_name.indexOf('.')));
 		}
 	});
 }
