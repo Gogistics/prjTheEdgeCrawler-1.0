@@ -68,7 +68,6 @@ var parse_html_to_json = function(arg_file_name){
 		
 		// file name
 		var file_name = arg_file_name.substring(0,arg_file_name.indexOf('.'));
-		console.log(file_name);
 		save_file(data_ary, file_name);
 	});
 	
