@@ -62,15 +62,17 @@ var parse_html_to_json = function(arg_file_name){
 				data_json['purpose'] = purpose;
 				data_json['amount_left'] = amount_left;
 				data_json['days_left'] = days_left;
-				// console.log(data_json);
+				data_ary.push(data_json);
 			});
-			
-			// file name
-			var file_name = arg_file_name.substring(0,arg_file_name.indexOf('.'))
-			console.log(file_name);
-			save_file(data_json, file_name)
 		}
+		
+		// file name
+		var file_name = arg_file_name.substring(0,arg_file_name.indexOf('.'));
+		console.log(file_name);
+		save_file(data_ary, file_name);
 	});
+	
+	
 }
 var parser_callback = function(err, files){
 	files.forEach(function(file, index){
