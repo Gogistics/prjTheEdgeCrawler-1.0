@@ -7,6 +7,8 @@ class BitcoinHandler():
         self._coinbase_url = 'https://api.coinbase.com/v1/currencies/exchange_rates'
         self._bitstamp_url = 'https://www.bitstamp.net/api/ticker/'
         self._btc_e_url = 'https://btc-e.com/api/2/btc_usd/ticker'
+        self._itbit_url = 'https://api.itbit.com/v1/markets/XBTUSD/ticker'
+        self._lakebtc_url = 'https://www.lakebtc.com/api_v1/ticker'
         
     def get_coinbase_exchange_rate(self):
         resp = urllib2.urlopen(self._coinbase_url)
@@ -64,6 +66,36 @@ class BitcoinHandler():
         self.save_data(file_path, json.dumps(rate_info))
         return content
         
+    # itbit
+    def get_itbit_exchange_rate(self):
+        resp = urllib2.urlopen(self._itbit_url)
+        content = json.loads( resp.read() )
+        rate = '{0:.2f}'.format(float(content['lastPrice']))
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        rate_info = { 'current_time' : current_time, 'rate' : rate}
+        print rate
+
+        today = time.strftime('%Y-%m-%d')
+        file_name = "itbit_exchange_rate_{current_date}.txt".format(current_date = today)
+        file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/itbit/', file_name = file_name)
+        self.save_data(file_path, json.dumps(rate_info))
+        return content
+        
+    # lakebtc
+    def get_lakebtc_exchange_rate(self):
+        resp = urllib2.urlopen(self._lakebtc_url)
+        content = json.loads( resp.read() )
+        rate = '{0:.2f}'.format(float(content['USD']['last']))
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        rate_info = { 'current_time' : current_time, 'rate' : rate}
+        print rate
+
+        today = time.strftime('%Y-%m-%d')
+        file_name = "itbit_exchange_rate_{current_date}.txt".format(current_date = today)
+        file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/lakebtc/', file_name = file_name)
+        self.save_data(file_path, json.dumps(rate_info))
+        return content
+        
     def save_data(self, arg_file_path, arg_data):
         try:
             with open(arg_file_path, 'a') as f:
@@ -79,3 +111,5 @@ if __name__ == "__main__":
     bitcoin_handler.get_coindesk_exchange_rate()
     bitcoin_handler.get_coinbase_exchange_rate()
     bitcoin_handler.get_bitstamp_exchange_rate()
+    bitcoin_handler.get_itbit_exchange_rate()
+    bitcoin_handler.get_lakebtc_exchange_rate()
