@@ -91,7 +91,7 @@ class BitcoinHandler():
         print rate
 
         today = time.strftime('%Y-%m-%d')
-        file_name = "itbit_exchange_rate_{current_date}.txt".format(current_date = today)
+        file_name = "lakebtc_exchange_rate_{current_date}.txt".format(current_date = today)
         file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/lakebtc/', file_name = file_name)
         self.save_data(file_path, json.dumps(rate_info))
         return content
