@@ -66,7 +66,7 @@ var get_newest_file = function( arg_dir ){
 	var files = fs.readdirSync(arg_dir)
 	              .map(function(v) { 
 	                  return { name:v,
-	                           time:fs.statSync(dir + v).mtime.getTime()
+	                           time:fs.statSync(arg_dir + v).mtime.getTime()
 	                         }; 
 	               })
 	               .sort(function(a, b) { return a.time - b.time; })
