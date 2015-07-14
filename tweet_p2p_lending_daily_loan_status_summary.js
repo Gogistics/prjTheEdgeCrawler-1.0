@@ -1,6 +1,8 @@
 /* required modules */
-var fs = require('fs');
-var Twitter = require('twitter');
+var fs = require('fs'),
+	Twitter = require('twitter'),
+	jsonfile = require('jsonfile');
+
 var client = new Twitter({
   consumer_key: 'dDkWi5TFgaxxsLFx8vpWgkx6C',
   consumer_secret: 'c8CRPG6LT9vfroQMmQ6gCY9KcttorZM1UGxQpLKFEiwCRVIPbM',
@@ -9,31 +11,10 @@ var client = new Twitter({
 });
 
 var get_lendingclub_summary = function( arg_file_path ){
-	var summary = { min_rate : undefined, max_rate : undefined, start_rate : 0, close_rate : 0, change_percentage : 0}
-	var data = fs.readFileSync( arg_file_path, 'utf-8' );
-	var lines = data.split('\n');
-	lines.forEach(function(line, index){
-		var new_line = line.replace(/"/g, '\"')
-		try{
-			var obj = JSON.parse(new_line);
-			
-			if(summary.min_rate === undefined || summary.min_rate > obj.rate){
-				summary.min_rate = obj.rate;
-			}
-			if(summary.max_rate === undefined || summary.max_rate < obj.rate){
-				summary.max_rate = obj.rate;
-			}
-			if(index === 0){
-				summary.start_rate = obj.rate;
-			}
-			summary.close_rate = obj.rate;
-		}catch(err){
-			console.log(err);
-		}
-	});
+	var data = jsonfile.readFileSync( arg_file_path, 'utf-8' );
+	console.log(data);
 	
-	summary.change_percentage = ( (summary.close_rate - summary.start_rate) / summary.start_rate * 100 ).toFixed(2);
-	return summary;
+	return true;
 };
 
 var tweet_bitcoin_exchange_rate_summary = function( arg_status ){
@@ -79,7 +60,7 @@ var loop_through_files_and_tweet = function(){
 	var dir_lendingclub = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media/';
 	var newest_file = get_newest_file(dir_lendingclub);
 	console.log(dir_lendingclub + newest_file);
-	// get_lendingclub_summary(dir_lendingclub + newest_file);
+	get_lendingclub_summary(dir_lendingclub + newest_file);
 	// tweet_bitcoin_exchange_rate_summary( 'daily loan status-' + yesterday + ' PDT Total Loans:$' + summary_bistamp.start_rate + ' Avg. Amt:$' + summary_bistamp.close_rate + ' @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status');
 
 	// console.log(yesterday + ' start_rate:' + summary_bistamp.start_rate + ' close_rate:' + summary_bistamp.close_rate + ' change:' + summary_bistamp.change_percentage + '%' + ' #bitstamp');
