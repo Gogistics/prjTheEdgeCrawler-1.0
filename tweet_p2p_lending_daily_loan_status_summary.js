@@ -8,7 +8,7 @@ var client = new Twitter({
   access_token_secret: 'SA1eAFcgHStR9EHH5WApXg9eXJAJQ1FEcDVQT9fLJMJ36'
 });
 
-var get_bitcoin_exchange_rate_summary = function( arg_file_path ){
+var get_lendingclub_summary = function( arg_file_path ){
 	var summary = { min_rate : undefined, max_rate : undefined, start_rate : 0, close_rate : 0, change_percentage : 0}
 	var data = fs.readFileSync( arg_file_path, 'utf-8' );
 	var lines = data.split('\n');
@@ -34,7 +34,8 @@ var get_bitcoin_exchange_rate_summary = function( arg_file_path ){
 	
 	summary.change_percentage = ( (summary.close_rate - summary.start_rate) / summary.start_rate * 100 ).toFixed(2);
 	return summary;
-}
+};
+
 var tweet_bitcoin_exchange_rate_summary = function( arg_status ){
 	var tweet_detail = { status : arg_status,
 						lat : 37.605369,
@@ -75,8 +76,10 @@ var get_newest_file = function( arg_dir ){
 };
 
 var loop_through_files_and_tweet = function(){
-	var newest_file = get_newest_file('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/prosper/media/');
+	var dir_lendingclub = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media/';
+	var newest_file = get_newest_file();
 	console.log(newest_file);
+	get_lendingclub_summary(dir_lendingclub + newest_file);
 	// tweet_bitcoin_exchange_rate_summary( 'daily loan status-' + yesterday + ' PDT Total Loans:$' + summary_bistamp.start_rate + ' Avg. Amt:$' + summary_bistamp.close_rate + ' @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status');
 
 	// console.log(yesterday + ' start_rate:' + summary_bistamp.start_rate + ' close_rate:' + summary_bistamp.close_rate + ' change:' + summary_bistamp.change_percentage + '%' + ' #bitstamp');
