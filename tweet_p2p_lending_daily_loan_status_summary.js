@@ -53,7 +53,7 @@ var get_newest_file = function( arg_dir ){
 	               })
 	               .sort(function(a, b) { return a.time - b.time; })
 	               .map(function(v) { return v.name; });
-	return files[0];
+	return files[files.length - 1];
 };
 
 var loop_through_files_and_tweet = function(){
