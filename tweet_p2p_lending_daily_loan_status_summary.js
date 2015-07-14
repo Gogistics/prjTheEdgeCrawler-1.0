@@ -78,8 +78,8 @@ var get_newest_file = function( arg_dir ){
 var loop_through_files_and_tweet = function(){
 	var dir_lendingclub = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media/';
 	var newest_file = get_newest_file(dir_lendingclub);
-	console.log(newest_file);
-	get_lendingclub_summary(dir_lendingclub + newest_file);
+	console.log(dir_lendingclub + newest_file);
+	// get_lendingclub_summary(dir_lendingclub + newest_file);
 	// tweet_bitcoin_exchange_rate_summary( 'daily loan status-' + yesterday + ' PDT Total Loans:$' + summary_bistamp.start_rate + ' Avg. Amt:$' + summary_bistamp.close_rate + ' @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status');
 
 	// console.log(yesterday + ' start_rate:' + summary_bistamp.start_rate + ' close_rate:' + summary_bistamp.close_rate + ' change:' + summary_bistamp.change_percentage + '%' + ' #bitstamp');
