@@ -67,7 +67,12 @@ var loop_through_files_and_tweet = function(){
 	var dir_lendingclub = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media/';
 	var newest_file = get_newest_file(dir_lendingclub);
 	var summary = get_lendingclub_summary(dir_lendingclub + newest_file);
-	console.log(summary);
+	var timestamp_pattern = /\d+/g;
+	var datetime_pdt = Number(newest_file.match(timestamp_pattern)[0]) * 1000;
+	datetime_pdt = new Date(datetime_pdt);
+	datetime_pdt = datetime_pdt.toLocaleDateString() + '&nbsp;' + datetime_pdt.toLocaleTimeString() + '&nbsp;PDT';
+	
+	console.log('daily loan status-' + datetime_pdt + ' Total Loans:$' + summary.total_loans + ' Avg. Requested Amt:$' + (summary.total_amt / summary.total_loans).toFixed(0) + ' @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status');
 	// tweet_bitcoin_exchange_rate_summary( 'daily loan status-' + yesterday + ' PDT Total Loans:$' + summary_bistamp.start_rate + ' Avg. Amt:$' + summary_bistamp.close_rate + ' @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status');
 
 	// console.log(yesterday + ' start_rate:' + summary_bistamp.start_rate + ' close_rate:' + summary_bistamp.close_rate + ' change:' + summary_bistamp.change_percentage + '%' + ' #bitstamp');
