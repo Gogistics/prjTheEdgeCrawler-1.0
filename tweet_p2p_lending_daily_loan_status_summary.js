@@ -70,7 +70,7 @@ var loop_through_files_and_tweet = function(){
 	var timestamp_pattern = /\d+/g;
 	var datetime_pdt = Number(newest_file.match(timestamp_pattern)[0]) * 1000;
 	datetime_pdt = new Date(datetime_pdt);
-	datetime_pdt = datetime_pdt.toLocaleDateString() + '&nbsp;' + datetime_pdt.toLocaleTimeString() + '&nbsp;PDT';
+	datetime_pdt = datetime_pdt.toLocaleDateString() + ' ' + datetime_pdt.toLocaleTimeString() + ' PDT';
 	
 	console.log('daily loan status-' + datetime_pdt + ' Total Loans:$' + summary.total_loans + ' Avg. Requested Amt:$' + (summary.total_amt / summary.total_loans).toFixed(0) + ' @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status');
 	// tweet_bitcoin_exchange_rate_summary( 'daily loan status-' + yesterday + ' PDT Total Loans:$' + summary_bistamp.start_rate + ' Avg. Amt:$' + summary_bistamp.close_rate + ' @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status');
