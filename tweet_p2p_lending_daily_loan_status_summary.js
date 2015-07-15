@@ -74,10 +74,8 @@ var loop_through_files_and_tweet = function(){
 	var summary_1 = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Amt:$' + (summary.total_amt / summary.total_loans).toFixed(0) + ' @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
 	var summary_2 = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Rate:' + (summary.total_rate / summary.total_loans).toFixed(2) + '% @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
 	
-	// tweet_bitcoin_exchange_rate_summary(summary_1);
-	// tweet_bitcoin_exchange_rate_summary(summary_2);
-	console.log(summary_1);
-	console.log(summary_2);
+	tweet_bitcoin_exchange_rate_summary(summary_1);
+	tweet_bitcoin_exchange_rate_summary(summary_2);
 }
 
 /* tweet summary */
