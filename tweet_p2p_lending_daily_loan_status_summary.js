@@ -83,16 +83,17 @@ var loop_through_files_and_tweet = function(){
 	var summary_1 = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Amt:$' + (summary.total_amt / summary.total_loans).toFixed(0) + ' @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
 	var summary_2 = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Rate:' + (summary.total_rate / summary.total_loans).toFixed(2) + '% @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
 	
-	// tweet_p2p_lending_daily_summary(summary_1);
-	// tweet_p2p_lending_daily_summary(summary_2);
+	tweet_p2p_lending_daily_summary(summary_1);
+	tweet_p2p_lending_daily_summary(summary_2);
 	
 	// get newest file of daily loan status
 	var dir_lendingclub_stock_price = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/stock_market/lending/lendingclub/';
 	var newest_stock_price_file = get_newest_file(dir_lendingclub_stock_price);
 	var date = newest_stock_price_file.substring(newest_stock_price_file.indexOf('_') + 1,newest_stock_price_file.indexOf('.'));
 	
-	var summary_stock_price = get_stock_price(dir_lendingclub_stock_price + newest_stock_price_file);
-	console.log('LendingClub stock price: ' + summary_stock_price['stock_price'] + '' + '(' + summary_stock_price['percentage'] + ') '  + summary_stock_price['date_edt'] + ' ' + summary_stock_price['time_edt'] + ' EDT @LendingClub #p2p_lending' );
+	var summary_stock_price_obj = get_stock_price(dir_lendingclub_stock_price + newest_stock_price_file);
+	var summary_stock_price_str = 'LendingClub stock price: ' + summary_stock_price['stock_price'] + '' + '(' + summary_stock_price['percentage'] + ') '  + summary_stock_price['date_edt'] + ' ' + summary_stock_price['time_edt'] + ' EDT @LendingClub #p2p_lending';
+	tweet_p2p_lending_daily_summary(summary_stock_price_str);
 }
 
 /* tweet summary */
