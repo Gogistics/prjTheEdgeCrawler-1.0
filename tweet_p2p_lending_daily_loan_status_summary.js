@@ -29,7 +29,7 @@ var get_stock_price = function( arg_file_path ){
     var lines = data.split("\n");
 	var latest_info = lines[lines.length - 2].split(',');
 	
-	return {'stock_price' : latest_info[1], 'percentage' : latest_info[5], 'date_edt' : latest_info[2], 'time_edt' : latest_info[3]};
+	return {'stock_price' : latest_info[1], 'percentage' : latest_info[4], 'date_edt' : latest_info[2], 'time_edt' : latest_info[3]};
 }
 
 var tweet_p2p_lending_daily_summary = function( arg_status ){
