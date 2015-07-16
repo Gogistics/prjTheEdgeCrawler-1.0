@@ -28,6 +28,7 @@ var get_stock_price = function( arg_file_path ){
     var data = fs.readFileSync(arg_file_path, 'utf8');
     var lines = data.split("\n");
 	var latest_info = lines[lines.length - 1].split(',');
+	console.log(latest_info);
 	var datetime_edt = latest_info[2] + ' ' + latest_info[3] + ' EDT';
 	
 	return {'stock_price' : latest_info[1], 'percentage' : latest_info[5], 'datetime_edt' : datetime_edt};
