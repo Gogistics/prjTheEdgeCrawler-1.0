@@ -24,7 +24,7 @@ var get_lendingclub_summary = function( arg_file_path ){
 	return summary;
 };
 
-var tweet_bitcoin_exchange_rate_summary = function( arg_status ){
+var tweet_p2p_lending_daily_summary = function( arg_status ){
 	var tweet_detail = { status : arg_status,
 						lat : 37.605369,
 						long : -122.414169,
@@ -64,6 +64,7 @@ var get_newest_file = function( arg_dir ){
 };
 
 var loop_through_files_and_tweet = function(){
+	// get newest file of daily loan status
 	var dir_lendingclub = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/lending_club/media/';
 	var newest_file = get_newest_file(dir_lendingclub);
 	var summary = get_lendingclub_summary(dir_lendingclub + newest_file);
@@ -74,8 +75,13 @@ var loop_through_files_and_tweet = function(){
 	var summary_1 = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Amt:$' + (summary.total_amt / summary.total_loans).toFixed(0) + ' @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
 	var summary_2 = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Rate:' + (summary.total_rate / summary.total_loans).toFixed(2) + '% @LendingClub #p2p_lending http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
 	
-	tweet_bitcoin_exchange_rate_summary(summary_1);
-	tweet_bitcoin_exchange_rate_summary(summary_2);
+	tweet_p2p_lending_daily_summary(summary_1);
+	tweet_p2p_lending_daily_summary(summary_2);
+	
+	// get newest file of daily loan status
+	var dir_lendingclub_stock_price = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/stock_market/lending/lendingclub/';
+	var newest_stock_price_file = get_newest_file(dir_lendingclub_stock_price);
+	console.log(newest_stock_price_file.substring(newest_stock_price_file.indexOf('_') + 1,newest_stock_price_file.indexOf('.')));
 }
 
 /* tweet summary */
