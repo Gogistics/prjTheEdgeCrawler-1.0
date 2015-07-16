@@ -24,6 +24,15 @@ var get_lendingclub_summary = function( arg_file_path ){
 	return summary;
 };
 
+var get_stock_price = function( arg_file_path ){
+    var data = fs.readFileSync(arg_file_path, 'utf8');
+    var lines = data.split("\n");
+	var latest_info = lines[lines.length - 1].split(',');
+	var datetime_edt = latest_info[2] + ' ' + latest_info[3] + ' EDT';
+	
+	return {'stock_price' : latest_info[1], 'percentage' : latest_info[5], 'datetime_edt' : datetime_edt};
+}
+
 var tweet_p2p_lending_daily_summary = function( arg_status ){
 	var tweet_detail = { status : arg_status,
 						lat : 37.605369,
@@ -81,7 +90,9 @@ var loop_through_files_and_tweet = function(){
 	// get newest file of daily loan status
 	var dir_lendingclub_stock_price = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/stock_market/lending/lendingclub/';
 	var newest_stock_price_file = get_newest_file(dir_lendingclub_stock_price);
-	console.log(newest_stock_price_file.substring(newest_stock_price_file.indexOf('_') + 1,newest_stock_price_file.indexOf('.')));
+	var date = newest_stock_price_file.substring(newest_stock_price_file.indexOf('_') + 1,newest_stock_price_file.indexOf('.'));
+	
+	console.log(get_stock_price(dir_lendingclub_stock_price + newest_stock_price_file));
 }
 
 /* tweet summary */
