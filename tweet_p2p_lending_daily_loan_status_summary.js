@@ -28,10 +28,8 @@ var get_stock_price = function( arg_file_path ){
     var data = fs.readFileSync(arg_file_path, 'utf8');
     var lines = data.split("\n");
 	var latest_info = lines[lines.length - 2].split(',');
-	console.log(lines[lines.length - 2]);
-	var datetime_edt = latest_info[2] + ' ' + latest_info[3] + ' EDT';
 	
-	return {'stock_price' : latest_info[1], 'percentage' : latest_info[5], 'datetime_edt' : datetime_edt};
+	return {'stock_price' : latest_info[1], 'percentage' : latest_info[5], 'date_edt' : latest_info[2], 'time_edt' : latest_info[3]};
 }
 
 var tweet_p2p_lending_daily_summary = function( arg_status ){
@@ -93,7 +91,8 @@ var loop_through_files_and_tweet = function(){
 	var newest_stock_price_file = get_newest_file(dir_lendingclub_stock_price);
 	var date = newest_stock_price_file.substring(newest_stock_price_file.indexOf('_') + 1,newest_stock_price_file.indexOf('.'));
 	
-	console.log(get_stock_price(dir_lendingclub_stock_price + newest_stock_price_file));
+	var summary_stock_price = get_stock_price(dir_lendingclub_stock_price + newest_stock_price_file);
+	console.log('LendingClub stock price: ' + summary_stock_price['date_edt'] + '(' + summary_stock_price['percentage'] + ') ' + summary_stock_price['time_edt'] + ' EDT @LendingClub #p2p_lending' );
 }
 
 /* tweet summary */
