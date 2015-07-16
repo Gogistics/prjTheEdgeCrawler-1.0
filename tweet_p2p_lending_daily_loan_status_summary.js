@@ -92,7 +92,7 @@ var loop_through_files_and_tweet = function(){
 	var date = newest_stock_price_file.substring(newest_stock_price_file.indexOf('_') + 1,newest_stock_price_file.indexOf('.'));
 	
 	var summary_stock_price = get_stock_price(dir_lendingclub_stock_price + newest_stock_price_file);
-	console.log('LendingClub stock price: ' + summary_stock_price['stock_price'] + ' ' + summary_stock_price['date_edt'] + '(' + summary_stock_price['percentage'] + ') ' + summary_stock_price['time_edt'] + ' EDT @LendingClub #p2p_lending' );
+	console.log('LendingClub stock price: ' + summary_stock_price['stock_price'] + '' + '(' + summary_stock_price['percentage'] + ') '  + summary_stock_price['date_edt'] + ' ' + summary_stock_price['time_edt'] + ' EDT @LendingClub #p2p_lending' );
 }
 
 /* tweet summary */
