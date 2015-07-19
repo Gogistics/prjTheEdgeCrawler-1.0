@@ -9,6 +9,7 @@ class BitcoinHandler():
         self._btc_e_url = 'https://btc-e.com/api/2/btc_usd/ticker'
         self._itbit_url = 'https://api.itbit.com/v1/markets/XBTUSD/ticker'
         self._lakebtc_url = 'https://www.lakebtc.com/api_v1/ticker'
+        self._okcoin_url = 'https://www.okcoin.com/api/v1/ticker.do?symbol=btc_usd'
         
     def get_coinbase_exchange_rate(self):
         resp = urllib2.urlopen(self._coinbase_url)
@@ -95,6 +96,21 @@ class BitcoinHandler():
         file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/lakebtc/', file_name = file_name)
         self.save_data(file_path, json.dumps(rate_info))
         return content
+        
+    # okcoin
+    def get_okcoin_exchange_rate(self):
+        resp = urllib2.urlopen(self._okcoin_url)
+        content = json.loads( resp.read() )
+        rate = '{0:.2f}'.format(float(content['ticker']['last']))
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        rate_info = { 'current_time' : current_time, 'rate' : rate}
+        print rate
+
+        today = time.strftime('%Y-%m-%d')
+        file_name = "okcoin_exchange_rate_{current_date}.txt".format(current_date = today)
+        file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/okcoin/', file_name = file_name)
+        self.save_data(file_path, json.dumps(rate_info))
+        return content    
         
     def save_data(self, arg_file_path, arg_data):
         try:
