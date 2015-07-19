@@ -29,7 +29,7 @@ var get_prosper_summary = function( arg_file_path ){
 	console.log(data);
 	var summary = { 'total_loans' : 0, 'total_amt' : 0, 'total_rate' : 0};
 	data.forEach(function(elem, index){
-		var total_amt = Number(elem.total_amount.replace(/[^0-9\.]+/g, ""));
+		var total_amt = Number(elem.requested_amount.replace(/[^0-9\.]+/g, ""));
 		var rate = Number(elem.interest_rate.replace(/[^0-9\.]+/g, ""));
 		summary.total_loans += 1;
 		summary.total_amt += total_amt;
