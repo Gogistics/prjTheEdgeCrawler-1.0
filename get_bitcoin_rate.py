@@ -116,7 +116,7 @@ class BitcoinHandler():
     def get_bitfinex_exchange_rate(self):
         resp = urllib2.urlopen(self._bitfinex_url)
         content = json.loads( resp.read() )
-        rate = '{0:.2f}'.format(float(content['last']))
+        rate = '{0:.2f}'.format(float(content['last_price']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
         resp.close()
