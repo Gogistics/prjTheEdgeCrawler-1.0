@@ -129,3 +129,4 @@ if __name__ == "__main__":
     bitcoin_handler.get_bitstamp_exchange_rate()
     bitcoin_handler.get_itbit_exchange_rate()
     bitcoin_handler.get_lakebtc_exchange_rate()
+    bitcoin_handler.get_okcoin_exchange_rate()
