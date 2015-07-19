@@ -102,8 +102,8 @@ var loop_through_files_and_tweet = function(){
 	
 	//
 	var dir_prosper = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/prosper/media/';
-	var newest_file = get_newest_file(dir_prosper);
-	var summary = get_prosper_summary(dir_lendingclub + newest_file);
+	var prosper_newest_file = get_newest_file(dir_prosper);
+	var summary = get_prosper_summary(dir_prosper + prosper_newest_file);
 	var timestamp_pattern = /\d+/g;
 	var datetime_pdt = Number(newest_file.match(timestamp_pattern)[0]) * 1000;
 	datetime_pdt = new Date(datetime_pdt);
