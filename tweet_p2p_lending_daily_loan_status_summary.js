@@ -96,8 +96,8 @@ var loop_through_files_and_tweet = function(){
 	datetime_pdt = datetime_pdt.toLocaleDateString() + ' ' + datetime_pdt.toLocaleTimeString() + ' PDT';
 	var summary_1 = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Amt:$' + (summary.total_amt / summary.total_loans).toFixed(0) + ' @LendingClub @MoneysEdge http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
 	var summary_2 = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Rate:' + (summary.total_rate / summary.total_loans).toFixed(2) + '% @LendingClub @MoneysEdge http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
-	// tweet_p2p_lending_daily_summary(summary_1);
-	// tweet_p2p_lending_daily_summary(summary_2);
+	tweet_p2p_lending_daily_summary(summary_1);
+	tweet_p2p_lending_daily_summary(summary_2);
 	
 	// Prosper
 	var dir_prosper = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/prosper/media/';
@@ -109,8 +109,8 @@ var loop_through_files_and_tweet = function(){
 	datetime_pdt = datetime_pdt.toLocaleDateString() + ' ' + datetime_pdt.toLocaleTimeString() + ' PDT';
 	var prosper_summary_1 = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Amt:$' + (summary.total_amt / summary.total_loans).toFixed(0) + ' @Prosper @MoneysEdge http://www.moneysedge.com/data_analysis?data_provider=prosper&data_category=daily_loan_status';
 	var prosper_summary_2 = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Rate:' + (summary.total_rate / summary.total_loans).toFixed(2) + '% @Prosper @MoneysEdge http://www.moneysedge.com/data_analysis?data_provider=prosper&data_category=daily_loan_status';
-	console.log(prosper_summary_1);
-	console.log(prosper_summary_2);
+	tweet_p2p_lending_daily_summary(prosper_summary_1);
+	tweet_p2p_lending_daily_summary(prosper_summary_2);
 	
 	// get newest file of daily loan status
 	var dir_lendingclub_stock_price = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/stock_market/lending/lendingclub/';
@@ -119,7 +119,7 @@ var loop_through_files_and_tweet = function(){
 	
 	var summary_stock_price_obj = get_stock_price(dir_lendingclub_stock_price + newest_stock_price_file);
 	var summary_stock_price_str = 'LendingClub stock price: ' + summary_stock_price_obj['stock_price'] + '(' + summary_stock_price_obj['percentage'] + ') '  + summary_stock_price_obj['date_edt'] + ' ' + summary_stock_price_obj['time_edt'] + ' EDT @LendingClub @MoneysEdge http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
-	// tweet_p2p_lending_daily_summary(summary_stock_price_str);
+	tweet_p2p_lending_daily_summary(summary_stock_price_str);
 }
 
 /* tweet summary */
