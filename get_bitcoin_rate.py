@@ -10,6 +10,7 @@ class BitcoinHandler():
         self._itbit_url = 'https://api.itbit.com/v1/markets/XBTUSD/ticker'
         self._lakebtc_url = 'https://www.lakebtc.com/api_v1/ticker'
         self._okcoin_url = 'https://www.okcoin.com/api/v1/ticker.do?symbol=btc_usd'
+        self._bitfinex_url = 'https://api.bitfinex.com/v1/ticker/btcusd'
         
     def get_coinbase_exchange_rate(self):
         resp = urllib2.urlopen(self._coinbase_url)
@@ -17,7 +18,7 @@ class BitcoinHandler():
         rate = '{0:.2f}'.format(float(content['btc_to_usd']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
-        print rate
+        resp.close()
 
         today = time.strftime('%Y-%m-%d')
         file_name = "coinbase_exchange_rate_{current_date}.txt".format(current_date = today)
@@ -31,7 +32,7 @@ class BitcoinHandler():
         rate = '{0:.2f}'.format(float(content['bpi']['USD']['rate']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
-        print rate
+        resp.close()
 
         today = time.strftime('%Y-%m-%d')
         file_name = "coindesk_exchange_rate_{current_date}.txt".format(current_date = today)
@@ -45,7 +46,7 @@ class BitcoinHandler():
         rate = '{0:.2f}'.format(float(content['last']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
-        print rate
+        resp.close()
 
         today = time.strftime('%Y-%m-%d')
         file_name = "bitstamp_exchange_rate_{current_date}.txt".format(current_date = today)
@@ -59,7 +60,7 @@ class BitcoinHandler():
         rate = '{0:.2f}'.format(float(content['ticker']['avg']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
-        print rate
+        resp.close()
 
         today = time.strftime('%Y-%m-%d')
         file_name = "btc_e_exchange_rate_{current_date}.txt".format(current_date = today)
@@ -74,7 +75,7 @@ class BitcoinHandler():
         rate = '{0:.2f}'.format(float(content['lastPrice']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
-        print rate
+        resp.close()
 
         today = time.strftime('%Y-%m-%d')
         file_name = "itbit_exchange_rate_{current_date}.txt".format(current_date = today)
@@ -89,7 +90,7 @@ class BitcoinHandler():
         rate = '{0:.2f}'.format(float(content['USD']['last']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
-        print rate
+        resp.close()
 
         today = time.strftime('%Y-%m-%d')
         file_name = "lakebtc_exchange_rate_{current_date}.txt".format(current_date = today)
@@ -104,13 +105,27 @@ class BitcoinHandler():
         rate = '{0:.2f}'.format(float(content['ticker']['last']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
-        print rate
+        resp.close()
 
         today = time.strftime('%Y-%m-%d')
         file_name = "okcoin_exchange_rate_{current_date}.txt".format(current_date = today)
         file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/okcoin/', file_name = file_name)
         self.save_data(file_path, json.dumps(rate_info))
         return content    
+        
+    def get_bitfinex_exchange_rate(self):
+        resp = urllib2.urlopen(self._bitfinex_url)
+        content = json.loads( resp.read() )
+        rate = '{0:.2f}'.format(float(content['last']))
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        rate_info = { 'current_time' : current_time, 'rate' : rate}
+        resp.close()
+
+        today = time.strftime('%Y-%m-%d')
+        file_name = "bitfinex_exchange_rate_{current_date}.txt".format(current_date = today)
+        file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/bitfinex/', file_name = file_name)
+        self.save_data(file_path, json.dumps(rate_info))
+        return content
         
     def save_data(self, arg_file_path, arg_data):
         try:
@@ -130,3 +145,4 @@ if __name__ == "__main__":
     bitcoin_handler.get_itbit_exchange_rate()
     bitcoin_handler.get_lakebtc_exchange_rate()
     bitcoin_handler.get_okcoin_exchange_rate()
+    bitcoin_handler.get_bitfinex_exchange_rate()
