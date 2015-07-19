@@ -26,7 +26,7 @@ var get_lendingclub_summary = function( arg_file_path ){
 
 var get_prosper_summary = function( arg_file_path ){
 	var data = jsonfile.readFileSync( arg_file_path, 'utf-8' );
-	// console.log(data);
+	console.log(data);
 	var summary = { 'total_loans' : 0, 'total_amt' : 0, 'total_rate' : 0};
 	data.forEach(function(elem, index){
 		var total_amt = Number(elem.total_amount.replace(/[^0-9\.]+/g, ""));
@@ -108,7 +108,7 @@ var loop_through_files_and_tweet = function(){
 	var datetime_pdt = Number(newest_file.match(timestamp_pattern)[0]) * 1000;
 	datetime_pdt = new Date(datetime_pdt);
 	datetime_pdt = datetime_pdt.toLocaleDateString() + ' ' + datetime_pdt.toLocaleTimeString() + ' PDT';
-	var summary_prosper = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Amt:$' + (summary.total_amt / summary.total_loans).toFixed(0) + ' @LendingClub @MoneysEdge http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
+	var summary_prosper = 'daily loan status-' + datetime_pdt + ' Total Loans: ' + summary.total_loans + ' Avg. Amt:$' + (summary.total_amt / summary.total_loans).toFixed(0) + ' @Prosper @MoneysEdge http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
 	console.log(summary_prosper);
 	
 	// get newest file of daily loan status
