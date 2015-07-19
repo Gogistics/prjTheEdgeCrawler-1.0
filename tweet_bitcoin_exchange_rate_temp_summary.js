@@ -70,7 +70,7 @@ var loop_through_files_and_tweet = function(){
 	var summary_coindesk = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coindesk/coindesk_exchange_rate_' + yesterday + '.txt');
 	var summary_itbit = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/itbit/itbit_exchange_rate_' + yesterday + '.txt');
 	var summary_lakebtc = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/lakebtc/lakebtc_exchange_rate_' + yesterday + '.txt');
-	var summary_lakebtc = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/okcoin/okcoin_exchange_rate_' + yesterday + '.txt');
+	var summary_okcoin = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/okcoin/okcoin_exchange_rate_' + yesterday + '.txt');
 	
 	
 	tweet_bitcoin_exchange_rate_summary( 'bitcoin rate-' + yesterday + ' PDT start_rate:$' + summary_bistamp.start_rate + ' current_rate:$' + summary_bistamp.close_rate + '(' + summary_bistamp.change_percentage + '%)' + ' #bitstamp @MoneysEdge http://www.moneysedge.com/bitcoin');
