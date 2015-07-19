@@ -11,6 +11,9 @@ class BitcoinHandler():
         self._lakebtc_url = 'https://www.lakebtc.com/api_v1/ticker'
         self._okcoin_url = 'https://www.okcoin.com/api/v1/ticker.do?symbol=btc_usd'
         self._bitfinex_url = 'https://api.bitfinex.com/v1/ticker/btcusd'
+        # chinese platforms
+        self._bityes_url = 'https://market.bityes.com/usd_btc/ticker.js'
+        self._btc_q_url = 'https://www.btc-q.com/futuresApi/ticker.do'
         
     def get_coinbase_exchange_rate(self):
         resp = urllib2.urlopen(self._coinbase_url)
@@ -124,6 +127,34 @@ class BitcoinHandler():
         today = time.strftime('%Y-%m-%d')
         file_name = "bitfinex_exchange_rate_{current_date}.txt".format(current_date = today)
         file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/bitfinex/', file_name = file_name)
+        self.save_data(file_path, json.dumps(rate_info))
+        return content
+        
+    def get_bityes_exchange_rate(self):
+        resp = urllib2.urlopen(self._bityes_url)
+        content = json.loads( resp.read() )
+        rate = '{0:.2f}'.format(float(content['ticker']['last']))
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        rate_info = { 'current_time' : current_time, 'rate' : rate}
+        resp.close()
+
+        today = time.strftime('%Y-%m-%d')
+        file_name = "bityes_exchange_rate_{current_date}.txt".format(current_date = today)
+        file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/bityes/', file_name = file_name)
+        self.save_data(file_path, json.dumps(rate_info))
+        return content
+        
+    def get_btc_q_exchange_rate(self):
+        resp = urllib2.urlopen(self._btc_q_url)
+        content = json.loads( resp.read() )
+        rate = '{0:.2f}'.format(float(content['ticker'][0]['last']))
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        rate_info = { 'current_time' : current_time, 'rate' : rate}
+        resp.close()
+
+        today = time.strftime('%Y-%m-%d')
+        file_name = "btc_q_exchange_rate_{current_date}.txt".format(current_date = today)
+        file_path = "{path}{file_name}".format(path = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/btc_q/', file_name = file_name)
         self.save_data(file_path, json.dumps(rate_info))
         return content
         
