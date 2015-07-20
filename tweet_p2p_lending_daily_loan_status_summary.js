@@ -118,7 +118,7 @@ var loop_through_files_and_tweet = function(){
 	var date = newest_stock_price_file.substring(newest_stock_price_file.indexOf('_') + 1,newest_stock_price_file.indexOf('.'));
 	
 	var summary_stock_price_obj = get_stock_price(dir_lendingclub_stock_price + newest_stock_price_file);
-	var summary_stock_price_str = 'LendingClub stock price: ' + summary_stock_price_obj['stock_price'] + '(' + summary_stock_price_obj['percentage'] + ') '  + summary_stock_price_obj['date_edt'] + ' ' + summary_stock_price_obj['time_edt'] + ' EDT @LendingClub @MoneysEdge http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
+	var summary_stock_price_str = 'LendingClub stock price: ' + summary_stock_price_obj['stock_price'] + '(' + summary_stock_price_obj['percentage'] + '%) '  + summary_stock_price_obj['date_edt'] + ' ' + summary_stock_price_obj['time_edt'] + ' EDT @LendingClub @MoneysEdge http://www.moneysedge.com/data_analysis?data_provider=lending_club&data_category=daily_loan_status';
 	tweet_p2p_lending_daily_summary(summary_stock_price_str);
 }
 
