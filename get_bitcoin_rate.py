@@ -5,7 +5,7 @@ class BitcoinHandler():
     def __init__(self):
         self._coindesk_url = 'https://api.coindesk.com/v1/bpi/currentprice.json'
         self._coinbase_url = 'https://api.coinbase.com/v1/currencies/exchange_rates'
-        self._bitstamp_url = 'https://www.bitstamp.net/api/ticker/'
+        self._bitstamp_url = 'https://www.bitstamp.net/api/ticker/' # issue
         self._btc_e_url = 'https://btc-e.com/api/2/btc_usd/ticker'
         self._itbit_url = 'https://api.itbit.com/v1/markets/XBTUSD/ticker'
         self._lakebtc_url = 'https://www.lakebtc.com/api_v1/ticker'
@@ -169,7 +169,6 @@ class BitcoinHandler():
         
 if __name__ == "__main__":
     bitcoin_handler = BitcoinHandler()
-    bitcoin_handler.get_btc_e_exchange_rate()
     bitcoin_handler.get_coindesk_exchange_rate()
     bitcoin_handler.get_coinbase_exchange_rate()
     bitcoin_handler.get_bitstamp_exchange_rate()
@@ -178,5 +177,6 @@ if __name__ == "__main__":
     bitcoin_handler.get_okcoin_exchange_rate()
     bitcoin_handler.get_bitfinex_exchange_rate()
     bitcoin_handler.get_btc_q_exchange_rate()
+    bitcoin_handler.get_btc_e_exchange_rate()
     # bitcoin_handler.get_bityes_exchange_rate()
     
