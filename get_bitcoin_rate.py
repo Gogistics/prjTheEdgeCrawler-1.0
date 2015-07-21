@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import urllib2, json, time
+import urllib2, json, time, requests
 
 class BitcoinHandler():
     def __init__(self):
@@ -16,8 +16,8 @@ class BitcoinHandler():
         self._btc_q_url = 'https://www.btc-q.com/futuresApi/ticker.do'
         
     def get_coinbase_exchange_rate(self):
-        resp = urllib2.urlopen(self._coinbase_url)
-        content = json.loads( resp.read() )
+        # resp = urllib2.urlopen(self._coinbase_url)
+        content = requests.get( self._coinbase_url, auth=('user', 'pass') ).json()
         rate = '{0:.2f}'.format(float(content['btc_to_usd']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
@@ -30,8 +30,8 @@ class BitcoinHandler():
         return content
         
     def get_coindesk_exchange_rate(self):
-        resp = urllib2.urlopen(self._coindesk_url)
-        content = json.loads( resp.read() )
+        # resp = urllib2.urlopen(self._coindesk_url)
+        content = requests.get( self._coindesk_url, auth=('user', 'pass') ).json()
         rate = '{0:.2f}'.format(float(content['bpi']['USD']['rate']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
@@ -44,8 +44,8 @@ class BitcoinHandler():
         return content
         
     def get_bitstamp_exchange_rate(self):
-        resp = urllib2.urlopen(self._bitstamp_url)
-        content = json.loads( resp.read() )
+        # resp = urllib2.urlopen(self._bitstamp_url)
+        content = requests.get( self._bitstamp_url, auth=('user', 'pass') ).json()
         rate = '{0:.2f}'.format(float(content['last']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
@@ -58,8 +58,8 @@ class BitcoinHandler():
         return content
         
     def get_btc_e_exchange_rate(self):
-        resp = urllib2.urlopen(self._btc_e_url)
-        content = json.loads( resp.read() )
+        # resp = urllib2.urlopen(self._btc_e_url)
+        content = requests.get( self._btc_e_url, auth=('user', 'pass') ).json()
         rate = '{0:.2f}'.format(float(content['ticker']['avg']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
@@ -73,8 +73,8 @@ class BitcoinHandler():
         
     # itbit
     def get_itbit_exchange_rate(self):
-        resp = urllib2.urlopen(self._itbit_url)
-        content = json.loads( resp.read() )
+        # resp = urllib2.urlopen(self._itbit_url)
+        content = requests.get( self._itbit_url, auth=('user', 'pass') ).json()
         rate = '{0:.2f}'.format(float(content['lastPrice']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
@@ -88,8 +88,8 @@ class BitcoinHandler():
         
     # lakebtc
     def get_lakebtc_exchange_rate(self):
-        resp = urllib2.urlopen(self._lakebtc_url)
-        content = json.loads( resp.read() )
+        # resp = urllib2.urlopen(self._lakebtc_url)
+        content = requests.get( self._lakebtc_url, auth=('user', 'pass') ).json()
         rate = '{0:.2f}'.format(float(content['USD']['last']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
@@ -103,8 +103,8 @@ class BitcoinHandler():
         
     # okcoin
     def get_okcoin_exchange_rate(self):
-        resp = urllib2.urlopen(self._okcoin_url)
-        content = json.loads( resp.read() )
+        # resp = urllib2.urlopen(self._okcoin_url)
+        content = requests.get( self._okcoin_url, auth=('user', 'pass') ).json()
         rate = '{0:.2f}'.format(float(content['ticker']['last']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
@@ -117,8 +117,8 @@ class BitcoinHandler():
         return content    
         
     def get_bitfinex_exchange_rate(self):
-        resp = urllib2.urlopen(self._bitfinex_url)
-        content = json.loads( resp.read() )
+        # resp = urllib2.urlopen(self._bitfinex_url)
+        content = requests.get( self._bitfinex_url, auth=('user', 'pass') ).json()
         rate = '{0:.2f}'.format(float(content['last_price']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
@@ -131,8 +131,8 @@ class BitcoinHandler():
         return content
         
     def get_bityes_exchange_rate(self):
-        resp = urllib2.urlopen(self._bityes_url)
-        content = json.loads( resp.read() )
+        # resp = urllib2.urlopen(self._bityes_url)
+        content = requests.get( self._bityes_url, auth=('user', 'pass') ).json()
         rate = '{0:.2f}'.format(float(content['ticker']['last']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
@@ -145,8 +145,8 @@ class BitcoinHandler():
         return content
         
     def get_btc_q_exchange_rate(self):
-        resp = urllib2.urlopen(self._btc_q_url)
-        content = json.loads( resp.read() )
+        # resp = urllib2.urlopen(self._btc_q_url)
+        content = requests.get( self._btc_q_url, auth=('user', 'pass') ).json()
         rate = '{0:.2f}'.format(float(content['ticker'][0]['last']))
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         rate_info = { 'current_time' : current_time, 'rate' : rate}
