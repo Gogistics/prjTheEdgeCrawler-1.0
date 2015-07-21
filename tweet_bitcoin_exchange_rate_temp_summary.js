@@ -65,7 +65,7 @@ var loop_through_files_and_tweet = function(){
 	}
 	var yesterday = yyyy + '-' + mm + '-' + dd;
 	var summary_bistamp = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/bitstamp/bitstamp_exchange_rate_' + yesterday + '.txt');
-	var summary_btc_e = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/btc_e/btc_e_exchange_rate_' + yesterday + '.txt');
+	// var summary_btc_e = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/btc_e/btc_e_exchange_rate_' + yesterday + '.txt');
 	var summary_coinbase = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coinbase/coinbase_exchange_rate_' + yesterday + '.txt');
 	var summary_coindesk = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/coindesk/coindesk_exchange_rate_' + yesterday + '.txt');
 	var summary_itbit = get_bitcoin_exchange_rate_summary('/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/bitcoin/itbit/itbit_exchange_rate_' + yesterday + '.txt');
