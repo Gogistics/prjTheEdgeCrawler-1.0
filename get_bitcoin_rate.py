@@ -178,5 +178,5 @@ if __name__ == "__main__":
     bitcoin_handler.get_okcoin_exchange_rate()
     bitcoin_handler.get_bitfinex_exchange_rate()
     bitcoin_handler.get_btc_q_exchange_rate()
-    bitcoin_handler.get_bityes_exchange_rate()
+    # bitcoin_handler.get_bityes_exchange_rate()
     
