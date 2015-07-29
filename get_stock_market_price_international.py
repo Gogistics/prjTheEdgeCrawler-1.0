@@ -10,7 +10,8 @@ class StockPriceHandler():
             'hsi' : 'http://finance.yahoo.com/q?s=^hsi',
             'gspc' : 'http://finance.yahoo.com/q?s=^gspc',
             'nasdaq' : 'http://finance.yahoo.com/q?s=%5EIXIC',
-            'dji' : 'http://finance.yahoo.com/q?s=^dji'
+            'dji' : 'http://finance.yahoo.com/q?s=^dji',
+            'lse_l' : 'http://finance.yahoo.com/q?s=lse.l'
         }
         
         
