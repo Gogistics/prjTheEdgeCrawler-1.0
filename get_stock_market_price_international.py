@@ -34,10 +34,10 @@ class StockPriceHandler():
             else:
                 index_current_up_or_down = ''
                 
-            index_current_change = index_current_up_or_down + div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')[0].find(text=True).strip()
+            index_current_change = div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')[0].find(text=True).strip()
             index_current_percentage = div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')[1].find(text=True).strip()
             index_current_percentage = re.sub(r'\(|\)', '', index_current_percentage)
-            # index_current_change = index_current_up_or_down + index_current_change
+            index_current_change = index_current_up_or_down + index_current_change
             index_current_percentage = index_current_up_or_down + index_current_percentage
             summary['index_change'] = index_current_change
             summary['index_change_percentage'] = index_current_percentage
