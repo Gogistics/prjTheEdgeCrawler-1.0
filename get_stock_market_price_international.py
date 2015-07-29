@@ -24,7 +24,7 @@ class StockPriceHandler():
             index_current_value = div_index_summary.find('span', {'class' : 'time_rtq_ticker'}).text.strip()
             
             # summary
-            change_summary = index_current_value.find('span', {'class' : 'time_rtq_content'}).find_all('span')
+            change_summary = div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')
             index_current_up_or_down = index_current_value.find('span', {'class' : 'time_rtq_content'}).find_all('span')[0].find('img')['alt']
             index_current_change = ''
             index_current_percentage = ''
