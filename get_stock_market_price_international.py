@@ -39,7 +39,7 @@ class StockPriceHandler():
             print index_current_up_or_down + index_current_percentage
             
             # get time
-            index_current_time = div_index_summary.find('span', {'class' : 'time_rtq'}).find(text=True).strip()
+            index_current_time = div_index_summary.find('span', {'class' : 'time_rtq'}).find_all('span')[1].find(text=True).strip()
             print index_current_time
             
             today = time.strftime('%Y-%m-%d')
