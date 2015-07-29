@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import urllib2, json, time, csv
+import urllib2, json, time, csv, re
 from bs4 import BeautifulSoup as _bs4
 
 class StockPriceHandler():
@@ -26,9 +26,16 @@ class StockPriceHandler():
             # summary
             change_summary = div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')
             index_current_up_or_down = div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')[0].find('img')['alt']
-            index_current_change = ''
-            index_current_percentage = ''
+            if index_current_up_or_down == 'Down':
+                index_current_up_or_down = '-'
+            else:
+                index_current_up_or_down = ''
+                
+            index_current_change = index_current_up_or_down + div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')[0].find('span').text.strip()
+            index_current_percentage = div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')[1].find('span').text.strip()
+            index_current_percentage = re.sub(r'\(|\)', '', index_current_percentage)
             print index_current_up_or_down
+            print index_current_up_or_down + index_current_percentage
             
             # get time
             index_current_time = ''
