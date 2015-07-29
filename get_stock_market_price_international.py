@@ -19,10 +19,11 @@ class StockPriceHandler():
             resp = urllib2.urlopen(val)
             content = resp.read()
             soup = _bs4(content)
+            summary = {}
             
             div_index_summary = soup.find('div', {'class' : 'yfi_rt_quote_summary_rt_top'})
             index_current_value = div_index_summary.find('span', {'class' : 'time_rtq_ticker'}).text.strip()
-            print index_current_value
+            summary['value'] = index_current_value
             
             # summary
             change_summary = div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')
@@ -35,12 +36,16 @@ class StockPriceHandler():
             index_current_change = index_current_up_or_down + div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')[0].find(text=True).strip()
             index_current_percentage = div_index_summary.find('span', {'class' : 'time_rtq_content'}).find_all('span')[1].find(text=True).strip()
             index_current_percentage = re.sub(r'\(|\)', '', index_current_percentage)
-            print index_current_up_or_down + index_current_change
-            print index_current_up_or_down + index_current_percentage
+            index_current_change = index_current_up_or_down + index_current_change
+            index_current_percentage = index_current_up_or_down + index_current_percentage
+            summary['index_change'] = index_current_change
+            summary['index_change_percentage'] = index_current_percentage
             
             # get time
             index_current_time = div_index_summary.find('span', {'class' : 'time_rtq'}).find_all('span')[1].find(text=True).strip()
-            print index_current_time
+            summary['time'] = index_current_time
+            
+            print summary.__str__()
             
             today = time.strftime('%Y-%m-%d')
             file_name = "{platform}_{current_date}.txt".format(platform = key ,current_date = today)
