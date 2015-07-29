@@ -10,8 +10,7 @@ class StockPriceHandler():
             'hsi' : 'http://finance.yahoo.com/q?s=^hsi',
             'gspc' : 'http://finance.yahoo.com/q?s=^gspc',
             'nasdaq' : 'http://finance.yahoo.com/q?s=%5EIXIC',
-            'dji' : 'http://finance.yahoo.com/q?s=^dji',
-            'lse_l' : 'http://finance.yahoo.com/q?s=lse.l'
+            'dji' : 'http://finance.yahoo.com/q?s=^dji'
         }
         
         
@@ -52,7 +51,7 @@ class StockPriceHandler():
             file_name = "{platform}_{current_date}.txt".format(platform = key ,current_date = today)
             file_dir = '/var/www/prjTheEdge-Beta-1.0/media/static/frontend/files/stock_market/main_indexes/{sub_dir}/'.format( sub_dir = key)
             file_path = "{file_dir}{file_name}".format( file_dir = file_dir, file_name = file_name )
-            # self.save_csv(file_path, content)
+            self.save_csv(file_path, content)
         
     def save_csv(self, arg_file_path, arg_data):
         try:
