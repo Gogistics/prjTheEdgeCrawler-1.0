@@ -21,7 +21,7 @@ class StockPriceHandler():
             soup = _bs4(content)
             
             div_index_summary = soup.find('div', {'class' : 'yfi_rt_quote_summary_rt_top'})
-            index_current_value = div_index_summary.find('span', {'class' : 'time_rtq_ticker'}).text.strp()
+            index_current_value = div_index_summary.find('span', {'class' : 'time_rtq_ticker'}).text.strip()
             
             # summary
             change_summary = index_current_change.find('span', {'class' : 'time_rtq_content'}).find_all('span')
