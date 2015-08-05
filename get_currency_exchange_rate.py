@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib2, json, time, csv
 
+# stock market price handler
 class StockPriceHandler():
     def __init__(self):
         self._yahoo_urls = {
